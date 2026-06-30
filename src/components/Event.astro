@@ -11,6 +11,9 @@ const mapsHref =
 ---
 
 <section id="evento" class="oo-event">
+  <img class="oo-event__bg" src="/images/altea-event.webp" alt="" width="1920" height="1281" loading="lazy" decoding="async" aria-hidden="true" />
+  <div class="oo-event__veil" aria-hidden="true"></div>
+
   <div class="oo-event__stars" aria-hidden="true">
     <span style="top:16%;left:18%"></span>
     <span style="top:24%;left:72%;animation-delay:.8s"></span>
@@ -44,6 +47,24 @@ const mapsHref =
     background: var(--oo-night-700);
     overflow: hidden;
     text-align: center;
+  }
+  .oo-event__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+    z-index: 0;
+  }
+  /* blue-hour veil so the warm sunset shot reads nocturnal and text stays legible */
+  .oo-event__veil {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(120% 90% at 50% 120%, rgba(199, 138, 58, 0.22), transparent 55%),
+      linear-gradient(180deg, rgba(6, 34, 47, 0.9) 0%, rgba(5, 26, 38, 0.84) 45%, rgba(4, 18, 29, 0.94) 100%);
   }
   .oo-event__stars span {
     position: absolute;
