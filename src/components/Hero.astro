@@ -6,10 +6,14 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = content[lang].hero;
+
+// Placeholder palm frond: thin radiating blades. Replace the whole <svg>
+// with <img src="/images/hero-palm-left.png" .../> when your asset is ready.
+const blades = Array.from({ length: 13 }, (_, i) => i);
 ---
 
 <header id="hero" class="oo-hero">
-  <!-- Parallax atmosphere: a warm horizon glow rising as you scroll -->
+  <!-- LAYER 1 · sky atmosphere (back) — parallax slow -->
   <div class="oo-hero__atmos" aria-hidden="true">
     <div class="oo-hero__glow"></div>
     <div class="oo-hero__stars">
@@ -22,8 +26,21 @@ const t = content[lang].hero;
     </div>
   </div>
 
+  <!-- LAYER 2 · the dancing figure (mid, behind content) — parallax + sway -->
+  <!-- ASSET SLOT: replace this <svg> with <img src="/images/hero-dancer.png"> (or an alpha .webm video) -->
+  <div class="oo-hero__layer oo-hero__dancer" data-depth="14" aria-hidden="true">
+    <svg viewBox="0 0 200 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#E0AE63">
+        <circle cx="100" cy="48" r="22" />
+        <path d="M100 70 C82 96 80 140 88 196 C76 250 70 300 64 348 C72 352 84 352 92 348 C98 300 104 256 100 214 C96 256 102 300 108 348 C116 352 128 352 136 348 C130 300 124 250 112 196 C120 140 118 96 100 70Z" />
+        <path d="M96 96 C70 84 44 64 28 40 C24 44 20 52 20 58 C44 80 70 96 94 110Z" />
+        <path d="M104 96 C130 78 156 70 182 74 C182 80 178 88 174 92 C150 92 126 102 106 116Z" />
+      </g>
+    </svg>
+  </div>
+
+  <!-- LAYER 3 · content (mid-front) -->
   <div class="oo-hero__inner">
-    <!-- The brand rings, animated -->
     <div class="oo-hero__rings" aria-hidden="true">
       <span class="oo-hero__ring oo-hero__ring--a"></span>
       <span class="oo-hero__ring oo-hero__ring--b"></span>
@@ -39,6 +56,48 @@ const t = content[lang].hero;
     </div>
   </div>
 
+  <!-- LAYER 4 · gold embers floating up (front) -->
+  <div class="oo-hero__embers" aria-hidden="true">
+    {Array.from({ length: 9 }).map((_, i) => (
+      <span style={`left:${8 + i * 10}%;animation-delay:${(i * 0.9).toFixed(1)}s;animation-duration:${(7 + (i % 4)).toFixed(0)}s`}></span>
+    ))}
+  </div>
+
+  <!-- LAYER 5 · palm fronds (foreground) — parallax fast + sway -->
+  <!-- ASSET SLOT (left):  replace with <img src="/images/hero-palm-left.png"> -->
+  <div class="oo-hero__palm oo-hero__palm--left" data-depth="34" aria-hidden="true">
+    <svg viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#041A28" stroke-width="0" fill="#072230">
+        {blades.map((b) => (
+          <ellipse
+            cx="40"
+            cy="430"
+            rx="14"
+            ry={170 + (b % 3) * 26}
+            transform={`rotate(${-8 + b * 8} 40 430)`}
+          />
+        ))}
+        <ellipse cx="40" cy="430" rx="10" ry="40" fill="#0a3242" />
+      </g>
+    </svg>
+  </div>
+  <!-- ASSET SLOT (right): replace with <img src="/images/hero-palm-right.png"> -->
+  <div class="oo-hero__palm oo-hero__palm--right" data-depth="28" aria-hidden="true">
+    <svg viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#061d29">
+        {blades.map((b) => (
+          <ellipse
+            cx="360"
+            cy="440"
+            rx="13"
+            ry={150 + (b % 3) * 24}
+            transform={`rotate(${8 - b * 8} 360 440)`}
+          />
+        ))}
+      </g>
+    </svg>
+  </div>
+
   <a class="oo-hero__scroll" href="#manifesto" aria-label={t.scroll}>
     <span class="oo-hero__scroll-label">{t.scroll}</span>
     <span class="oo-hero__scroll-track" aria-hidden="true"><i></i></span>
@@ -47,6 +106,8 @@ const t = content[lang].hero;
 
 <style>
   .oo-hero {
+    --mx: 0;
+    --my: 0;
     position: relative;
     min-height: 100svh;
     display: flex;
@@ -59,6 +120,7 @@ const t = content[lang].hero;
     background: var(--oo-night-600);
   }
 
+  /* ---- LAYER 1 · atmosphere ---- */
   .oo-hero__atmos {
     position: absolute;
     inset: 0;
@@ -95,13 +157,41 @@ const t = content[lang].hero;
     animation: twinkle 5s ease-in-out infinite;
   }
 
-  .oo-hero__inner {
-    position: relative;
-    z-index: 1;
-    max-width: 860px;
+  /* ---- Shared parallax layer behaviour ----
+     transform ← scroll parallax · translate ← mouse · rotate ← sway
+     (three independent properties compose cleanly) */
+  .oo-hero__layer,
+  .oo-hero__palm {
+    position: absolute;
+    pointer-events: none;
+    transition: translate 0.5s var(--oo-ease);
+    translate: calc(var(--mx) * var(--depth) * 1px) calc(var(--my) * var(--depth) * 0.6px);
   }
 
-  /* Brand rings ornament */
+  /* ---- LAYER 2 · dancer ---- */
+  .oo-hero__dancer {
+    --depth: 14;
+    bottom: 4%;
+    left: 50%;
+    width: clamp(180px, 24vw, 320px);
+    margin-left: calc(clamp(180px, 24vw, 320px) / -2);
+    opacity: 0.16;
+    filter: blur(0.6px) drop-shadow(0 0 40px rgba(224, 174, 99, 0.4));
+    animation: heroSway 9s ease-in-out infinite;
+  }
+  .oo-hero__dancer svg { width: 100%; height: auto; }
+
+  /* ---- LAYER 3 · content ---- */
+  .oo-hero__inner {
+    position: relative;
+    z-index: 2;
+    max-width: 860px;
+  }
+  @supports (animation-timeline: view()) {
+    .oo-hero__inner > * {
+      animation: revealSoft both 1s var(--oo-ease);
+    }
+  }
   .oo-hero__rings {
     position: relative;
     width: clamp(96px, 13vw, 150px);
@@ -123,22 +213,12 @@ const t = content[lang].hero;
     border-color: var(--oo-gold);
     animation: drift 9s ease-in-out infinite;
   }
-
-  .oo-hero__eyebrow {
-    margin-bottom: 24px;
-  }
-  @supports (animation-timeline: view()) {
-    .oo-hero__inner > * {
-      animation: revealSoft both 1s var(--oo-ease);
-    }
-  }
-
+  .oo-hero__eyebrow { margin-bottom: 24px; }
   .oo-hero__title {
     font-size: var(--oo-fs-h1);
     color: var(--oo-cream-100);
     letter-spacing: -0.01em;
   }
-
   .oo-hero__subtitle {
     margin: 26px auto 0;
     max-width: 560px;
@@ -146,7 +226,6 @@ const t = content[lang].hero;
     font-size: clamp(16px, 1.4vw, 20px);
     line-height: 1.6;
   }
-
   .oo-hero__cta {
     margin-top: 40px;
     display: flex;
@@ -155,6 +234,62 @@ const t = content[lang].hero;
     flex-wrap: wrap;
   }
 
+  /* ---- LAYER 4 · embers ---- */
+  .oo-hero__embers {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .oo-hero__embers span {
+    position: absolute;
+    bottom: -10px;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--oo-gold-light);
+    box-shadow: 0 0 8px 1px rgba(224, 174, 99, 0.7);
+    opacity: 0;
+    animation: emberRise linear infinite;
+  }
+
+  /* ---- LAYER 5 · palms ---- */
+  .oo-hero__palm { bottom: -2%; z-index: 4; width: clamp(220px, 32vw, 460px); }
+  .oo-hero__palm svg { width: 100%; height: auto; }
+  .oo-hero__palm--left {
+    --depth: 34;
+    left: -6%;
+    transform-origin: bottom left;
+    animation: heroSwayPalm 8s ease-in-out infinite;
+  }
+  .oo-hero__palm--right {
+    --depth: 28;
+    right: -6%;
+    transform-origin: bottom right;
+    animation: heroSwayPalm 9s ease-in-out infinite reverse;
+  }
+
+  /* scroll parallax: foreground moves up, dancer drifts down (depth) */
+  @supports (animation-timeline: scroll(root)) {
+    .oo-hero__dancer { --py: 26px; }
+    .oo-hero__palm--left { --py: -110px; }
+    .oo-hero__palm--right { --py: -88px; }
+    .oo-hero__dancer,
+    .oo-hero__palm {
+      animation-name: heroParallax;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+    /* keep the sway as a second, infinite animation on a wrapper-free element
+       by letting parallax own `transform` and sway own `rotate` */
+    .oo-hero__dancer { animation-name: heroParallax, heroSway; animation-duration: 1s, 9s; animation-iteration-count: 1, infinite; animation-timeline: scroll(root), auto; animation-range: 0 100vh, normal; }
+    .oo-hero__palm--left { animation-name: heroParallax, heroSwayPalm; animation-duration: 1s, 8s; animation-iteration-count: 1, infinite; animation-timeline: scroll(root), auto; animation-range: 0 100vh, normal; }
+    .oo-hero__palm--right { animation-name: heroParallax, heroSwayPalm; animation-duration: 1s, 9s; animation-iteration-count: 1, infinite; animation-direction: normal, reverse; animation-timeline: scroll(root), auto; animation-range: 0 100vh, normal; }
+  }
+
+  /* ---- scroll hint ---- */
   .oo-hero__scroll {
     position: absolute;
     bottom: 30px;
@@ -164,7 +299,7 @@ const t = content[lang].hero;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    z-index: 1;
+    z-index: 5;
   }
   .oo-hero__scroll-label {
     font-size: 10.5px;
@@ -190,4 +325,49 @@ const t = content[lang].hero;
     background: var(--oo-gold-light);
     animation: scrollDot 1.8s ease-in-out infinite;
   }
+
+  @media (max-width: 700px) {
+    .oo-hero__dancer { opacity: 0.12; }
+    .oo-hero__palm { width: 46vw; }
+  }
 </style>
+
+<style is:global>
+  @keyframes heroParallax { to { transform: translateY(var(--py, 0)); } }
+  @keyframes heroSway {
+    0%, 100% { rotate: -1.5deg; }
+    50% { rotate: 1.5deg; }
+  }
+  @keyframes heroSwayPalm {
+    0%, 100% { rotate: -2.2deg; }
+    50% { rotate: 2.4deg; }
+  }
+  @keyframes emberRise {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    12% { opacity: 0.9; }
+    80% { opacity: 0.7; }
+    100% { transform: translateY(-78vh) translateX(18px); opacity: 0; }
+  }
+</style>
+
+<script>
+  // Mouse parallax: feed cursor position into --mx / --my on the hero.
+  const hero = document.getElementById('hero');
+  if (hero && matchMedia('(pointer:fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let raf = 0;
+    hero.addEventListener('pointermove', (e) => {
+      const r = hero.getBoundingClientRect();
+      const mx = (e.clientX - r.left) / r.width - 0.5;
+      const my = (e.clientY - r.top) / r.height - 0.5;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        hero.style.setProperty('--mx', mx.toFixed(3));
+        hero.style.setProperty('--my', my.toFixed(3));
+      });
+    });
+    hero.addEventListener('pointerleave', () => {
+      hero.style.setProperty('--mx', '0');
+      hero.style.setProperty('--my', '0');
+    });
+  }
+</script>

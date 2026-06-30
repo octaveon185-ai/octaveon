@@ -49,5 +49,34 @@ const altUrl = new URL(homeHref(alt), Astro.site).toString();
   </head>
   <body>
     <slot />
+
+    <script>
+      import Lenis from 'lenis';
+
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+
+        const raf = (time: number) => {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        };
+        requestAnimationFrame(raf);
+
+        // Smooth in-page anchor navigation (accounts for the fixed nav).
+        document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => {
+          a.addEventListener('click', (e) => {
+            const id = a.getAttribute('href');
+            if (!id || id === '#') return;
+            const target = document.querySelector(id);
+            if (!target) return;
+            e.preventDefault();
+            lenis.scrollTo(target as HTMLElement, { offset: -70 });
+          });
+        });
+
+        // Expose for other scripts (e.g. the invite success scroll).
+        (window as unknown as { lenis: Lenis }).lenis = lenis;
+      }
+    </script>
   </body>
 </html>

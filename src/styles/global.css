@@ -14,6 +14,24 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+/* Lenis smooth-scroll (active only when JS initialises it) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 body {
   background: var(--oo-bg);
   color: var(--oo-text-on-dark);
