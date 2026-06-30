@@ -9,39 +9,122 @@ const t = content[lang].manifesto;
 ---
 
 <section id="manifesto" class="oo-manifesto">
-  <div class="oo-container oo-reveal oo-manifesto__inner">
-    <p class="oo-eyebrow oo-manifesto__eyebrow">{t.eyebrow}</p>
-    {t.lines.map((line) => (
-      <p class="oo-display oo-manifesto__line">{line}</p>
-    ))}
-    <p class="oo-display oo-manifesto__signature">{t.signature}</p>
+  <div class="oo-container oo-reveal">
+    <figure class="oo-slab">
+      <div class="oo-slab__frame">
+        <span class="oo-slab__corner oo-slab__corner--tl"></span>
+        <span class="oo-slab__corner oo-slab__corner--tr"></span>
+        <span class="oo-slab__corner oo-slab__corner--bl"></span>
+        <span class="oo-slab__corner oo-slab__corner--br"></span>
+
+        <p class="oo-eyebrow oo-slab__eyebrow">{t.eyebrow}</p>
+        {t.lines.map((line) => (
+          <p class="oo-display oo-engrave oo-slab__line">{line}</p>
+        ))}
+        <span class="oo-slab__divider" aria-hidden="true">
+          <i></i><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 0l1.6 6.4L16 8l-6.4 1.6L8 16l-1.6-6.4L0 8l6.4-1.6z" fill="currentColor"></path></svg><i></i>
+        </span>
+        <p class="oo-display oo-engrave oo-engrave--gold oo-slab__signature">{t.signature}</p>
+      </div>
+    </figure>
   </div>
 </section>
 
 <style>
   .oo-manifesto {
     position: relative;
-    padding: clamp(96px, 14vh, 180px) var(--oo-gutter);
-    text-align: center;
-    background: var(--oo-grad-cream);
-    color: var(--oo-text-on-light);
+    padding: clamp(80px, 13vh, 170px) var(--oo-gutter);
+    display: flex;
+    justify-content: center;
+    /* warm Mediterranean stone wall so the polished slab stands out */
+    background: linear-gradient(180deg, #e7d9bf 0%, #e0cfae 100%);
     overflow: hidden;
   }
-  .oo-manifesto__inner {
-    max-width: 840px;
+
+  /* ---- the marble slab ---- */
+  .oo-slab {
+    position: relative;
+    max-width: 880px;
+    margin: 0 auto;
+    border-radius: 6px;
+    padding: clamp(12px, 1.6vw, 18px);
+    /* PLACEHOLDER marble — swap for: background-image: url('/images/manifesto-marble.webp');
+       background-size: cover; (keep the gradients below as a fallback tint) */
+    background-color: #f3ece0;
+    background-image:
+      radial-gradient(120% 80% at 18% 12%, rgba(255, 255, 255, 0.7), transparent 42%),
+      radial-gradient(90% 70% at 82% 88%, rgba(214, 199, 170, 0.5), transparent 46%),
+      repeating-linear-gradient(122deg, transparent 0 26px, rgba(199, 138, 58, 0.05) 26px 27px),
+      repeating-linear-gradient(58deg, transparent 0 38px, rgba(120, 100, 70, 0.05) 38px 39px),
+      linear-gradient(160deg, #f5efe4, #ece1cd);
+    box-shadow:
+      0 30px 70px rgba(60, 40, 18, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
   }
-  .oo-manifesto__eyebrow {
+
+  /* double gold frame */
+  .oo-slab__frame {
+    position: relative;
+    border: 1px solid rgba(199, 138, 58, 0.55);
+    outline: 1px solid rgba(199, 138, 58, 0.28);
+    outline-offset: 5px;
+    border-radius: 3px;
+    padding: clamp(40px, 7vw, 88px) clamp(28px, 6vw, 80px);
+    text-align: center;
+  }
+
+  .oo-slab__corner {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border: 1.5px solid var(--oo-gold);
+  }
+  .oo-slab__corner--tl { top: -6px; left: -6px; border-right: 0; border-bottom: 0; }
+  .oo-slab__corner--tr { top: -6px; right: -6px; border-left: 0; border-bottom: 0; }
+  .oo-slab__corner--bl { bottom: -6px; left: -6px; border-right: 0; border-top: 0; }
+  .oo-slab__corner--br { bottom: -6px; right: -6px; border-left: 0; border-top: 0; }
+
+  .oo-slab__eyebrow {
     color: var(--oo-gold-dark);
-    margin-bottom: 40px;
+    margin-bottom: 34px;
   }
-  .oo-manifesto__line {
-    font-size: var(--oo-fs-h2);
-    margin-bottom: 0.5em;
+
+  /* engraved-into-marble text */
+  .oo-engrave {
+    color: #5e4427;
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.75),
+      0 -1px 1px rgba(60, 40, 18, 0.22);
   }
-  .oo-manifesto__signature {
-    margin-top: 40px;
+  .oo-slab__line {
+    font-size: clamp(26px, 3.8vw, 50px);
+    margin-bottom: 0.45em;
+  }
+
+  .oo-slab__divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    color: var(--oo-gold);
+    margin: 30px 0;
+  }
+  .oo-slab__divider i {
+    width: clamp(40px, 8vw, 96px);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(199, 138, 58, 0.7), transparent);
+  }
+
+  .oo-engrave--gold {
+    color: transparent;
+    background: linear-gradient(180deg, #e8bd76 0%, #c78a3a 60%, #9a672c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: none;
+    filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.5));
+  }
+  .oo-slab__signature {
     font-style: italic;
-    font-size: clamp(22px, 2.6vw, 34px);
-    color: var(--oo-gold-dark);
+    font-size: clamp(22px, 2.8vw, 36px);
   }
 </style>
