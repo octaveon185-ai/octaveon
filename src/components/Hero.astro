@@ -12,7 +12,6 @@ const t = content[lang].hero;
   <!-- LAYER 1 · sky atmosphere (back) — parallax slow -->
   <div class="oo-hero__atmos" aria-hidden="true">
     <div class="oo-hero__glow"></div>
-    <img class="oo-hero__moon" src="/images/hero-moon.webp" alt="" width="560" height="560" loading="eager" decoding="async" />
     <div class="oo-hero__stars">
       <span style="top:18%;left:14%;animation-delay:0s"></span>
       <span style="top:28%;left:78%;animation-delay:.8s"></span>
@@ -23,10 +22,20 @@ const t = content[lang].hero;
     </div>
   </div>
 
-  <!-- LAYER 2 · the dancing figure (mid, behind content) — two poses cross-fade -->
+  <!-- LAYER 2 · the dancing figure (mid, behind content) — 5 poses cross-fade -->
   <div class="oo-hero__layer oo-hero__dancer" aria-hidden="true">
-    <img class="oo-hero__dancer-frame oo-hero__dancer-frame--a" src="/images/hero-dancer.webp" alt="" width="720" height="900" loading="eager" decoding="async" />
-    <img class="oo-hero__dancer-frame oo-hero__dancer-frame--b" src="/images/hero-dancer-2.webp" alt="" width="720" height="900" loading="eager" decoding="async" />
+    {[1, 2, 3, 4, 5].map((n, i) => (
+      <img
+        class="oo-hero__dancer-frame"
+        src={`/images/hero-dancer-${n}.webp`}
+        alt=""
+        width="720"
+        height="900"
+        loading="eager"
+        decoding="async"
+        style={`animation-delay:${(-6 * i).toFixed(0)}s`}
+      />
+    ))}
   </div>
 
   <!-- LAYER 3 · content (mid-front) -->
@@ -119,18 +128,6 @@ const t = content[lang].hero;
     background: var(--oo-gold-light);
     animation: twinkle 5s ease-in-out infinite;
   }
-  .oo-hero__moon {
-    position: absolute;
-    top: clamp(40px, 10vh, 120px);
-    right: clamp(16px, 10vw, 170px);
-    width: clamp(108px, 16vw, 215px);
-    height: auto;
-    opacity: 0.92;
-    filter:
-      drop-shadow(0 0 26px rgba(255, 230, 176, 0.6))
-      drop-shadow(0 0 72px rgba(224, 174, 99, 0.4));
-    animation: drift 15s ease-in-out infinite;
-  }
 
   /* ---- Shared parallax layer behaviour ----
      transform ← scroll parallax · translate ← mouse · rotate ← sway
@@ -160,12 +157,10 @@ const t = content[lang].hero;
     inset: 0;
     width: 100%;
     height: 100%;
+    opacity: 0;
     object-fit: contain;
     object-position: bottom center;
-    animation: dancerCross 16s ease-in-out infinite;
-  }
-  .oo-hero__dancer-frame--b {
-    animation-delay: -8s;
+    animation: dancerCross5 30s ease-in-out infinite;
   }
 
   /* ---- LAYER 3 · content ---- */
@@ -241,7 +236,8 @@ const t = content[lang].hero;
   }
 
   /* ---- LAYER 5 · palms ---- */
-  .oo-hero__palm { bottom: 0; z-index: 4; width: clamp(260px, 40vw, 560px); }
+  /* slight negative bottom so the dense fronds meet the fold with no gap */
+  .oo-hero__palm { bottom: -48px; z-index: 4; width: clamp(280px, 42vw, 580px); }
   .oo-hero__palm img { width: 100%; height: auto; display: block; }
   .oo-hero__palm--left {
     --depth: 34;
@@ -314,9 +310,8 @@ const t = content[lang].hero;
   }
 
   @media (max-width: 700px) {
-    .oo-hero__dancer { opacity: 0.38; width: 58vw; margin-left: -29vw; }
-    .oo-hero__palm { width: 56vw; }
-    .oo-hero__moon { width: 40vw; }
+    .oo-hero__dancer { opacity: 0.4; width: 60vw; margin-left: -30vw; }
+    .oo-hero__palm { width: 60vw; bottom: -30px; }
   }
 </style>
 
@@ -336,11 +331,14 @@ const t = content[lang].hero;
     80% { opacity: 0.7; }
     100% { transform: translateY(-78vh) translateX(18px); opacity: 0; }
   }
-  /* dancer: cross-fade between two poses */
-  @keyframes dancerCross {
-    0%, 42% { opacity: 1; }
-    50%, 92% { opacity: 0; }
-    100% { opacity: 1; }
+  /* dancer: cross-fade across 5 poses (each frame delayed by -6s of 30s).
+     On 4% → hold to 20% → off 24% gives a soft overlap with neighbours. */
+  @keyframes dancerCross5 {
+    0% { opacity: 0; }
+    4% { opacity: 1; }
+    20% { opacity: 1; }
+    24% { opacity: 0; }
+    100% { opacity: 0; }
   }
 </style>
 
