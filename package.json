@@ -1,0 +1,22 @@
+{
+  "name": "octaveon",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Octave On — invite-only immersive night experience. Sunset to dawn, on the Mediterranean.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.6.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.7.0"
+  }
+}

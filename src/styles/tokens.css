@@ -1,0 +1,71 @@
+/* ============================================================
+   Octave On — Design tokens
+   The brand's signature: a "golden hour" journey in colour,
+   from Mediterranean night → cream dawn-light → amber dusk.
+   ============================================================ */
+:root {
+  /* — Night / deep teal scale (top & bottom of the page) — */
+  --oo-night-900: #031420; /* deepest — footer */
+  --oo-night-800: #041A28;
+  --oo-night-700: #06222F;
+  --oo-night-600: #082A3A; /* hero base */
+
+  /* — Cream / dawn light (manifesto) — */
+  --oo-cream-100: #F2E9DA;
+  --oo-cream-200: #EFE4D2;
+
+  /* — Golden hour ambers (the experience) — */
+  --oo-amber-100: #ECD9B6;
+  --oo-amber-200: #E6CBA0;
+  --oo-amber-300: #DDB585;
+  --oo-amber-400: #C99368;
+
+  /* — Gold (accents, CTAs, the brand rings) — */
+  --oo-gold: #C78A3A;
+  --oo-gold-light: #E0AE63;
+  --oo-gold-dark: #9A672C;
+  --oo-gold-glow: #FFE6B0;
+
+  /* — Supporting — */
+  --oo-slate: #8FA8B3; /* muted blue-grey text on dark */
+  --oo-ivory: #F4ECDB;
+
+  /* — Semantic — */
+  --oo-bg: var(--oo-night-600);
+  --oo-text-on-dark: var(--oo-cream-100);
+  --oo-text-on-light: #2A1B10;
+  --oo-accent: var(--oo-gold-light);
+
+  /* — Gradients (the section-to-section journey) — */
+  --oo-grad-cream: linear-gradient(180deg, #F2E9DA 0%, #EFE4D2 100%);
+  --oo-grad-goldenhour: linear-gradient(180deg, #ECD9B6 0%, #E6CBA0 48%, #DDB585 100%);
+  --oo-grad-dusk: linear-gradient(180deg, #DDB585 0%, #C99368 100%);
+  --oo-grad-night: linear-gradient(180deg, #082A3A 0%, #06222F 100%);
+  --oo-grad-cta: linear-gradient(135deg, #E0AE63, #C78A3A);
+
+  /* — Type — */
+  --oo-font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --oo-font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Fluid type scale */
+  --oo-fs-eyebrow: 11.5px;
+  --oo-fs-body: clamp(15px, 1.15vw, 18px);
+  --oo-fs-h3: clamp(26px, 3.2vw, 40px);
+  --oo-fs-h2: clamp(30px, 4.4vw, 58px);
+  --oo-fs-h1: clamp(40px, 7vw, 92px);
+
+  --oo-tracking-label: 0.4em;
+
+  /* — Layout — */
+  --oo-maxw: 1180px;
+  --oo-gutter: clamp(20px, 5vw, 40px);
+  --oo-radius: 10px;
+  --oo-radius-pill: 48px;
+
+  /* — Motion — */
+  --oo-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --oo-dur: 0.6s;
+
+  /* — Elevation — */
+  --oo-shadow-cta: 0 14px 40px rgba(199, 138, 58, 0.3);
+}

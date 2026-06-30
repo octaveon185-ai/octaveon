@@ -1,0 +1,119 @@
+---
+import { content, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = content[lang].difference;
+---
+
+<section class="oo-diff">
+  <div class="oo-container">
+    <div class="oo-reveal oo-diff__head">
+      <p class="oo-eyebrow">{t.eyebrow}</p>
+      <h2 class="oo-display oo-diff__title">{t.title}</h2>
+    </div>
+
+    <div class="oo-reveal oo-diff__cols">
+      <div class="oo-diff__col oo-diff__col--not">
+        <h3 class="oo-diff__colTitle">{t.notTitle}</h3>
+        <ul>
+          {t.not.map((item) => (
+            <li>
+              <span class="oo-diff__mark" aria-hidden="true">—</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="oo-diff__col oo-diff__col--is">
+        <h3 class="oo-diff__colTitle">{t.isTitle}</h3>
+        <ul>
+          {t.is.map((item) => (
+            <li>
+              <span class="oo-diff__mark oo-diff__mark--gold" aria-hidden="true">✦</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .oo-diff {
+    position: relative;
+    padding: clamp(76px, 11vh, 140px) var(--oo-gutter);
+    background: var(--oo-grad-night);
+    overflow: hidden;
+  }
+  .oo-diff__head {
+    text-align: center;
+    margin-bottom: clamp(46px, 7vh, 78px);
+  }
+  .oo-diff__title {
+    font-size: var(--oo-fs-h2);
+    color: var(--oo-cream-100);
+    margin-top: 18px;
+  }
+  .oo-diff__cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(20px, 4vw, 48px);
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  .oo-diff__col {
+    border: 1px solid rgba(224, 174, 99, 0.16);
+    border-radius: var(--oo-radius);
+    padding: clamp(28px, 4vw, 44px);
+    background: rgba(143, 168, 179, 0.03);
+  }
+  .oo-diff__col--is {
+    border-color: rgba(224, 174, 99, 0.4);
+    background: rgba(224, 174, 99, 0.05);
+  }
+  .oo-diff__colTitle {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--oo-slate);
+    margin-bottom: 24px;
+  }
+  .oo-diff__col--is .oo-diff__colTitle {
+    color: var(--oo-gold-light);
+  }
+  .oo-diff__col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .oo-diff__col li {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    color: var(--oo-cream-100);
+    font-size: clamp(16px, 1.6vw, 19px);
+  }
+  .oo-diff__col--not li {
+    color: rgba(242, 233, 218, 0.55);
+  }
+  .oo-diff__mark {
+    color: var(--oo-slate);
+    flex: none;
+  }
+  .oo-diff__mark--gold {
+    color: var(--oo-gold-light);
+    font-size: 12px;
+  }
+
+  @media (max-width: 700px) {
+    .oo-diff__cols {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

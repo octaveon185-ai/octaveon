@@ -1,0 +1,27 @@
+# build output
+dist/
+.astro/
+
+# deps
+node_modules/
+
+# cloudflare / wrangler
+.wrangler/
+.dev.vars
+
+# env & secrets
+.env
+.env.*
+!.env.example
+
+# claude code local settings (keep launch.json, ignore local perms)
+.claude/settings.local.json
+
+# os / editor
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+
+# heavy reference (kept locally, not in the repo)
+reference/original-draft.standalone.html

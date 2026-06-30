@@ -1,0 +1,193 @@
+---
+import { content, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = content[lang].hero;
+---
+
+<header id="hero" class="oo-hero">
+  <!-- Parallax atmosphere: a warm horizon glow rising as you scroll -->
+  <div class="oo-hero__atmos" aria-hidden="true">
+    <div class="oo-hero__glow"></div>
+    <div class="oo-hero__stars">
+      <span style="top:18%;left:14%;animation-delay:0s"></span>
+      <span style="top:28%;left:78%;animation-delay:.8s"></span>
+      <span style="top:40%;left:42%;animation-delay:1.6s"></span>
+      <span style="top:22%;left:58%;animation-delay:2.2s"></span>
+      <span style="top:34%;left:88%;animation-delay:.4s"></span>
+      <span style="top:14%;left:34%;animation-delay:1.2s"></span>
+    </div>
+  </div>
+
+  <div class="oo-hero__inner">
+    <!-- The brand rings, animated -->
+    <div class="oo-hero__rings" aria-hidden="true">
+      <span class="oo-hero__ring oo-hero__ring--a"></span>
+      <span class="oo-hero__ring oo-hero__ring--b"></span>
+    </div>
+
+    <p class="oo-eyebrow oo-hero__eyebrow">{t.eyebrow}</p>
+    <h1 class="oo-display oo-hero__title">{t.title}</h1>
+    <p class="oo-hero__subtitle">{t.subtitle}</p>
+
+    <div class="oo-hero__cta">
+      <a class="oo-btn oo-btn--primary" href="#invito">{t.ctaPrimary}</a>
+      <a class="oo-btn oo-btn--ghost" href="#esperienza">{t.ctaSecondary}</a>
+    </div>
+  </div>
+
+  <a class="oo-hero__scroll" href="#manifesto" aria-label={t.scroll}>
+    <span class="oo-hero__scroll-label">{t.scroll}</span>
+    <span class="oo-hero__scroll-track" aria-hidden="true"><i></i></span>
+  </a>
+</header>
+
+<style>
+  .oo-hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 130px var(--oo-gutter) 96px;
+    overflow: hidden;
+    background: var(--oo-night-600);
+  }
+
+  .oo-hero__atmos {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  @supports (animation-timeline: scroll(root)) {
+    .oo-hero__atmos {
+      animation: parDown linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 110vh;
+    }
+  }
+  .oo-hero__glow {
+    position: absolute;
+    left: 50%;
+    bottom: -32%;
+    width: 140%;
+    height: 80%;
+    transform: translateX(-50%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(224, 174, 99, 0.34) 0%,
+      rgba(199, 138, 58, 0.14) 38%,
+      transparent 68%
+    );
+    animation: glowPulse 7s ease-in-out infinite;
+  }
+  .oo-hero__stars span {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: var(--oo-gold-light);
+    animation: twinkle 5s ease-in-out infinite;
+  }
+
+  .oo-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+  }
+
+  /* Brand rings ornament */
+  .oo-hero__rings {
+    position: relative;
+    width: clamp(96px, 13vw, 150px);
+    height: clamp(58px, 8vw, 92px);
+    margin: 0 auto 34px;
+  }
+  .oo-hero__ring {
+    position: absolute;
+    top: 0;
+    width: clamp(58px, 8vw, 92px);
+    aspect-ratio: 1;
+    border: 1.5px solid var(--oo-gold-light);
+    border-radius: 50%;
+    filter: drop-shadow(0 0 22px rgba(224, 174, 99, 0.5));
+  }
+  .oo-hero__ring--a { left: 0; }
+  .oo-hero__ring--b {
+    right: 0;
+    border-color: var(--oo-gold);
+    animation: drift 9s ease-in-out infinite;
+  }
+
+  .oo-hero__eyebrow {
+    margin-bottom: 24px;
+  }
+  @supports (animation-timeline: view()) {
+    .oo-hero__inner > * {
+      animation: revealSoft both 1s var(--oo-ease);
+    }
+  }
+
+  .oo-hero__title {
+    font-size: var(--oo-fs-h1);
+    color: var(--oo-cream-100);
+    letter-spacing: -0.01em;
+  }
+
+  .oo-hero__subtitle {
+    margin: 26px auto 0;
+    max-width: 560px;
+    color: var(--oo-slate);
+    font-size: clamp(16px, 1.4vw, 20px);
+    line-height: 1.6;
+  }
+
+  .oo-hero__cta {
+    margin-top: 40px;
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .oo-hero__scroll {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 1;
+  }
+  .oo-hero__scroll-label {
+    font-size: 10.5px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--oo-slate);
+  }
+  .oo-hero__scroll-track {
+    position: relative;
+    width: 22px;
+    height: 34px;
+    border: 1px solid rgba(143, 168, 179, 0.5);
+    border-radius: 12px;
+  }
+  .oo-hero__scroll-track i {
+    position: absolute;
+    top: 7px;
+    left: 50%;
+    width: 3px;
+    height: 3px;
+    margin-left: -1.5px;
+    border-radius: 50%;
+    background: var(--oo-gold-light);
+    animation: scrollDot 1.8s ease-in-out infinite;
+  }
+</style>

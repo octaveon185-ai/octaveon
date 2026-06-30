@@ -1,0 +1,47 @@
+---
+import { content, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = content[lang].manifesto;
+---
+
+<section id="manifesto" class="oo-manifesto">
+  <div class="oo-container oo-reveal oo-manifesto__inner">
+    <p class="oo-eyebrow oo-manifesto__eyebrow">{t.eyebrow}</p>
+    {t.lines.map((line) => (
+      <p class="oo-display oo-manifesto__line">{line}</p>
+    ))}
+    <p class="oo-display oo-manifesto__signature">{t.signature}</p>
+  </div>
+</section>
+
+<style>
+  .oo-manifesto {
+    position: relative;
+    padding: clamp(96px, 14vh, 180px) var(--oo-gutter);
+    text-align: center;
+    background: var(--oo-grad-cream);
+    color: var(--oo-text-on-light);
+    overflow: hidden;
+  }
+  .oo-manifesto__inner {
+    max-width: 840px;
+  }
+  .oo-manifesto__eyebrow {
+    color: var(--oo-gold-dark);
+    margin-bottom: 40px;
+  }
+  .oo-manifesto__line {
+    font-size: var(--oo-fs-h2);
+    margin-bottom: 0.5em;
+  }
+  .oo-manifesto__signature {
+    margin-top: 40px;
+    font-style: italic;
+    font-size: clamp(22px, 2.6vw, 34px);
+    color: var(--oo-gold-dark);
+  }
+</style>

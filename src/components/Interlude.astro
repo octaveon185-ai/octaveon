@@ -1,0 +1,54 @@
+---
+import { content, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = content[lang].interlude;
+---
+
+<section class="oo-interlude">
+  <div class="oo-interlude__glow" aria-hidden="true"></div>
+  <div class="oo-container oo-reveal oo-interlude__inner">
+    <p class="oo-eyebrow oo-interlude__eyebrow">{t.eyebrow}</p>
+    <p class="oo-display oo-interlude__text">{t.text}</p>
+  </div>
+</section>
+
+<style>
+  .oo-interlude {
+    position: relative;
+    padding: clamp(72px, 11vh, 150px) var(--oo-gutter);
+    background: var(--oo-grad-night);
+    text-align: center;
+    overflow: hidden;
+  }
+  .oo-interlude__glow {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 70%;
+    height: 120%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(224, 174, 99, 0.18) 0%,
+      transparent 62%
+    );
+    animation: glowPulse 8s ease-in-out infinite;
+  }
+  .oo-interlude__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+  }
+  .oo-interlude__eyebrow {
+    margin-bottom: 26px;
+  }
+  .oo-interlude__text {
+    font-size: clamp(28px, 4vw, 52px);
+    color: var(--oo-cream-100);
+    font-style: italic;
+  }
+</style>

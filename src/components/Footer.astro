@@ -1,0 +1,117 @@
+---
+import { content, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = content[lang].footer;
+---
+
+<footer class="oo-footer">
+  <div class="oo-footer__stars" aria-hidden="true">
+    <span style="top:18%;left:12%"></span>
+    <span style="top:30%;left:78%;animation-delay:.8s"></span>
+    <span style="top:55%;left:42%;animation-delay:1.4s"></span>
+    <span style="top:22%;left:55%;animation-delay:2s"></span>
+    <span style="top:42%;left:88%;animation-delay:.4s"></span>
+  </div>
+
+  <div class="oo-container oo-footer__inner">
+    <div class="oo-footer__rings" aria-hidden="true"><span></span><span></span></div>
+    <p class="oo-display oo-footer__tagline">{t.tagline}</p>
+
+    <ul class="oo-footer__links">
+      {t.links.map((l) => (
+        <li>
+          <a
+            href={l.href}
+            {...(l.external ? { target: '_blank', rel: 'noopener' } : {})}
+          >{l.label}</a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="oo-footer__meta">
+      <span>{t.rights}</span>
+      <span class="oo-footer__coords">{t.coords}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .oo-footer {
+    position: relative;
+    padding: clamp(70px, 10vh, 120px) var(--oo-gutter) 48px;
+    border-top: 1px solid rgba(224, 174, 99, 0.12);
+    background: var(--oo-night-900);
+    overflow: hidden;
+    text-align: center;
+  }
+  .oo-footer__stars span {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: var(--oo-gold-light);
+    animation: twinkle 5s ease-in-out infinite;
+  }
+  .oo-footer__inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .oo-footer__rings {
+    position: relative;
+    width: 46px;
+    height: 28px;
+    margin-bottom: 26px;
+  }
+  .oo-footer__rings span {
+    position: absolute;
+    top: 0;
+    width: 28px;
+    height: 28px;
+    border: 1.3px solid var(--oo-gold-light);
+    border-radius: 50%;
+  }
+  .oo-footer__rings span:first-child { left: 0; }
+  .oo-footer__rings span:last-child { left: 18px; }
+
+  .oo-footer__tagline {
+    font-size: clamp(24px, 3.4vw, 40px);
+    color: var(--oo-cream-100);
+    max-width: 560px;
+  }
+  .oo-footer__links {
+    display: flex;
+    gap: clamp(20px, 4vw, 40px);
+    list-style: none;
+    margin: 34px 0 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .oo-footer__links a {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--oo-cream-100);
+    opacity: 0.8;
+    transition: color 0.25s, opacity 0.25s;
+  }
+  .oo-footer__links a:hover { color: var(--oo-gold-light); opacity: 1; }
+
+  .oo-footer__meta {
+    display: flex;
+    gap: 8px 22px;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--oo-slate);
+  }
+  .oo-footer__coords { opacity: 0.7; }
+</style>

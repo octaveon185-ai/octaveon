@@ -1,0 +1,102 @@
+---
+import { content, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = content[lang].gallery;
+---
+
+<section id="gallery" class="oo-gallery">
+  <div class="oo-container">
+    <div class="oo-reveal oo-gallery__head">
+      <p class="oo-eyebrow">{t.eyebrow}</p>
+      <h2 class="oo-display oo-gallery__title">{t.title}</h2>
+    </div>
+
+    <div class="oo-reveal--soft oo-reveal oo-gallery__grid">
+      {t.tiles.map((caption, i) => (
+        <figure class="oo-gallery__tile" data-tone={i % 3}>
+          <span class="oo-gallery__shimmer" aria-hidden="true"></span>
+          <figcaption>{caption}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .oo-gallery {
+    position: relative;
+    padding: clamp(70px, 10vh, 130px) var(--oo-gutter);
+    background: linear-gradient(180deg, #06222f 0%, #041a28 100%);
+  }
+  .oo-gallery__head {
+    text-align: center;
+    margin-bottom: clamp(40px, 6vh, 64px);
+  }
+  .oo-gallery__title {
+    font-size: var(--oo-fs-h2);
+    color: var(--oo-cream-100);
+    margin-top: 16px;
+  }
+
+  .oo-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: clamp(150px, 18vw, 210px);
+    gap: 14px;
+  }
+  /* bento rhythm */
+  .oo-gallery__tile:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .oo-gallery__tile:nth-child(4) { grid-column: span 2; }
+  .oo-gallery__tile:nth-child(6) { grid-column: span 2; }
+
+  .oo-gallery__tile {
+    position: relative;
+    border-radius: var(--oo-radius);
+    overflow: hidden;
+    border: 1px solid rgba(224, 174, 99, 0.14);
+    display: flex;
+    align-items: flex-end;
+    padding: 18px;
+    isolation: isolate;
+  }
+  .oo-gallery__tile[data-tone='0'] {
+    background: linear-gradient(150deg, #0a3242, #15435c 60%, #1d5872);
+  }
+  .oo-gallery__tile[data-tone='1'] {
+    background: linear-gradient(150deg, #15435c, #cda05a 130%);
+  }
+  .oo-gallery__tile[data-tone='2'] {
+    background: linear-gradient(150deg, #7a4a30, #cda05a 130%);
+  }
+  .oo-gallery__shimmer {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(
+      120% 90% at 80% 0%,
+      rgba(255, 230, 176, 0.28),
+      transparent 60%
+    );
+    animation: glowPulse 9s ease-in-out infinite;
+  }
+  .oo-gallery__tile figcaption {
+    font-family: var(--oo-font-display);
+    font-style: italic;
+    font-size: clamp(15px, 1.4vw, 20px);
+    color: var(--oo-cream-100);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  @media (max-width: 760px) {
+    .oo-gallery__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .oo-gallery__tile:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .oo-gallery__tile:nth-child(4),
+    .oo-gallery__tile:nth-child(6) { grid-column: span 2; }
+  }
+</style>

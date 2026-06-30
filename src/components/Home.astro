@@ -1,0 +1,35 @@
+---
+import Nav from './Nav.astro';
+import Hero from './Hero.astro';
+import Manifesto from './Manifesto.astro';
+import Experience from './Experience.astro';
+import WhoFor from './WhoFor.astro';
+import Interlude from './Interlude.astro';
+import Difference from './Difference.astro';
+import Event from './Event.astro';
+import Gallery from './Gallery.astro';
+import InviteForm from './InviteForm.astro';
+import Journal from './Journal.astro';
+import Footer from './Footer.astro';
+import type { Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<Nav lang={lang} />
+<main>
+  <Hero lang={lang} />
+  <Manifesto lang={lang} />
+  <Experience lang={lang} />
+  <WhoFor lang={lang} />
+  <Interlude lang={lang} />
+  <Difference lang={lang} />
+  <Event lang={lang} />
+  <Gallery lang={lang} />
+  <InviteForm lang={lang} />
+  <Journal lang={lang} />
+</main>
+<Footer lang={lang} />

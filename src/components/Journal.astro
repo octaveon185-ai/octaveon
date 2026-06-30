@@ -1,0 +1,136 @@
+---
+import { content, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = content[lang].journal;
+---
+
+<section id="journal" class="oo-journal">
+  <div class="oo-container">
+    <div class="oo-reveal oo-journal__head">
+      <div>
+        <p class="oo-eyebrow">{t.eyebrow}</p>
+        <h2 class="oo-display oo-journal__title">{t.title}</h2>
+      </div>
+      <a class="oo-journal__all" href="#">{t.all}</a>
+    </div>
+
+    <a class="oo-reveal oo-journal__article" href="#">
+      <div class="oo-journal__media" aria-hidden="true">
+        <span class="oo-journal__ring"></span>
+      </div>
+      <div class="oo-journal__content">
+        <p class="oo-journal__tag">{t.article.tag}</p>
+        <h3 class="oo-display oo-journal__articleTitle">{t.article.title}</h3>
+        <p class="oo-journal__excerpt">{t.article.excerpt}</p>
+        <span class="oo-journal__read">{t.article.read}</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<style>
+  .oo-journal {
+    position: relative;
+    padding: clamp(60px, 9vh, 120px) var(--oo-gutter);
+    background: var(--oo-night-800);
+  }
+  .oo-journal__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: clamp(36px, 5vh, 56px);
+  }
+  .oo-journal__title {
+    font-size: var(--oo-fs-h2);
+    color: var(--oo-cream-100);
+    margin-top: 14px;
+  }
+  .oo-journal__all {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--oo-slate);
+    border-bottom: 1px solid rgba(143, 168, 179, 0.4);
+    padding-bottom: 4px;
+    transition: color 0.25s, border-color 0.25s;
+  }
+  .oo-journal__all:hover {
+    color: var(--oo-gold-light);
+    border-color: var(--oo-gold-light);
+  }
+
+  .oo-journal__article {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(24px, 4vw, 48px);
+    align-items: center;
+    border: 1px solid rgba(224, 174, 99, 0.16);
+    border-radius: var(--oo-radius);
+    overflow: hidden;
+    background: rgba(143, 168, 179, 0.03);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .oo-journal__article:hover {
+    border-color: rgba(224, 174, 99, 0.4);
+    transform: translateY(-2px);
+  }
+  .oo-journal__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(150deg, #0a3242, #15435c 55%, #cda05a 130%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .oo-journal__ring {
+    width: 30%;
+    aspect-ratio: 1;
+    border: 1.4px solid rgba(242, 233, 218, 0.7);
+    border-radius: 50%;
+    animation: drift 9s ease-in-out infinite;
+  }
+  .oo-journal__content {
+    padding: clamp(24px, 4vw, 44px) clamp(24px, 4vw, 44px) clamp(24px, 4vw, 44px) 0;
+  }
+  .oo-journal__tag {
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--oo-gold-light);
+    margin-bottom: 18px;
+  }
+  .oo-journal__articleTitle {
+    font-size: var(--oo-fs-h3);
+    font-weight: 500;
+    color: var(--oo-cream-100);
+  }
+  .oo-journal__excerpt {
+    margin-top: 16px;
+    color: var(--oo-slate);
+  }
+  .oo-journal__read {
+    display: inline-block;
+    margin-top: 24px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--oo-gold-light);
+  }
+
+  @media (max-width: 760px) {
+    .oo-journal__article {
+      grid-template-columns: 1fr;
+    }
+    .oo-journal__content {
+      padding: 0 clamp(24px, 5vw, 36px) clamp(28px, 5vw, 40px);
+    }
+  }
+</style>

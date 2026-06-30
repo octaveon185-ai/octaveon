@@ -1,0 +1,177 @@
+/* ============================================================
+   Octave On — Global base + motion
+   ============================================================ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--oo-bg);
+  color: var(--oo-text-on-dark);
+  font-family: var(--oo-font-body);
+  font-size: var(--oo-fs-body);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--oo-gold-light);
+  color: var(--oo-night-800);
+}
+
+/* — Shared building blocks — */
+.oo-container {
+  max-width: var(--oo-maxw);
+  margin-inline: auto;
+}
+
+.oo-display {
+  font-family: var(--oo-font-display);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.oo-eyebrow {
+  font-size: var(--oo-fs-eyebrow);
+  letter-spacing: var(--oo-tracking-label);
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--oo-gold-light);
+}
+
+.oo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: var(--oo-radius-pill);
+  padding: 16px 30px;
+  transition: transform 0.25s var(--oo-ease), box-shadow 0.25s var(--oo-ease),
+    border-color 0.25s var(--oo-ease), color 0.25s var(--oo-ease);
+}
+
+.oo-btn--primary {
+  color: var(--oo-night-800);
+  background: var(--oo-grad-cta);
+  border: none;
+  box-shadow: var(--oo-shadow-cta);
+}
+.oo-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 50px rgba(199, 138, 58, 0.42);
+}
+
+.oo-btn--ghost {
+  color: var(--oo-gold-light);
+  background: transparent;
+  border: 1px solid rgba(224, 174, 99, 0.4);
+}
+.oo-btn--ghost:hover {
+  border-color: var(--oo-gold-light);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   Motion — scroll-driven where supported, with safe fallbacks
+   ============================================================ */
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes revealSoft {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(0, -20px); }
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.9; }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.12; }
+  50% { opacity: 0.85; }
+}
+@keyframes navShow {
+  from {
+    background: rgba(4, 26, 40, 0);
+    border-color: rgba(199, 138, 58, 0);
+    backdrop-filter: blur(0px);
+  }
+  to {
+    background: rgba(4, 18, 29, 0.72);
+    border-color: rgba(199, 138, 58, 0.14);
+    backdrop-filter: blur(12px);
+  }
+}
+@keyframes parDown {
+  from { transform: translateY(-7%) scale(1.08); }
+  to { transform: translateY(10%) scale(1.08); }
+}
+@keyframes ringSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes scrollDot {
+  0% { transform: translateY(-5px); opacity: 0; }
+  25% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: translateY(7px); opacity: 0; }
+}
+
+/* Reveal-on-scroll utility.
+   Uses CSS scroll-driven animations when supported; otherwise the
+   .oo-reveal element is simply visible (no JS, no FOUC). */
+@supports (animation-timeline: view()) {
+  .oo-reveal {
+    animation: reveal both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+  .oo-reveal--soft {
+    animation-name: revealSoft;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

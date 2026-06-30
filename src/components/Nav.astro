@@ -1,0 +1,134 @@
+---
+import { content, otherLang, homeHref, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = content[lang].nav;
+const altHome = homeHref(otherLang(lang));
+---
+
+<nav class="oo-nav" aria-label="Primary">
+  <a class="oo-nav__brand" href={homeHref(lang)} aria-label="Octave On — home">
+    <span class="oo-nav__rings" aria-hidden="true">
+      <span></span><span></span>
+    </span>
+    <span class="oo-nav__word">Octave On</span>
+  </a>
+
+  <ul class="oo-nav__links">
+    {t.links.map((l) => (
+      <li><a href={l.href}>{l.label}</a></li>
+    ))}
+  </ul>
+
+  <div class="oo-nav__actions">
+    <a class="oo-nav__lang" href={altHome} hreflang={otherLang(lang)} aria-label={`Switch language to ${t.langLabel}`}>{t.langLabel}</a>
+    <a class="oo-nav__cta" href="#invito">{t.cta}</a>
+  </div>
+</nav>
+
+<style>
+  .oo-nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 16px clamp(20px, 4vw, 56px);
+    border-bottom: 1px solid transparent;
+  }
+  @supports (animation-timeline: scroll(root)) {
+    .oo-nav {
+      animation: navShow both;
+      animation-timeline: scroll(root);
+      animation-range: 60px 240px;
+    }
+  }
+
+  .oo-nav__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+  }
+  .oo-nav__rings {
+    position: relative;
+    width: 34px;
+    height: 20px;
+    display: inline-block;
+  }
+  .oo-nav__rings span {
+    position: absolute;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 1.4px solid var(--oo-gold-light);
+    border-radius: 50%;
+  }
+  .oo-nav__rings span:first-child { left: 0; }
+  .oo-nav__rings span:last-child { left: 12px; }
+
+  .oo-nav__word {
+    font-family: var(--oo-font-display);
+    font-size: 19px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--oo-cream-100);
+    padding-left: 0.32em; /* optical balance for tracking */
+  }
+
+  .oo-nav__links {
+    display: flex;
+    gap: clamp(18px, 2.4vw, 36px);
+    list-style: none;
+  }
+  .oo-nav__links a {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--oo-cream-100);
+    opacity: 0.82;
+    transition: color 0.25s, opacity 0.25s;
+  }
+  .oo-nav__links a:hover {
+    color: var(--oo-gold-light);
+    opacity: 1;
+  }
+
+  .oo-nav__actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .oo-nav__lang {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    color: var(--oo-slate);
+    transition: color 0.25s;
+  }
+  .oo-nav__lang:hover { color: var(--oo-gold-light); }
+
+  .oo-nav__cta {
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--oo-gold-light);
+    border: 1px solid rgba(224, 174, 99, 0.4);
+    border-radius: var(--oo-radius-pill);
+    padding: 10px 20px;
+    transition: border-color 0.25s, background 0.25s, color 0.25s;
+  }
+  .oo-nav__cta:hover {
+    border-color: var(--oo-gold-light);
+    background: rgba(224, 174, 99, 0.1);
+  }
+
+  @media (max-width: 760px) {
+    .oo-nav__links { display: none; }
+  }
+</style>
