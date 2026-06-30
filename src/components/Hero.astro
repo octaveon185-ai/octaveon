@@ -12,7 +12,7 @@ const t = content[lang].hero;
   <!-- LAYER 1 · sky atmosphere (back) — parallax slow -->
   <div class="oo-hero__atmos" aria-hidden="true">
     <div class="oo-hero__glow"></div>
-    <img class="oo-hero__moon" src="/images/hero-moon.webp" alt="" width="720" height="720" loading="eager" decoding="async" />
+    <img class="oo-hero__moon" src="/images/hero-moon.webp" alt="" width="560" height="560" loading="eager" decoding="async" />
     <div class="oo-hero__stars">
       <span style="top:18%;left:14%;animation-delay:0s"></span>
       <span style="top:28%;left:78%;animation-delay:.8s"></span>
@@ -55,10 +55,10 @@ const t = content[lang].hero;
 
   <!-- LAYER 5 · palm fronds (foreground) — parallax fast + sway -->
   <div class="oo-hero__palm oo-hero__palm--left" aria-hidden="true">
-    <img src="/images/hero-palm-left.webp" alt="" width="1100" height="825" loading="eager" decoding="async" />
+    <img src="/images/hero-palm-left.webp" alt="" width="1000" height="750" loading="eager" decoding="async" />
   </div>
   <div class="oo-hero__palm oo-hero__palm--right" aria-hidden="true">
-    <img src="/images/hero-palm-right.webp" alt="" width="1100" height="825" loading="eager" decoding="async" />
+    <img src="/images/hero-palm-right.webp" alt="" width="1000" height="971" loading="eager" decoding="async" />
   </div>
 
   <a class="oo-hero__scroll" href="#manifesto" aria-label={t.scroll}>
@@ -121,13 +121,14 @@ const t = content[lang].hero;
   }
   .oo-hero__moon {
     position: absolute;
-    top: clamp(36px, 9vh, 110px);
-    right: clamp(12px, 9vw, 150px);
-    width: clamp(110px, 17vw, 230px);
+    top: clamp(40px, 10vh, 120px);
+    right: clamp(16px, 10vw, 170px);
+    width: clamp(108px, 16vw, 215px);
     height: auto;
-    opacity: 0.85;
-    mix-blend-mode: screen;
-    filter: drop-shadow(0 0 60px rgba(255, 230, 176, 0.35));
+    opacity: 0.92;
+    filter:
+      drop-shadow(0 0 26px rgba(255, 230, 176, 0.6))
+      drop-shadow(0 0 72px rgba(224, 174, 99, 0.4));
     animation: drift 15s ease-in-out infinite;
   }
 
