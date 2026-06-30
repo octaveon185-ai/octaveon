@@ -1,29 +1,30 @@
 /**
- * POST /api/invite  —  Cloudflare Pages Function
+ * Octave On — Cloudflare Worker (with Static Assets)
  *
- * Receives an invite request from the waiting-list form, (optionally) verifies
- * Cloudflare Turnstile, stores the lead in D1, then sends two emails via Resend:
- *   1. a confirmation to the guest
- *   2. a notification to the organiser (NOTIFY_TO)
+ * Routing:
+ *   POST /api/invite  → invite handler (Turnstile → D1 → Resend)
+ *   everything else   → served from ./dist via the ASSETS binding
  *
- * Every external dependency degrades gracefully: if a binding/secret is missing
- * the request still succeeds (the lead is at least logged), so the form never
- * 500s on a half-configured environment.
- *
- * Bindings / secrets (Pages → Settings → Variables & Secrets):
- *   DB                  D1 database (binding)         — optional
- *   RESEND_API_KEY      Resend API key                — optional but recommended
- *   RESEND_FROM         "Octave On <invito@…>"        — required if Resend used
- *   NOTIFY_TO           organiser inbox               — optional
- *   TURNSTILE_SECRET    Turnstile secret              — optional
+ * Every external dependency degrades gracefully: if a binding/secret is
+ * missing the request still succeeds, so the form never 500s on a
+ * half-configured environment.
  */
 
 interface Env {
-  DB?: D1Database;
+  ASSETS: { fetch: (request: Request) => Promise<Response> };
+  DB?: {
+    prepare: (q: string) => {
+      bind: (...args: unknown[]) => { run: () => Promise<unknown> };
+    };
+  };
   RESEND_API_KEY?: string;
   RESEND_FROM?: string;
   NOTIFY_TO?: string;
   TURNSTILE_SECRET?: string;
+}
+
+interface Ctx {
+  waitUntil: (p: Promise<unknown>) => void;
 }
 
 interface InvitePayload {
@@ -33,6 +34,22 @@ interface InvitePayload {
   lang?: 'it' | 'en';
   turnstileToken?: string;
 }
+
+export default {
+  async fetch(request: Request, env: Env, ctx: Ctx): Promise<Response> {
+    const url = new URL(request.url);
+
+    if (url.pathname === '/api/invite') {
+      if (request.method !== 'POST') {
+        return new Response('Method Not Allowed', { status: 405 });
+      }
+      return handleInvite(request, env, ctx);
+    }
+
+    // Static site (dist/) — handled by the assets binding.
+    return env.ASSETS.fetch(request);
+  },
+};
 
 const json = (data: unknown, status = 200) =>
   new Response(JSON.stringify(data), {
@@ -44,9 +61,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const esc = (s: string) =>
   s.replace(/[<>&"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' })[c]!);
 
-export const onRequestPost: PagesFunction<Env> = async (ctx) => {
-  const { request, env } = ctx;
-
+async function handleInvite(request: Request, env: Env, ctx: Ctx): Promise<Response> {
   let body: InvitePayload;
   try {
     body = (await request.json()) as InvitePayload;
@@ -59,9 +74,7 @@ export const onRequestPost: PagesFunction<Env> = async (ctx) => {
   const whatsapp = (body.whatsapp ?? '').trim().slice(0, 40);
   const lang = body.lang === 'en' ? 'en' : 'it';
 
-  if (!EMAIL_RE.test(email)) {
-    return json({ ok: false, error: 'invalid_email' }, 400);
-  }
+  if (!EMAIL_RE.test(email)) return json({ ok: false, error: 'invalid_email' }, 400);
 
   // 1) Anti-spam (skipped if Turnstile not configured)
   if (env.TURNSTILE_SECRET) {
@@ -83,14 +96,12 @@ export const onRequestPost: PagesFunction<Env> = async (ctx) => {
     }
   }
 
-  // 3) Emails via Resend (best-effort)
+  // 3) Emails via Resend (best-effort, non-blocking)
   if (env.RESEND_API_KEY && env.RESEND_FROM) {
     ctx.waitUntil(
       Promise.allSettled([
         sendConfirmation(env, { name, email, lang }),
-        env.NOTIFY_TO
-          ? sendNotification(env, { name, email, whatsapp, lang })
-          : Promise.resolve(),
+        env.NOTIFY_TO ? sendNotification(env, { name, email, whatsapp, lang }) : Promise.resolve(),
       ]).then((rs) =>
         rs.forEach((r) => r.status === 'rejected' && console.error('email error', r.reason)),
       ),
@@ -98,7 +109,7 @@ export const onRequestPost: PagesFunction<Env> = async (ctx) => {
   }
 
   return json({ ok: true });
-};
+}
 
 async function verifyTurnstile(secret: string, token: string | undefined, request: Request) {
   if (!token) return false;

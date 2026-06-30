@@ -7,8 +7,8 @@ Pilot event: one night, **02.10.26**, Altea (Costa Blanca).
 ## Stack
 
 - **[Astro](https://astro.build)** — static output, bilingual (IT default, EN at `/en/`)
-- **Cloudflare Pages** — hosting
-- **Cloudflare Pages Functions** (`/functions`) — the invite API
+- **Cloudflare Workers + Static Assets** — hosting (`dist/` served as assets)
+- **Worker** (`worker/index.ts`) — handles `POST /api/invite`, falls back to assets
 - **Resend** — confirmation & invite emails
 - **Cloudflare D1** — waitlist storage
 - **Cloudflare Turnstile** — anti-spam on the form
@@ -21,28 +21,31 @@ npm install
 npm run dev          # http://localhost:4321  (static site + UI)
 ```
 
-To run the invite **Function** locally, build and serve with Wrangler:
+To run the Worker (with the `/api/invite` endpoint) locally:
 
 ```bash
 cp .env.example .dev.vars   # fill in your keys
-npm run build
-npx wrangler pages dev dist --d1 DB=octaveon-waitlist
+npm run cf:dev              # wrangler dev — builds + serves Worker + assets
 ```
 
-## Deploy (Cloudflare Pages)
+## Deploy (Cloudflare Workers)
 
-1. Push to GitHub: `https://github.com/octaveon185-ai/octaveon`
-2. Cloudflare dashboard → **Pages** → connect the repo
-   - Build command: `npm run build`
-   - Output directory: `dist`
-3. Create the D1 database and apply the schema:
+The Cloudflare project is connected to GitHub and deploys with `npx wrangler deploy`.
+`wrangler.toml` does the rest: `[build]` runs `npm run build`, `[assets]` serves
+`dist/`, and `worker/index.ts` handles the API. **A push to `main` triggers a deploy.**
+
+To enable the waitlist storage + emails:
+
+1. Create the D1 database and apply the schema:
    ```bash
    wrangler d1 create octaveon-waitlist     # paste id into wrangler.toml
    wrangler d1 execute octaveon-waitlist --file=./schema.sql --remote
    ```
-4. Bind **DB** (D1) to the Pages project, and set secrets:
-   `RESEND_API_KEY`, `RESEND_FROM`, `NOTIFY_TO`, `TURNSTILE_SECRET`,
-   `PUBLIC_TURNSTILE_SITEKEY`.
+   then uncomment the `[[d1_databases]]` block in `wrangler.toml` and redeploy.
+2. Set secrets (Workers → Settings → Variables & Secrets):
+   `RESEND_API_KEY`, `RESEND_FROM`, `NOTIFY_TO`, `TURNSTILE_SECRET`.
+3. (Optional) set the **build variable** `PUBLIC_TURNSTILE_SITEKEY` so the form
+   renders the Turnstile widget.
 
 ## Structure
 
@@ -53,7 +56,7 @@ src/
   components/          Nav, Hero, Footer, Home, … (sections)
   styles/              tokens.css (palette/type) + global.css (motion)
   pages/index.astro    IT home  ·  pages/en/index.astro  EN home
-functions/api/invite.ts  POST endpoint: Turnstile → D1 → Resend
+worker/index.ts       Worker: POST /api/invite (Turnstile → D1 → Resend) + assets
 public/brand/         logo
 reference/            original design draft (not deployed)
 ```

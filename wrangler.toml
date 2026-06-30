@@ -1,21 +1,35 @@
-# Cloudflare Pages configuration.
-# Deploy: connect this repo in the Cloudflare dashboard (Pages) with
-#   build command:  npm run build
-#   output dir:     dist
+# Cloudflare Worker + Static Assets.
+# Deploy command (set in the Cloudflare dashboard / Workers Build): `npx wrangler deploy`
 #
-# Secrets (set in Pages → Settings → Variables & Secrets, or via `wrangler pages secret put`):
-#   RESEND_API_KEY     — Resend API key for sending invite emails
-#   RESEND_FROM        — verified sender, e.g. "Octave On <invito@octaveon.xyz>"
-#   NOTIFY_TO          — your address for new-signup notifications
-#   TURNSTILE_SECRET   — Cloudflare Turnstile secret (anti-spam)
-name = "octaveon"
-compatibility_date = "2026-06-30"
-pages_build_output_dir = "dist"
+# How it works:
+#   [build]  runs `npm run build` (Astro) → produces ./dist
+#   [assets] serves ./dist as the static site
+#   main     is the Worker that handles /api/* and falls back to assets
+#
+# Secrets (Workers → Settings → Variables & Secrets, or `wrangler secret put`):
+#   RESEND_API_KEY    — Resend API key for invite emails
+#   RESEND_FROM       — verified sender, e.g. "Octave On <invito@octaveon.xyz>"
+#   NOTIFY_TO         — your address for new-signup notifications
+#   TURNSTILE_SECRET  — Cloudflare Turnstile secret (anti-spam)
+# Build variable (so the form renders the Turnstile widget):
+#   PUBLIC_TURNSTILE_SITEKEY
 
-# Waitlist storage. Create with:
-#   wrangler d1 create octaveon-waitlist
-# then paste the returned database_id below.
-[[d1_databases]]
-binding = "DB"
-database_name = "octaveon-waitlist"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+name = "octaveon"
+main = "worker/index.ts"
+compatibility_date = "2026-06-30"
+
+[build]
+command = "npm run build"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+
+# --- Waitlist storage: enable AFTER creating the D1 database ---
+# 1) wrangler d1 create octaveon-waitlist
+# 2) wrangler d1 execute octaveon-waitlist --file=./schema.sql --remote
+# 3) uncomment the block below, paste the returned id, then redeploy.
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "octaveon-waitlist"
+# database_id = "REPLACE_WITH_D1_DATABASE_ID"

@@ -18,7 +18,10 @@
       "Bash(gh repo *)",
       "Bash(git rm *)",
       "Bash(git add *)",
-      "Bash(git commit -q -m ' *)"
+      "Bash(git commit -q -m ' *)",
+      "Bash(git push *)",
+      "Bash(rm -rf functions)",
+      "Bash(npx wrangler *)"
     ]
   }
 }
