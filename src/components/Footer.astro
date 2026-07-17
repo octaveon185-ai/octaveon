@@ -18,7 +18,7 @@ const t = content[lang].footer;
   </div>
 
   <div class="oo-container oo-footer__inner">
-    <div class="oo-footer__rings" aria-hidden="true"><span></span><span></span></div>
+    <img class="oo-footer__logo" src="/brand/octave-on-logo-marfil.svg" alt="Octave On" width="1000" height="400" loading="lazy" />
     <p class="oo-display oo-footer__tagline">{t.tagline}</p>
 
     <ul class="oo-footer__links">
@@ -63,22 +63,12 @@ const t = content[lang].footer;
     flex-direction: column;
     align-items: center;
   }
-  .oo-footer__rings {
-    position: relative;
-    width: 46px;
-    height: 28px;
+  .oo-footer__logo {
+    width: clamp(180px, 22vw, 250px);
+    height: auto;
     margin-bottom: 26px;
+    filter: drop-shadow(0 0 18px rgba(211, 154, 97, 0.32));
   }
-  .oo-footer__rings span {
-    position: absolute;
-    top: 0;
-    width: 28px;
-    height: 28px;
-    border: 1.3px solid var(--oo-gold-light);
-    border-radius: 50%;
-  }
-  .oo-footer__rings span:first-child { left: 0; }
-  .oo-footer__rings span:last-child { left: 18px; }
 
   .oo-footer__tagline {
     font-size: clamp(24px, 3.4vw, 40px);

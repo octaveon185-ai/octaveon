@@ -27,19 +27,32 @@ const t = content[lang].whoFor;
     padding: clamp(80px, 12vh, 150px) var(--oo-gutter);
     text-align: center;
     background: var(--oo-grad-dusk);
-    color: var(--oo-text-on-light);
+    color: var(--oo-text-on-dark);
     overflow: hidden;
   }
+  .oo-who::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(80vw, 780px);
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    background: url('/brand/octave-on-symbol-copper.svg') center / contain no-repeat;
+    opacity: 0.04;
+  }
   .oo-who__inner {
+    position: relative;
+    z-index: 1;
     max-width: 780px;
   }
   .oo-who__eyebrow {
-    color: #4a2c14;
+    color: var(--oo-gold-light);
     margin-bottom: 24px;
   }
   .oo-who__title {
     font-size: var(--oo-fs-h2);
-    color: #2a1b10;
+    color: var(--oo-cream-100);
   }
   .oo-who__points {
     list-style: none;
@@ -51,9 +64,9 @@ const t = content[lang].whoFor;
   }
   .oo-who__points li {
     font-size: clamp(16px, 1.5vw, 20px);
-    color: rgba(42, 27, 16, 0.82);
+    color: rgba(234, 231, 227, 0.78);
     padding-bottom: 14px;
-    border-bottom: 1px solid rgba(42, 27, 16, 0.12);
+    border-bottom: 1px solid rgba(211, 154, 97, 0.16);
   }
   .oo-who__points li:last-child {
     border-bottom: none;
@@ -70,8 +83,8 @@ const t = content[lang].whoFor;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     font-weight: 600;
-    color: #4a2c14;
-    border: 1px solid rgba(74, 44, 20, 0.35);
+    color: var(--oo-gold-light);
+    border: 1px solid rgba(211, 154, 97, 0.34);
     border-radius: var(--oo-radius-pill);
     padding: 10px 22px;
   }

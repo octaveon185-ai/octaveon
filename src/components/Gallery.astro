@@ -37,7 +37,7 @@ const t = content[lang].gallery;
   .oo-gallery {
     position: relative;
     padding: clamp(70px, 10vh, 130px) var(--oo-gutter);
-    background: linear-gradient(180deg, #06222f 0%, #041a28 100%);
+    background: linear-gradient(180deg, var(--oo-night-700) 0%, var(--oo-night-800) 100%);
   }
   .oo-gallery__head {
     text-align: center;
@@ -80,15 +80,15 @@ const t = content[lang].gallery;
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(180deg, rgba(8, 42, 58, 0.12) 0%, transparent 30%, rgba(4, 18, 29, 0.78) 100%),
-      rgba(8, 42, 58, 0.12);
+      linear-gradient(180deg, rgba(2, 19, 32, 0.18) 0%, transparent 30%, rgba(1, 13, 22, 0.84) 100%),
+      rgba(2, 19, 32, 0.14);
     transition: background 0.4s var(--oo-ease);
   }
   .oo-gallery__tile:hover img { transform: scale(1.06); }
   .oo-gallery__tile:hover::after {
     background:
-      linear-gradient(180deg, rgba(8, 42, 58, 0.05) 0%, transparent 35%, rgba(4, 18, 29, 0.7) 100%),
-      rgba(8, 42, 58, 0.02);
+      linear-gradient(180deg, rgba(2, 19, 32, 0.06) 0%, transparent 35%, rgba(1, 13, 22, 0.74) 100%),
+      rgba(2, 19, 32, 0.03);
   }
 
   .oo-gallery__tile figcaption {
