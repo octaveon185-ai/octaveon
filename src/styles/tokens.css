@@ -41,7 +41,9 @@
   --oo-grad-cream: linear-gradient(180deg, #062538 0%, #041B2A 100%);
   --oo-grad-goldenhour: linear-gradient(180deg, #041B2A 0%, #021B2B 48%, #021320 100%);
   --oo-grad-dusk: linear-gradient(180deg, #021320 0%, #031927 100%);
+  --oo-grad-interlude: linear-gradient(180deg, #031927 0%, #041B2A 100%);
   --oo-grad-night: linear-gradient(180deg, #041B2A 0%, #021320 100%);
+  --oo-grad-footer: linear-gradient(180deg, #021320 0%, #010D16 42%, #010D16 100%);
   --oo-grad-cta: linear-gradient(135deg, #D39A61, #B87333);
 
   /* — Type — */
