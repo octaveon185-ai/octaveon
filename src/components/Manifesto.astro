@@ -36,30 +36,39 @@ const t = content[lang].manifesto;
     padding: clamp(80px, 13vh, 170px) var(--oo-gutter);
     display: flex;
     justify-content: center;
-    /* warm Mediterranean stone wall so the polished slab stands out */
-    background: linear-gradient(180deg, #e7d9bf 0%, #e0cfae 100%);
+    background:
+      radial-gradient(circle at 50% 50%, rgba(184, 115, 51, 0.13), transparent 38%),
+      linear-gradient(180deg, var(--oo-night-800) 0%, var(--oo-night-700) 100%);
     overflow: hidden;
   }
+  .oo-manifesto::before {
+    content: '';
+    position: absolute;
+    inset: 4% 50% auto auto;
+    width: min(68vw, 720px);
+    aspect-ratio: 1;
+    translate: 50% 0;
+    background: url('/brand/octave-on-symbol-copper.svg') center / contain no-repeat;
+    opacity: 0.055;
+    filter: blur(0.2px);
+  }
 
-  /* ---- the marble slab ---- */
+  /* ---- nocturnal ceremonial panel ---- */
   .oo-slab {
     position: relative;
     max-width: 880px;
     margin: 0 auto;
     border-radius: 6px;
     padding: clamp(12px, 1.6vw, 18px);
-    /* PLACEHOLDER marble — swap for: background-image: url('/images/manifesto-marble.webp');
-       background-size: cover; (keep the gradients below as a fallback tint) */
-    background-color: #f3ece0;
-    background-image:
-      radial-gradient(120% 80% at 18% 12%, rgba(255, 255, 255, 0.7), transparent 42%),
-      radial-gradient(90% 70% at 82% 88%, rgba(214, 199, 170, 0.5), transparent 46%),
-      repeating-linear-gradient(122deg, transparent 0 26px, rgba(199, 138, 58, 0.05) 26px 27px),
-      repeating-linear-gradient(58deg, transparent 0 38px, rgba(120, 100, 70, 0.05) 38px 39px),
-      linear-gradient(160deg, #f5efe4, #ece1cd);
+    background:
+      linear-gradient(145deg, rgba(234, 231, 227, 0.055), rgba(234, 231, 227, 0.015)),
+      rgba(1, 13, 22, 0.74);
+    border: 1px solid rgba(211, 154, 97, 0.22);
+    backdrop-filter: blur(10px);
     box-shadow:
-      0 30px 70px rgba(60, 40, 18, 0.28),
-      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      0 34px 90px rgba(1, 8, 13, 0.46),
+      inset 0 1px 0 rgba(234, 231, 227, 0.06),
+      0 0 80px rgba(184, 115, 51, 0.06);
   }
 
   /* double gold frame */
@@ -85,16 +94,14 @@ const t = content[lang].manifesto;
   .oo-slab__corner--br { bottom: -6px; right: -6px; border-left: 0; border-top: 0; }
 
   .oo-slab__eyebrow {
-    color: var(--oo-gold-dark);
+    color: var(--oo-gold-light);
     margin-bottom: 34px;
   }
 
-  /* engraved-into-marble text */
+  /* ivory text with the softness of an inscription */
   .oo-engrave {
-    color: #5e4427;
-    text-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.75),
-      0 -1px 1px rgba(60, 40, 18, 0.22);
+    color: var(--oo-cream-100);
+    text-shadow: 0 2px 28px rgba(1, 8, 13, 0.65);
   }
   .oo-slab__line {
     font-size: clamp(26px, 3.8vw, 50px);
@@ -117,11 +124,11 @@ const t = content[lang].manifesto;
 
   .oo-engrave--gold {
     color: transparent;
-    background: linear-gradient(180deg, #e8bd76 0%, #c78a3a 60%, #9a672c 100%);
+    background: linear-gradient(180deg, #F0C28B 0%, #B87333 62%, #8B4E24 100%);
     -webkit-background-clip: text;
     background-clip: text;
     text-shadow: none;
-    filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.5));
+    filter: drop-shadow(0 0 16px rgba(184, 115, 51, 0.22));
   }
   .oo-slab__signature {
     font-style: italic;

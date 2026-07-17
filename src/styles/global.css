@@ -106,7 +106,7 @@ button {
 }
 .oo-btn--primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 50px rgba(199, 138, 58, 0.42);
+  box-shadow: 0 18px 50px rgba(184, 115, 51, 0.44);
 }
 
 .oo-btn--ghost {
@@ -144,13 +144,13 @@ button {
 }
 @keyframes navShow {
   from {
-    background: rgba(4, 26, 40, 0);
-    border-color: rgba(199, 138, 58, 0);
+    background: rgba(2, 19, 32, 0);
+    border-color: rgba(184, 115, 51, 0);
     backdrop-filter: blur(0px);
   }
   to {
-    background: rgba(4, 18, 29, 0.72);
-    border-color: rgba(199, 138, 58, 0.14);
+    background: rgba(2, 19, 32, 0.82);
+    border-color: rgba(184, 115, 51, 0.18);
     backdrop-filter: blur(12px);
   }
 }
