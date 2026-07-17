@@ -227,7 +227,7 @@ const torusCircles = Array.from({ length: 12 }, (_, i) => {
     height: 100%;
     object-fit: contain;
     opacity: 0;
-    transition: opacity 140ms ease-in-out;
+    transition: opacity 360ms ease-in-out;
     will-change: opacity;
   }
   .oo-hero__dancer-frame.is-active {
@@ -499,7 +499,7 @@ const torusCircles = Array.from({ length: 12 }, (_, i) => {
         frames[current].classList.remove('is-active');
         current = (current + 1) % frames.length;
         frames[current].classList.add('is-active');
-      }, 320);
+      }, 1000);
     });
   });
 
