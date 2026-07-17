@@ -212,6 +212,8 @@ const torusCircles = Array.from({ length: 12 }, (_, i) => {
     height: 100%;
     object-fit: contain;
     opacity: 0;
+    transition: opacity 140ms ease-in-out;
+    will-change: opacity;
   }
   .oo-hero__dancer-frame.is-active {
     opacity: 1;
@@ -233,6 +235,7 @@ const torusCircles = Array.from({ length: 12 }, (_, i) => {
     position: relative;
     width: clamp(280px, 30vw, 420px);
     margin: 0 auto clamp(14px, 2.5vh, 24px);
+    translate: 0 -30px;
     filter:
       drop-shadow(0 0 22px rgba(211, 154, 97, 0.52))
       drop-shadow(0 12px 34px rgba(1, 8, 13, 0.72));
@@ -378,7 +381,11 @@ const torusCircles = Array.from({ length: 12 }, (_, i) => {
     .oo-hero {
       padding: 122px var(--oo-gutter) 92px;
     }
-    .oo-hero__brand { width: min(78vw, 300px); margin-bottom: 18px; }
+    .oo-hero__brand {
+      width: min(78vw, 300px);
+      margin-bottom: 18px;
+      translate: 0 -24px;
+    }
     .oo-hero__eyebrow { margin-bottom: 18px; }
     .oo-hero__title { max-width: 13ch; font-size: clamp(38px, 12vw, 52px); }
     .oo-hero__subtitle { font-size: 15px; }
@@ -405,6 +412,7 @@ const torusCircles = Array.from({ length: 12 }, (_, i) => {
     .oo-hero__brand {
       width: 220px;
       margin-bottom: 6px;
+      translate: 0 -22px;
     }
     .oo-hero__eyebrow { margin-bottom: 10px; }
     .oo-hero__title { font-size: clamp(36px, 7.4vh, 48px); }
@@ -476,7 +484,7 @@ const torusCircles = Array.from({ length: 12 }, (_, i) => {
         frames[current].classList.remove('is-active');
         current = (current + 1) % frames.length;
         frames[current].classList.add('is-active');
-      }, 160);
+      }, 320);
     });
   });
 
