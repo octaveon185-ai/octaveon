@@ -10,10 +10,6 @@ const altHome = homeHref(otherLang(lang));
 ---
 
 <nav class="oo-nav" aria-label="Primary">
-  <a class="oo-nav__brand" href={homeHref(lang)} aria-label="Octave On — home">
-    <img src="/brand/octave-on-logo-marfil.svg" alt="" width="1000" height="400" />
-  </a>
-
   <ul class="oo-nav__links">
     {t.links.map((l) => (
       <li><a href={l.href}>{l.label}</a></li>
@@ -33,7 +29,7 @@ const altHome = homeHref(otherLang(lang));
     z-index: 100;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 18px;
     padding: 16px clamp(20px, 4vw, 56px);
     border-bottom: 1px solid transparent;
@@ -46,21 +42,11 @@ const altHome = homeHref(otherLang(lang));
     }
   }
 
-  .oo-nav__brand {
-    display: block;
-    width: clamp(156px, 16vw, 214px);
-    flex: none;
-    filter: drop-shadow(0 0 12px rgba(211, 154, 97, 0.3));
-  }
-  .oo-nav__brand img {
-    width: 100%;
-    height: auto;
-  }
-
   .oo-nav__links {
     display: flex;
     gap: clamp(18px, 2.4vw, 36px);
     list-style: none;
+    margin-left: auto;
   }
   .oo-nav__links a {
     font-size: 12px;
@@ -79,6 +65,7 @@ const altHome = homeHref(otherLang(lang));
     display: flex;
     align-items: center;
     gap: 18px;
+    margin-left: clamp(24px, 4vw, 56px);
   }
   .oo-nav__lang {
     font-size: 12px;
@@ -112,8 +99,7 @@ const altHome = homeHref(otherLang(lang));
     .oo-nav {
       padding: 11px 18px;
     }
-    .oo-nav__brand { width: 142px; }
-    .oo-nav__actions { gap: 0; }
+    .oo-nav__actions { gap: 0; margin-left: auto; }
     .oo-nav__cta { display: none; }
   }
 </style>
