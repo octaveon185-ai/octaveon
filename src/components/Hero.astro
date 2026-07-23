@@ -6,57 +6,15 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = content[lang].hero;
-const dervishFrames = Array.from(
-  { length: 10 },
-  (_, index) => `/images/hero-dervish-frame-${String(index + 1).padStart(2, '0')}.webp`,
-);
-const torusCircles = Array.from({ length: 12 }, (_, i) => {
-  const angle = (i / 12) * Math.PI * 2;
-  return {
-    cx: 300 + Math.cos(angle) * 72,
-    cy: 300 + Math.sin(angle) * 72,
-  };
-});
 ---
 
 <header id="hero" class="oo-hero">
-  <!-- LAYER 1 · sky atmosphere (back) — parallax slow -->
-  <div class="oo-hero__atmos" aria-hidden="true">
-    <div class="oo-hero__glow"></div>
-    <div class="oo-hero__cosmos">
-      <svg viewBox="0 0 600 600" fill="none">
-        <circle cx="300" cy="300" r="218"></circle>
-        <circle cx="300" cy="300" r="146"></circle>
-        {torusCircles.map(({ cx, cy }) => <circle cx={cx} cy={cy} r="166"></circle>)}
-      </svg>
-    </div>
-    <div class="oo-hero__stars">
-      <span style="top:18%;left:14%;animation-delay:0s"></span>
-      <span style="top:28%;left:78%;animation-delay:.8s"></span>
-      <span style="top:40%;left:42%;animation-delay:1.6s"></span>
-      <span style="top:22%;left:58%;animation-delay:2.2s"></span>
-      <span style="top:34%;left:88%;animation-delay:.4s"></span>
-      <span style="top:14%;left:34%;animation-delay:1.2s"></span>
-    </div>
+  <div class="oo-hero__silk" aria-hidden="true">
+    <span class="oo-hero__wave oo-hero__wave--one"></span>
+    <span class="oo-hero__wave oo-hero__wave--two"></span>
+    <span class="oo-hero__wave oo-hero__wave--three"></span>
   </div>
 
-  <!-- LAYER 2 · whirling dervish (mid, behind content) -->
-  <div class="oo-hero__layer oo-hero__dancer" data-dervish aria-hidden="true">
-    {dervishFrames.map((src, index) => (
-      <img
-        class={`oo-hero__dancer-frame${index === 0 ? ' is-active' : ''}`}
-        src={src}
-        alt=""
-        width="768"
-        height="1536"
-        loading="eager"
-        decoding="async"
-        fetchpriority={index === 0 ? 'high' : 'low'}
-      />
-    ))}
-  </div>
-
-  <!-- LAYER 3 · content (mid-front) -->
   <div class="oo-hero__inner">
     <div class="oo-hero__brand">
       <img src="/brand/octave-on-logo.png" alt="Octave On" width="1064" height="671" />
@@ -72,36 +30,6 @@ const torusCircles = Array.from({ length: 12 }, (_, i) => {
     </div>
   </div>
 
-  <!-- LAYER 4 · gold embers floating up (front) -->
-  <div class="oo-hero__embers" aria-hidden="true">
-    {Array.from({ length: 9 }).map((_, i) => (
-      <span style={`left:${8 + i * 10}%;animation-delay:${(i * 0.9).toFixed(1)}s;animation-duration:${(7 + (i % 4)).toFixed(0)}s`}></span>
-    ))}
-  </div>
-
-  <!-- LAYER 5 · sacred geometry (foreground) -->
-  <div class="oo-hero__geometry oo-hero__geometry--left" aria-hidden="true">
-    <svg viewBox="0 0 260 260" fill="none">
-      <circle cx="130" cy="130" r="112"></circle>
-      <circle cx="130" cy="130" r="42"></circle>
-      <circle cx="172" cy="130" r="42"></circle>
-      <circle cx="151" cy="166.4" r="42"></circle>
-      <circle cx="109" cy="166.4" r="42"></circle>
-      <circle cx="88" cy="130" r="42"></circle>
-      <circle cx="109" cy="93.6" r="42"></circle>
-      <circle cx="151" cy="93.6" r="42"></circle>
-      <path d="M130 18L227 74V186L130 242L33 186V74L130 18Z"></path>
-    </svg>
-  </div>
-  <div class="oo-hero__geometry oo-hero__geometry--right" aria-hidden="true">
-    <svg viewBox="0 0 260 260" fill="none">
-      <circle cx="130" cy="130" r="112"></circle>
-      <path d="M130 18L227 74L227 186L130 242L33 186L33 74L130 18ZM130 18L130 242M33 74L227 186M227 74L33 186M33 74L227 74L227 186L33 186Z"></path>
-      <path d="M130 74L178 102L178 158L130 186L82 158L82 102L130 74Z"></path>
-      {[{x:130,y:18},{x:227,y:74},{x:227,y:186},{x:130,y:242},{x:33,y:186},{x:33,y:74},{x:130,y:74},{x:178,y:102},{x:178,y:158},{x:130,y:186},{x:82,y:158},{x:82,y:102},{x:130,y:130}].map(({x,y}) => <circle cx={x} cy={y} r="6"></circle>)}
-    </svg>
-  </div>
-
   <a class="oo-hero__scroll" href="#manifesto" aria-label={t.scroll}>
     <span class="oo-hero__scroll-label">{t.scroll}</span>
     <span class="oo-hero__scroll-track" aria-hidden="true"><i></i></span>
@@ -110,8 +38,6 @@ const torusCircles = Array.from({ length: 12 }, (_, i) => {
 
 <style>
   .oo-hero {
-    --mx: 0;
-    --my: 0;
     position: relative;
     min-height: 100svh;
     display: flex;
@@ -119,267 +45,209 @@ const torusCircles = Array.from({ length: 12 }, (_, i) => {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 130px var(--oo-gutter) 96px;
+    padding: 132px var(--oo-gutter) 104px;
     overflow: hidden;
+    isolation: isolate;
     background:
-      linear-gradient(180deg, transparent 62%, var(--oo-night-800) 100%),
-      radial-gradient(circle at 50% 86%, rgba(184, 115, 51, 0.2), transparent 34%),
-      linear-gradient(158deg, var(--oo-night-600) 0%, var(--oo-night-800) 64%, var(--oo-night-800) 100%);
+      radial-gradient(ellipse at 18% 10%, rgba(20, 77, 188, 0.48) 0%, transparent 34%),
+      radial-gradient(ellipse at 82% 82%, rgba(11, 61, 151, 0.42) 0%, transparent 38%),
+      radial-gradient(circle at 52% 46%, rgba(9, 35, 91, 0.48) 0%, transparent 42%),
+      linear-gradient(154deg, var(--oo-night-600) -24%, var(--oo-night-900) 48%, var(--oo-night-800) 100%);
   }
+
+  .oo-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      linear-gradient(108deg, transparent 0 45%, rgba(255, 225, 154, 0.08) 50%, transparent 55%),
+      radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.045), transparent 34%);
+    mix-blend-mode: screen;
+  }
+
   .oo-hero::after {
     content: '';
     position: absolute;
     inset: auto 0 -1px;
-    z-index: 2;
-    height: clamp(100px, 15vh, 150px);
+    z-index: 1;
+    height: clamp(110px, 17vh, 170px);
     pointer-events: none;
-    background: linear-gradient(
-      180deg,
-      rgba(2, 19, 32, 0) 0%,
-      rgba(2, 19, 32, 0.88) 62%,
-      var(--oo-night-800) 100%
-    );
+    background: linear-gradient(180deg, transparent 0%, rgba(3, 8, 36, 0.84) 72%, var(--oo-night-800) 100%);
   }
 
-  /* ---- LAYER 1 · atmosphere ---- */
-  .oo-hero__atmos {
+  .oo-hero__silk {
     position: absolute;
     inset: 0;
+    z-index: -1;
+    overflow: hidden;
     pointer-events: none;
+    opacity: 0.84;
   }
-  @supports (animation-timeline: scroll(root)) {
-    .oo-hero__atmos {
-      animation: parDown linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 110vh;
-    }
-  }
-  .oo-hero__glow {
+
+  .oo-hero__silk::before,
+  .oo-hero__silk::after,
+  .oo-hero__wave {
+    content: '';
     position: absolute;
-    left: 50%;
-    bottom: -32%;
-    width: 140%;
-    height: 80%;
-    transform: translateX(-50%);
-    background: radial-gradient(
-      ellipse at center,
-      rgba(211, 154, 97, 0.3) 0%,
-      rgba(184, 115, 51, 0.12) 38%,
-      transparent 68%
-    );
-    animation: glowPulse 7s ease-in-out infinite;
-  }
-  .oo-hero__cosmos {
-    position: absolute;
-    left: 50%;
-    bottom: -34%;
-    width: min(76vw, 880px);
-    aspect-ratio: 1;
-    color: var(--oo-gold-light);
-    opacity: 0.1;
-    transform: translateX(-50%);
-    filter: drop-shadow(0 0 30px rgba(184, 115, 51, 0.22));
-  }
-  .oo-hero__cosmos svg {
-    width: 100%;
-    height: 100%;
-    stroke: currentColor;
-    stroke-width: 1;
-    transform-origin: center;
-    animation: ringSpin 110s linear infinite;
-  }
-  .oo-hero__stars span {
-    position: absolute;
-    width: 2px;
-    height: 2px;
+    display: block;
     border-radius: 50%;
-    background: var(--oo-gold-light);
-    animation: twinkle 5s ease-in-out infinite;
-  }
-
-  /* ---- Shared parallax layer behaviour ----
-     transform ← scroll parallax · translate ← mouse · rotate ← sway
-     (three independent properties compose cleanly) */
-  .oo-hero__layer,
-  .oo-hero__geometry {
-    position: absolute;
     pointer-events: none;
-    transition: translate 0.5s var(--oo-ease);
-    translate: calc(var(--mx) * var(--depth) * 1px) calc(var(--my) * var(--depth) * 0.6px);
   }
 
-  /* ---- LAYER 2 · whirling dervish ---- */
-  .oo-hero__dancer {
-    --depth: 16;
-    bottom: -2%;
-    left: 50%;
-    height: min(94svh, 960px);
-    aspect-ratio: 1 / 2;
-    margin-left: calc(min(94svh, 960px) / -4);
-    opacity: 0.58;
-    filter: saturate(1) brightness(1.08) drop-shadow(0 0 52px rgba(184, 115, 51, 0.28));
-    animation: heroSway 12s ease-in-out infinite;
-  }
-  .oo-hero__dancer-frame {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    opacity: 0;
-    transition: opacity 360ms ease-in-out;
-    will-change: opacity;
-  }
-  .oo-hero__dancer-frame.is-active {
-    opacity: 1;
+  .oo-hero__silk::before {
+    width: 118vw;
+    height: 46vw;
+    min-height: 350px;
+    left: -42vw;
+    top: -18vw;
+    rotate: -10deg;
+    border: clamp(2px, 0.22vw, 4px) solid rgba(255, 221, 142, 0.76);
+    box-shadow:
+      0 0 18px rgba(255, 213, 115, 0.34),
+      0 0 0 clamp(18px, 2.2vw, 38px) rgba(8, 42, 111, 0.84),
+      0 0 0 clamp(22px, 2.7vw, 48px) rgba(32, 103, 220, 0.32),
+      0 0 80px rgba(16, 84, 207, 0.65);
+    filter: blur(0.2px);
   }
 
-  /* ---- LAYER 3 · content ---- */
+  .oo-hero__silk::after {
+    width: 106vw;
+    height: 40vw;
+    min-height: 330px;
+    right: -40vw;
+    bottom: -20vw;
+    rotate: -13deg;
+    border: clamp(2px, 0.2vw, 4px) solid rgba(255, 224, 151, 0.82);
+    box-shadow:
+      0 0 20px rgba(255, 217, 129, 0.4),
+      0 0 0 clamp(20px, 2.4vw, 42px) rgba(7, 31, 83, 0.9),
+      0 0 0 clamp(31px, 3.5vw, 64px) rgba(16, 76, 178, 0.52),
+      0 0 90px rgba(13, 83, 210, 0.72);
+  }
+
+  .oo-hero__wave--one {
+    width: 94vw;
+    height: 22vw;
+    min-height: 180px;
+    left: 8vw;
+    top: 27%;
+    rotate: -18deg;
+    border: clamp(18px, 3vw, 56px) solid rgba(8, 49, 128, 0.76);
+    border-left-color: rgba(18, 91, 211, 0.82);
+    filter: blur(10px);
+    opacity: 0.5;
+  }
+
+  .oo-hero__wave--two {
+    width: 72vw;
+    height: 17vw;
+    min-height: 150px;
+    right: -14vw;
+    top: 12%;
+    rotate: -8deg;
+    border: clamp(10px, 1.7vw, 30px) solid rgba(15, 79, 192, 0.34);
+    filter: blur(7px);
+  }
+
+  .oo-hero__wave--three {
+    width: 68vw;
+    height: 24vw;
+    min-height: 200px;
+    left: -18vw;
+    bottom: -9%;
+    rotate: 9deg;
+    border: clamp(12px, 2vw, 36px) solid rgba(5, 32, 91, 0.88);
+    box-shadow: inset 0 0 34px rgba(21, 99, 225, 0.48);
+    filter: blur(5px);
+  }
+
   .oo-hero__inner {
     position: relative;
-    z-index: 3;
-    width: min(100%, 960px);
+    z-index: 2;
+    width: min(100%, 980px);
     min-width: 0;
   }
+
   @supports (animation-timeline: view()) {
     .oo-hero__inner > * {
       animation: revealSoft both 1s var(--oo-ease);
     }
   }
+
   .oo-hero__brand {
-    position: relative;
-    width: clamp(280px, 30vw, 420px);
-    margin: 0 auto clamp(14px, 2.5vh, 24px);
-    translate: 0 -30px;
+    width: clamp(300px, 34vw, 470px);
+    margin: 0 auto clamp(14px, 2.4vh, 24px);
+    translate: 0 -34px;
     filter:
-      drop-shadow(0 0 22px rgba(211, 154, 97, 0.52))
-      drop-shadow(0 12px 34px rgba(1, 8, 13, 0.72));
+      drop-shadow(0 0 24px rgba(245, 194, 90, 0.6))
+      drop-shadow(0 16px 42px rgba(1, 3, 19, 0.8));
   }
+
   .oo-hero__brand img {
     width: 100%;
     height: auto;
   }
-  .oo-hero__eyebrow { margin-bottom: 24px; }
+
+  .oo-hero__eyebrow {
+    margin-bottom: 24px;
+  }
+
   .oo-hero__title {
-    width: min(100%, 880px);
-    max-width: 14ch;
+    width: min(100%, 900px);
+    max-width: 15ch;
     margin-inline: auto;
-    font-size: clamp(48px, 6vw, 82px);
+    font-size: clamp(46px, 6.5vw, 88px);
     color: var(--oo-cream-100);
-    letter-spacing: -0.01em;
     text-wrap: balance;
-    text-shadow: 0 2px 30px rgba(1, 8, 13, 0.8);
+    text-shadow: 0 4px 36px rgba(1, 3, 19, 0.84);
   }
+
   .oo-hero__subtitle {
-    margin: 26px auto 0;
-    max-width: 560px;
-    color: rgba(234, 231, 227, 0.7);
-    font-size: clamp(16px, 1.4vw, 20px);
-    line-height: 1.6;
+    margin: 28px auto 0;
+    max-width: 590px;
+    color: rgba(241, 244, 255, 0.72);
+    font-size: clamp(16px, 1.35vw, 19px);
+    line-height: 1.65;
   }
+
   .oo-hero__cta {
-    width: min(100%, 620px);
-    margin: 40px auto 0;
+    width: min(100%, 650px);
+    margin: 42px auto 0;
     display: flex;
     gap: 14px;
     justify-content: center;
     flex-wrap: wrap;
   }
 
-  /* ---- LAYER 4 · embers ---- */
-  .oo-hero__embers {
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    pointer-events: none;
-  }
-  .oo-hero__embers span {
-    position: absolute;
-    bottom: -10px;
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: var(--oo-gold-light);
-    box-shadow: 0 0 8px 1px rgba(224, 174, 99, 0.7);
-    opacity: 0;
-    animation: emberRise linear infinite;
-  }
-
-  /* ---- LAYER 5 · sacred geometry (foreground framing) ---- */
-  .oo-hero__geometry {
-    bottom: -4%;
-    z-index: 2;
-    width: clamp(210px, 25vw, 360px);
-    color: var(--oo-gold-light);
-    opacity: 0.32;
-    filter: drop-shadow(0 0 24px rgba(184, 115, 51, 0.34));
-  }
-  .oo-hero__geometry svg {
-    width: 100%;
-    height: auto;
-    display: block;
-    stroke: currentColor;
-    stroke-width: 1.15;
-    vector-effect: non-scaling-stroke;
-  }
-  .oo-hero__geometry--left {
-    --depth: 34;
-    left: -3%;
-    transform-origin: bottom left;
-    animation: heroSwayGeometry 12s ease-in-out infinite;
-  }
-  .oo-hero__geometry--right {
-    --depth: 28;
-    right: -3%;
-    transform-origin: bottom right;
-    animation: heroSwayGeometry 14s ease-in-out infinite reverse;
-  }
-
-  /* scroll parallax: foreground moves up, dancer drifts down (depth) */
-  @supports (animation-timeline: scroll(root)) {
-    .oo-hero__dancer { --py: 26px; }
-    .oo-hero__geometry--left { --py: -46px; }
-    .oo-hero__geometry--right { --py: -38px; }
-    .oo-hero__dancer,
-    .oo-hero__geometry {
-      animation-name: heroParallax;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: scroll(root);
-      animation-range: 0 100vh;
-    }
-    /* keep the sway as a second, infinite animation on a wrapper-free element
-       by letting parallax own `transform` and sway own `rotate` */
-    .oo-hero__dancer { animation-name: heroParallax, heroSway; animation-duration: 1s, 12s; animation-iteration-count: 1, infinite; animation-timeline: scroll(root), auto; animation-range: 0 100vh, normal; }
-    .oo-hero__geometry--left { animation-name: heroParallax, heroSwayGeometry; animation-duration: 1s, 12s; animation-iteration-count: 1, infinite; animation-timeline: scroll(root), auto; animation-range: 0 100vh, normal; }
-    .oo-hero__geometry--right { animation-name: heroParallax, heroSwayGeometry; animation-duration: 1s, 14s; animation-iteration-count: 1, infinite; animation-direction: normal, reverse; animation-timeline: scroll(root), auto; animation-range: 0 100vh, normal; }
-  }
-
-  /* ---- scroll hint ---- */
   .oo-hero__scroll {
     position: absolute;
     bottom: 30px;
     left: 50%;
+    z-index: 3;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    z-index: 5;
   }
+
   .oo-hero__scroll-label {
-    font-size: 10.5px;
+    font-size: 10px;
     letter-spacing: 0.34em;
     text-transform: uppercase;
-    color: var(--oo-slate);
+    color: rgba(217, 225, 255, 0.58);
   }
+
   .oo-hero__scroll-track {
     position: relative;
     width: 22px;
     height: 34px;
-    border: 1px solid rgba(143, 168, 179, 0.5);
+    border: 1px solid rgba(217, 225, 255, 0.4);
     border-radius: 12px;
   }
+
   .oo-hero__scroll-track i {
     position: absolute;
     top: 7px;
@@ -394,55 +262,92 @@ const torusCircles = Array.from({ length: 12 }, (_, i) => {
 
   @media (max-width: 700px) {
     .oo-hero {
-      padding: 122px var(--oo-gutter) 92px;
+      padding: 122px var(--oo-gutter) 96px;
     }
+
     .oo-hero__brand {
-      width: min(78vw, 300px);
+      width: min(82vw, 330px);
       margin-bottom: 18px;
-      translate: 0 -24px;
+      translate: 0 -26px;
     }
-    .oo-hero__eyebrow { margin-bottom: 18px; }
-    .oo-hero__title { max-width: 13ch; font-size: clamp(38px, 12vw, 52px); }
-    .oo-hero__subtitle { font-size: 15px; }
+
+    .oo-hero__eyebrow {
+      margin-bottom: 18px;
+    }
+
+    .oo-hero__title {
+      max-width: 13ch;
+      font-size: clamp(40px, 11.5vw, 54px);
+    }
+
+    .oo-hero__subtitle {
+      font-size: 15px;
+    }
+
     .oo-hero__cta {
-      width: min(100%, 320px);
+      width: min(100%, 330px);
       flex-direction: column;
       align-items: stretch;
     }
-    .oo-hero__cta .oo-btn { width: 100%; }
-    .oo-hero__dancer {
-      bottom: -1%;
-      height: min(82svh, 720px);
-      margin-left: calc(min(82svh, 720px) / -4);
-      opacity: 0.48;
+
+    .oo-hero__cta .oo-btn {
+      width: 100%;
     }
-    .oo-hero__geometry { width: 48vw; bottom: -2%; opacity: 0.24; }
-    .oo-hero__geometry--left { left: -18%; }
-    .oo-hero__geometry--right { right: -18%; }
-    .oo-hero__cosmos { width: 150vw; bottom: -20%; opacity: 0.08; }
+
+    .oo-hero__silk::before {
+      width: 160vw;
+      height: 72vw;
+      left: -74vw;
+      top: -12vw;
+    }
+
+    .oo-hero__silk::after {
+      width: 155vw;
+      height: 68vw;
+      right: -78vw;
+      bottom: -8vw;
+    }
+
+    .oo-hero__wave--one {
+      width: 150vw;
+      left: -20vw;
+      top: 34%;
+    }
   }
 
   @media (max-height: 700px) {
-    .oo-hero { padding-top: 94px; padding-bottom: 58px; }
-    .oo-hero__brand {
-      width: 220px;
-      margin-bottom: 6px;
-      translate: 0 -22px;
+    .oo-hero {
+      padding-top: 94px;
+      padding-bottom: 62px;
     }
-    .oo-hero__eyebrow { margin-bottom: 10px; }
-    .oo-hero__title { font-size: clamp(36px, 7.4vh, 48px); }
+
+    .oo-hero__brand {
+      width: 230px;
+      margin-bottom: 4px;
+      translate: 0 -20px;
+    }
+
+    .oo-hero__eyebrow {
+      margin-bottom: 10px;
+    }
+
+    .oo-hero__title {
+      font-size: clamp(36px, 7.2vh, 50px);
+    }
+
     .oo-hero__subtitle {
-      margin-top: 12px;
+      margin-top: 14px;
       max-width: 520px;
       font-size: 14px;
       line-height: 1.45;
     }
-    .oo-hero__cta { margin-top: 18px; }
-    .oo-hero__scroll { display: none; }
-    .oo-hero__dancer {
-      bottom: -4%;
-      height: min(96svh, 720px);
-      margin-left: calc(min(96svh, 720px) / -4);
+
+    .oo-hero__cta {
+      margin-top: 20px;
+    }
+
+    .oo-hero__scroll {
+      display: none;
     }
   }
 
@@ -451,6 +356,7 @@ const torusCircles = Array.from({ length: 12 }, (_, i) => {
       width: min(100%, 560px);
       flex-direction: row;
     }
+
     .oo-hero__cta .oo-btn {
       flex: 1;
       min-width: 0;
@@ -458,68 +364,4 @@ const torusCircles = Array.from({ length: 12 }, (_, i) => {
       font-size: 11.5px;
     }
   }
-
 </style>
-
-<style is:global>
-  @keyframes heroParallax { to { transform: translateY(var(--py, 0)); } }
-  @keyframes heroSway {
-    0%, 100% { rotate: -1.5deg; }
-    50% { rotate: 1.5deg; }
-  }
-  @keyframes heroSwayGeometry {
-    0%, 100% { rotate: -1.2deg; scale: 1; }
-    50% { rotate: 1.2deg; scale: 1.025; }
-  }
-  @keyframes emberRise {
-    0% { transform: translateY(0) translateX(0); opacity: 0; }
-    12% { opacity: 0.9; }
-    80% { opacity: 0.7; }
-    100% { transform: translateY(-78vh) translateX(18px); opacity: 0; }
-  }
-</style>
-
-<script>
-  // Start the turn only when every frame is decoded, avoiding flashes mid-loop.
-  document.querySelectorAll('[data-dervish]').forEach((dancer) => {
-    const frames = Array.from(dancer.querySelectorAll('img'));
-    const ready = frames.map((frame) => {
-      if (frame.complete) return Promise.resolve();
-      return new Promise<void>((resolve) => {
-        frame.addEventListener('load', () => resolve(), { once: true });
-        frame.addEventListener('error', () => resolve(), { once: true });
-      });
-    });
-    Promise.all(ready).then(() => {
-      dancer.classList.add('is-ready');
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      let current = 0;
-      window.setInterval(() => {
-        frames[current].classList.remove('is-active');
-        current = (current + 1) % frames.length;
-        frames[current].classList.add('is-active');
-      }, 1000);
-    });
-  });
-
-  // Mouse parallax: feed cursor position into --mx / --my on the hero.
-  const hero = document.getElementById('hero');
-  if (hero && matchMedia('(pointer:fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    let raf = 0;
-    hero.addEventListener('pointermove', (e) => {
-      const r = hero.getBoundingClientRect();
-      const mx = (e.clientX - r.left) / r.width - 0.5;
-      const my = (e.clientY - r.top) / r.height - 0.5;
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        hero.style.setProperty('--mx', mx.toFixed(3));
-        hero.style.setProperty('--my', my.toFixed(3));
-      });
-    });
-    hero.addEventListener('pointerleave', () => {
-      hero.style.setProperty('--mx', '0');
-      hero.style.setProperty('--my', '0');
-    });
-  }
-</script>

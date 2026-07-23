@@ -33,7 +33,9 @@ html.lenis body {
 }
 
 body {
-  background: var(--oo-bg);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(19, 75, 183, 0.22), transparent 32%),
+    var(--oo-bg);
   color: var(--oo-text-on-dark);
   font-family: var(--oo-font-body);
   font-size: var(--oo-fs-body);
@@ -71,14 +73,15 @@ button {
 .oo-display {
   font-family: var(--oo-font-display);
   font-weight: 400;
-  line-height: 1.05;
+  line-height: 1.04;
+  letter-spacing: -0.022em;
 }
 
 .oo-eyebrow {
   font-size: var(--oo-fs-eyebrow);
   letter-spacing: var(--oo-tracking-label);
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--oo-gold-light);
 }
 
@@ -106,7 +109,7 @@ button {
 }
 .oo-btn--primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 50px rgba(184, 115, 51, 0.44);
+  box-shadow: 0 18px 54px rgba(230, 190, 102, 0.38);
 }
 
 .oo-btn--ghost {
@@ -144,14 +147,14 @@ button {
 }
 @keyframes navShow {
   from {
-    background: rgba(2, 19, 32, 0);
-    border-color: rgba(184, 115, 51, 0);
+    background: rgba(3, 8, 36, 0);
+    border-color: rgba(230, 190, 102, 0);
     backdrop-filter: blur(0px);
   }
   to {
-    background: rgba(2, 19, 32, 0.82);
-    border-color: rgba(184, 115, 51, 0.18);
-    backdrop-filter: blur(12px);
+    background: rgba(3, 8, 36, 0.82);
+    border-color: rgba(230, 190, 102, 0.16);
+    backdrop-filter: blur(18px);
   }
 }
 @keyframes parDown {

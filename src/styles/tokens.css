@@ -5,11 +5,11 @@
    ============================================================ */
 :root {
   /* — Night / deep teal scale (top & bottom of the page) — */
-  --oo-night-950: #01080D;
-  --oo-night-900: #010D16; /* deepest — footer */
-  --oo-night-800: #021320; /* official Azul Noche */
-  --oo-night-700: #041B2A;
-  --oo-night-600: #062538; /* lifted navy for large surfaces */
+  --oo-night-950: #010313;
+  --oo-night-900: #02051B; /* deepest — footer */
+  --oo-night-800: #030824; /* rich midnight blue */
+  --oo-night-700: #051641;
+  --oo-night-600: #082D75; /* luminous cobalt for large surfaces */
 
   /* — Cream / dawn light (manifesto) — */
   --oo-cream-100: #EAE7E3; /* official Blanco Marfil */
@@ -22,13 +22,13 @@
   --oo-amber-400: #C99368;
 
   /* — Gold (accents, CTAs, the brand rings) — */
-  --oo-gold: #B87333; /* official Cobre */
-  --oo-gold-light: #D39A61;
-  --oo-gold-dark: #8B4E24;
-  --oo-gold-glow: #F0C28B;
+  --oo-gold: #C6963D;
+  --oo-gold-light: #E6BE66;
+  --oo-gold-dark: #8F6421;
+  --oo-gold-glow: #FFE19A;
 
   /* — Supporting — */
-  --oo-slate: #9AABB4; /* muted blue-grey text on dark */
+  --oo-slate: #AAB5D1; /* muted blue-grey text on dark */
   --oo-ivory: #EAE7E3;
 
   /* — Semantic — */
@@ -38,13 +38,13 @@
   --oo-accent: var(--oo-gold-light);
 
   /* — Gradients (the section-to-section journey) — */
-  --oo-grad-cream: linear-gradient(180deg, #062538 0%, #041B2A 100%);
-  --oo-grad-goldenhour: linear-gradient(180deg, #041B2A 0%, #021B2B 48%, #021320 100%);
-  --oo-grad-dusk: linear-gradient(180deg, #021320 0%, #031927 100%);
-  --oo-grad-interlude: linear-gradient(180deg, #031927 0%, #041B2A 100%);
-  --oo-grad-night: linear-gradient(180deg, #041B2A 0%, #021320 100%);
-  --oo-grad-footer: linear-gradient(180deg, #021320 0%, #010D16 42%, #010D16 100%);
-  --oo-grad-cta: linear-gradient(135deg, #D39A61, #B87333);
+  --oo-grad-cream: linear-gradient(180deg, #030824 0%, #051641 100%);
+  --oo-grad-goldenhour: linear-gradient(180deg, #051641 0%, #06133A 48%, #030824 100%);
+  --oo-grad-dusk: linear-gradient(180deg, #030824 0%, #02051B 100%);
+  --oo-grad-interlude: linear-gradient(180deg, #02051B 0%, #051641 100%);
+  --oo-grad-night: linear-gradient(180deg, #051641 0%, #030824 100%);
+  --oo-grad-footer: linear-gradient(180deg, #030824 0%, #010313 44%, #010313 100%);
+  --oo-grad-cta: linear-gradient(135deg, #F0CE78, #B9852D);
 
   /* — Type — */
   --oo-font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
@@ -62,7 +62,7 @@
   /* — Layout — */
   --oo-maxw: 1180px;
   --oo-gutter: clamp(20px, 5vw, 40px);
-  --oo-radius: 10px;
+  --oo-radius: 14px;
   --oo-radius-pill: 48px;
 
   /* — Motion — */
@@ -70,5 +70,5 @@
   --oo-dur: 0.6s;
 
   /* — Elevation — */
-  --oo-shadow-cta: 0 14px 40px rgba(184, 115, 51, 0.32);
+  --oo-shadow-cta: 0 16px 48px rgba(218, 172, 73, 0.28);
 }
