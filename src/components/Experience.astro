@@ -45,19 +45,7 @@ const t = content[lang].experience;
     color: var(--oo-text-on-dark);
     overflow: hidden;
   }
-  .oo-exp::before {
-    content: '';
-    position: absolute;
-    inset: 8% auto auto -12%;
-    width: min(54vw, 640px);
-    aspect-ratio: 1;
-    border: 1px solid rgba(211, 154, 97, 0.08);
-    border-radius: 50%;
-    box-shadow:
-      0 0 0 62px rgba(211, 154, 97, 0.025),
-      0 0 0 124px rgba(211, 154, 97, 0.018),
-      0 0 0 186px rgba(211, 154, 97, 0.012);
-  }
+  .oo-exp::before { content: none; }
   .oo-exp .oo-container { position: relative; z-index: 1; }
   .oo-exp__head {
     text-align: center;
@@ -98,22 +86,11 @@ const t = content[lang].experience;
     display: grid;
     place-items: center;
     border-radius: 50%;
-    background:
-      radial-gradient(circle at 50% 42%, rgba(211, 154, 97, 0.16), transparent 42%),
-      radial-gradient(circle at 50% 60%, rgba(184, 115, 51, 0.07), transparent 70%);
+    background: radial-gradient(circle, rgba(27, 94, 217, 0.22), rgba(3, 8, 36, 0) 68%);
   }
   .oo-exp__emblem::before,
   .oo-exp__emblem::after {
-    content: '';
-    position: absolute;
-    inset: 23%;
-    border: 1px solid rgba(211, 154, 97, 0.3);
-    rotate: 45deg;
-  }
-  .oo-exp__emblem::after {
-    inset: 31%;
-    rotate: 15deg;
-    border-color: rgba(211, 154, 97, 0.18);
+    content: none;
   }
   .oo-exp__ring {
     position: absolute;
@@ -122,13 +99,12 @@ const t = content[lang].experience;
   }
   .oo-exp__ring--outer {
     inset: 0;
-    border-color: rgba(211, 154, 97, 0.34);
+    border-color: rgba(230, 190, 102, 0.36);
     transition: transform 0.8s var(--oo-ease);
   }
   .oo-exp__ring--inner {
-    inset: 16%;
-    border-style: solid;
-    border-color: rgba(211, 154, 97, 0.56);
+    inset: 22%;
+    border-color: rgba(230, 190, 102, 0.18);
   }
   .oo-exp__row:hover .oo-exp__ring--outer { transform: scale(1.07); }
   .oo-exp__num {
@@ -138,7 +114,7 @@ const t = content[lang].experience;
     font-size: clamp(48px, 8vw, 88px);
     line-height: 1;
     color: transparent;
-    background: linear-gradient(180deg, #F0C28B, #B87333);
+    background: linear-gradient(180deg, var(--oo-gold-glow), var(--oo-gold));
     -webkit-background-clip: text;
     background-clip: text;
   }
