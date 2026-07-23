@@ -19,15 +19,7 @@ const t = content[lang].hero;
     <div class="oo-hero__brand">
       <img src="/brand/octave-on-logo.png" alt="Octave On" width="1064" height="671" />
     </div>
-
-    <p class="oo-eyebrow oo-hero__eyebrow">{t.eyebrow}</p>
-    <h1 class="oo-display oo-hero__title">{t.title}</h1>
-    <p class="oo-hero__subtitle">{t.subtitle}</p>
-
-    <div class="oo-hero__cta">
-      <a class="oo-btn oo-btn--primary" href="#invito">{t.ctaPrimary}</a>
-      <a class="oo-btn oo-btn--ghost" href="#esperienza">{t.ctaSecondary}</a>
-    </div>
+    <h1 class="oo-hero__tagline">{t.tagline}</h1>
   </div>
 
   <a class="oo-hero__scroll" href="#manifesto" aria-label={t.scroll}>
@@ -177,9 +169,9 @@ const t = content[lang].hero;
   }
 
   .oo-hero__brand {
-    width: clamp(300px, 34vw, 470px);
-    margin: 0 auto clamp(14px, 2.4vh, 24px);
-    translate: 0 -34px;
+    width: clamp(330px, 38vw, 510px);
+    margin: 0 auto;
+    translate: 0 -18px;
     filter:
       drop-shadow(0 0 24px rgba(245, 194, 90, 0.6))
       drop-shadow(0 16px 42px rgba(1, 3, 19, 0.8));
@@ -190,35 +182,16 @@ const t = content[lang].hero;
     height: auto;
   }
 
-  .oo-hero__eyebrow {
-    margin-bottom: 24px;
-  }
-
-  .oo-hero__title {
-    width: min(100%, 900px);
-    max-width: 15ch;
-    margin-inline: auto;
-    font-size: clamp(46px, 6.5vw, 88px);
+  .oo-hero__tagline {
+    margin: clamp(2px, 0.8vh, 10px) auto 0;
     color: var(--oo-cream-100);
-    text-wrap: balance;
-    text-shadow: 0 4px 36px rgba(1, 3, 19, 0.84);
-  }
-
-  .oo-hero__subtitle {
-    margin: 28px auto 0;
-    max-width: 590px;
-    color: rgba(241, 244, 255, 0.72);
-    font-size: clamp(16px, 1.35vw, 19px);
-    line-height: 1.65;
-  }
-
-  .oo-hero__cta {
-    width: min(100%, 650px);
-    margin: 42px auto 0;
-    display: flex;
-    gap: 14px;
-    justify-content: center;
-    flex-wrap: wrap;
+    font-family: var(--oo-font-body);
+    font-size: clamp(12px, 1.1vw, 15px);
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    text-shadow: 0 3px 26px rgba(1, 3, 19, 0.9);
   }
 
   .oo-hero__scroll {
@@ -266,32 +239,16 @@ const t = content[lang].hero;
     }
 
     .oo-hero__brand {
-      width: min(82vw, 330px);
-      margin-bottom: 18px;
-      translate: 0 -26px;
+      width: min(88vw, 360px);
+      translate: 0 -12px;
     }
 
-    .oo-hero__eyebrow {
-      margin-bottom: 18px;
-    }
-
-    .oo-hero__title {
-      max-width: 13ch;
-      font-size: clamp(40px, 11.5vw, 54px);
-    }
-
-    .oo-hero__subtitle {
-      font-size: 15px;
-    }
-
-    .oo-hero__cta {
-      width: min(100%, 330px);
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .oo-hero__cta .oo-btn {
-      width: 100%;
+    .oo-hero__tagline {
+      max-width: 100%;
+      padding-left: 0.2em;
+      font-size: clamp(8.5px, 2.65vw, 10px);
+      letter-spacing: 0.2em;
+      white-space: nowrap;
     }
 
     .oo-hero__silk::before {
@@ -322,46 +279,12 @@ const t = content[lang].hero;
     }
 
     .oo-hero__brand {
-      width: 230px;
-      margin-bottom: 4px;
-      translate: 0 -20px;
-    }
-
-    .oo-hero__eyebrow {
-      margin-bottom: 10px;
-    }
-
-    .oo-hero__title {
-      font-size: clamp(36px, 7.2vh, 50px);
-    }
-
-    .oo-hero__subtitle {
-      margin-top: 14px;
-      max-width: 520px;
-      font-size: 14px;
-      line-height: 1.45;
-    }
-
-    .oo-hero__cta {
-      margin-top: 20px;
+      width: 270px;
+      translate: 0 -10px;
     }
 
     .oo-hero__scroll {
       display: none;
-    }
-  }
-
-  @media (min-width: 520px) and (max-width: 700px) and (max-height: 700px) {
-    .oo-hero__cta {
-      width: min(100%, 560px);
-      flex-direction: row;
-    }
-
-    .oo-hero__cta .oo-btn {
-      flex: 1;
-      min-width: 0;
-      padding-inline: 16px;
-      font-size: 11.5px;
     }
   }
 </style>

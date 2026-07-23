@@ -9,111 +9,70 @@ const t = content[lang].difference;
 ---
 
 <section class="oo-diff">
-  <div class="oo-container">
-    <div class="oo-reveal oo-diff__head">
-      <p class="oo-eyebrow">{t.eyebrow}</p>
-      <h2 class="oo-display oo-diff__title">{t.title}</h2>
-    </div>
-
-    <div class="oo-reveal oo-diff__cols">
-      <div class="oo-diff__col oo-diff__col--not">
-        <h3 class="oo-diff__colTitle">{t.notTitle}</h3>
-        <ul>
-          {t.not.map((item) => (
-            <li>
-              <span class="oo-diff__mark" aria-hidden="true">—</span>
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div class="oo-diff__col oo-diff__col--is">
-        <h3 class="oo-diff__colTitle">{t.isTitle}</h3>
-        <ul>
-          {t.is.map((item) => (
-            <li>
-              <span class="oo-diff__mark oo-diff__mark--gold" aria-hidden="true">✦</span>
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+  <div class="oo-container oo-reveal oo-diff__inner">
+    <blockquote class="oo-diff__quote">
+      <p class="oo-display">{t.quote}</p>
+      <footer>— {t.author}</footer>
+    </blockquote>
   </div>
 </section>
 
 <style>
   .oo-diff {
     position: relative;
-    padding: clamp(76px, 11vh, 140px) var(--oo-gutter);
+    min-height: min(76vh, 760px);
+    padding: clamp(120px, 20vh, 240px) var(--oo-gutter);
     background: var(--oo-grad-night);
     overflow: hidden;
-  }
-  .oo-diff__head {
-    text-align: center;
-    margin-bottom: clamp(46px, 7vh, 78px);
-  }
-  .oo-diff__title {
-    font-size: var(--oo-fs-h2);
-    color: var(--oo-cream-100);
-    margin-top: 18px;
-  }
-  .oo-diff__cols {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(20px, 4vw, 48px);
-    max-width: 980px;
+    place-items: center;
+    text-align: center;
+  }
+  .oo-diff::before {
+    content: '“';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -55%;
+    font-family: var(--oo-font-display);
+    font-size: clamp(280px, 38vw, 580px);
+    line-height: 1;
+    color: rgba(224, 174, 99, 0.035);
+    pointer-events: none;
+  }
+  .oo-diff__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1080px;
+  }
+  .oo-diff__quote {
     margin: 0 auto;
   }
-  .oo-diff__col {
-    border: 1px solid rgba(224, 174, 99, 0.16);
-    border-radius: var(--oo-radius);
-    padding: clamp(28px, 4vw, 44px);
-    background: rgba(143, 168, 179, 0.03);
-  }
-  .oo-diff__col--is {
-    border-color: rgba(224, 174, 99, 0.4);
-    background: rgba(224, 174, 99, 0.05);
-  }
-  .oo-diff__colTitle {
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: var(--oo-slate);
-    margin-bottom: 24px;
-  }
-  .oo-diff__col--is .oo-diff__colTitle {
-    color: var(--oo-gold-light);
-  }
-  .oo-diff__col ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .oo-diff__col li {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
+  .oo-diff__quote p {
+    margin: 0;
+    font-size: clamp(54px, 8.5vw, 118px);
+    line-height: 1.02;
+    font-weight: 400;
     color: var(--oo-cream-100);
-    font-size: clamp(16px, 1.6vw, 19px);
+    text-wrap: balance;
   }
-  .oo-diff__col--not li {
-    color: rgba(242, 233, 218, 0.55);
-  }
-  .oo-diff__mark {
-    color: var(--oo-slate);
-    flex: none;
-  }
-  .oo-diff__mark--gold {
+  .oo-diff__quote footer {
+    margin-top: clamp(34px, 5vh, 54px);
     color: var(--oo-gold-light);
-    font-size: 12px;
+    font-size: clamp(12px, 1.2vw, 15px);
+    font-style: normal;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
   }
 
-  @media (max-width: 700px) {
-    .oo-diff__cols {
-      grid-template-columns: 1fr;
+  @media (max-width: 600px) {
+    .oo-diff {
+      min-height: 70vh;
+      padding-block: 120px;
+    }
+    .oo-diff__quote p {
+      font-size: clamp(48px, 14vw, 62px);
+      line-height: 1.06;
     }
   }
 </style>

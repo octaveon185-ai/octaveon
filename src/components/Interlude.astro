@@ -11,15 +11,15 @@ const t = content[lang].interlude;
 <section class="oo-interlude">
   <div class="oo-interlude__glow" aria-hidden="true"></div>
   <div class="oo-container oo-reveal oo-interlude__inner">
-    <p class="oo-eyebrow oo-interlude__eyebrow">{t.eyebrow}</p>
-    <p class="oo-display oo-interlude__text">{t.text}</p>
+    <p class="oo-interlude__lead">{t.lead}</p>
+    <h2 class="oo-display oo-interlude__text">{t.text}</h2>
   </div>
 </section>
 
 <style>
   .oo-interlude {
     position: relative;
-    padding: clamp(72px, 11vh, 150px) var(--oo-gutter);
+    padding: clamp(110px, 18vh, 210px) var(--oo-gutter);
     background: var(--oo-grad-interlude);
     text-align: center;
     overflow: hidden;
@@ -41,14 +41,37 @@ const t = content[lang].interlude;
   .oo-interlude__inner {
     position: relative;
     z-index: 1;
-    max-width: 760px;
+    max-width: 960px;
   }
-  .oo-interlude__eyebrow {
-    margin-bottom: 26px;
+  .oo-interlude__lead {
+    margin: 0 0 clamp(28px, 4vh, 44px);
+    color: var(--oo-gold-light);
+    font-size: clamp(12px, 1.15vw, 15px);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
   }
   .oo-interlude__text {
-    font-size: clamp(28px, 4vw, 52px);
+    margin: 0;
+    font-size: clamp(40px, 6.2vw, 78px);
+    line-height: 1.08;
     color: var(--oo-cream-100);
     font-style: italic;
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  @media (max-width: 600px) {
+    .oo-interlude {
+      padding-block: 110px;
+    }
+    .oo-interlude__lead {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+    }
+    .oo-interlude__text {
+      font-size: clamp(38px, 11vw, 48px);
+      line-height: 1.12;
+    }
   }
 </style>
