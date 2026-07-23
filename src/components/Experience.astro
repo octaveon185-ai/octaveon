@@ -6,33 +6,70 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = content[lang].experience;
+
+const statues = {
+  '02': {
+    src: '/images/statues/statue-musician.webp',
+    alt: 'Ancient Greek marble statue of a flautist',
+    width: 864,
+    height: 1820,
+  },
+  '04': {
+    src: '/images/statues/statue-cup-bearer.webp',
+    alt: 'Ancient Greek marble statue of a ceremonial cup-bearer',
+    width: 1024,
+    height: 1536,
+  },
+  '05': {
+    src: '/images/statues/statue-dancer.webp',
+    alt: 'Ancient Greek marble statue of a dancer',
+    width: 1024,
+    height: 1536,
+  },
+} as const;
 ---
 
 <section id="esperienza" class="oo-exp">
   <div class="oo-container">
     <div class="oo-reveal oo-exp__head">
-      <p class="oo-eyebrow oo-exp__eyebrow">{t.eyebrow}</p>
       <h2 class="oo-display oo-exp__title">{t.title}</h2>
-      <p class="oo-exp__intro">{t.intro}</p>
     </div>
 
     <ol class="oo-exp__list">
-      {t.rituals.map((r, i) => (
-        <li class="oo-reveal oo-exp__row" data-flip={i % 2 === 1 ? 'true' : 'false'}>
-          <div class="oo-exp__emblem" aria-hidden="true">
-            <span class="oo-exp__ring oo-exp__ring--outer"></span>
-            <span class="oo-exp__ring oo-exp__ring--inner"></span>
-            <span class="oo-exp__num">{r.num}</span>
-          </div>
-          <div class="oo-exp__body">
-            <p class="oo-exp__essence">{r.essence}</p>
-            <h3 class="oo-display oo-exp__name">{r.name}</h3>
-            <p class="oo-exp__sub">{r.sub}</p>
-            <span class="oo-exp__rule" aria-hidden="true"></span>
-            <p class="oo-exp__desc">{r.desc}</p>
-          </div>
-        </li>
-      ))}
+      {t.rituals.map((r, i) => {
+        const statue = statues[r.num as keyof typeof statues];
+
+        return (
+          <li class="oo-reveal oo-exp__row" data-flip={i % 2 === 1 ? 'true' : 'false'} data-statue={statue ? 'true' : 'false'}>
+            {statue ? (
+              <div class="oo-exp__visual">
+                <span class="oo-exp__visualNum" aria-hidden="true">{r.num}</span>
+                <img
+                  class="oo-exp__statue"
+                  src={statue.src}
+                  alt={statue.alt}
+                  width={statue.width}
+                  height={statue.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            ) : (
+              <div class="oo-exp__emblem" aria-hidden="true">
+                <span class="oo-exp__ring oo-exp__ring--outer"></span>
+                <span class="oo-exp__ring oo-exp__ring--inner"></span>
+                <span class="oo-exp__num">{r.num}</span>
+              </div>
+            )}
+            <div class="oo-exp__body">
+              <h3 class="oo-display oo-exp__name">{r.name}</h3>
+              <p class="oo-exp__sub">{r.sub}</p>
+              <span class="oo-exp__rule" aria-hidden="true"></span>
+              <p class="oo-exp__desc">{r.desc}</p>
+            </div>
+          </li>
+        );
+      })}
     </ol>
   </div>
 </section>
@@ -52,9 +89,10 @@ const t = content[lang].experience;
     max-width: 640px;
     margin: 0 auto clamp(56px, 9vh, 104px);
   }
-  .oo-exp__eyebrow { color: var(--oo-gold-light); margin-bottom: 20px; }
-  .oo-exp__title { font-size: var(--oo-fs-h2); color: var(--oo-cream-100); }
-  .oo-exp__intro { margin-top: 20px; color: rgba(234, 231, 227, 0.68); }
+  .oo-exp__title {
+    font-size: clamp(48px, 7vw, 82px);
+    color: var(--oo-cream-100);
+  }
 
   .oo-exp__list {
     list-style: none;
@@ -73,7 +111,8 @@ const t = content[lang].experience;
     border-bottom: 1px solid rgba(211, 154, 97, 0.16);
   }
   .oo-exp__row:last-child { border-bottom: none; padding-bottom: 0; }
-  .oo-exp__row[data-flip='true'] .oo-exp__emblem { order: 2; }
+  .oo-exp__row[data-flip='true'] .oo-exp__emblem,
+  .oo-exp__row[data-flip='true'] .oo-exp__visual { order: 2; }
   .oo-exp__row[data-flip='true'] .oo-exp__body { text-align: right; }
   .oo-exp__row[data-flip='true'] .oo-exp__rule { margin-left: auto; }
 
@@ -119,21 +158,65 @@ const t = content[lang].experience;
     background-clip: text;
   }
 
-  .oo-exp__essence {
-    font-size: 11px;
-    letter-spacing: 0.34em;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: var(--oo-gold-light);
-    margin-bottom: 14px;
+  .oo-exp__visual {
+    position: relative;
+    width: min(100%, 360px);
+    height: clamp(360px, 46vw, 510px);
+    margin: 0 auto;
+    display: grid;
+    place-items: end center;
+    isolation: isolate;
   }
+  .oo-exp__visual::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    bottom: 2%;
+    width: 82%;
+    height: 58%;
+    translate: -50% 0;
+    background: radial-gradient(ellipse at center, rgba(28, 91, 196, 0.22), transparent 68%);
+  }
+  .oo-exp__visualNum {
+    position: absolute;
+    z-index: -1;
+    top: 48%;
+    left: 50%;
+    translate: -50% -50%;
+    font-family: var(--oo-font-display);
+    font-size: clamp(150px, 22vw, 260px);
+    line-height: 1;
+    color: rgba(230, 190, 102, 0.08);
+  }
+  .oo-exp__statue {
+    width: auto;
+    height: clamp(360px, 46vw, 510px);
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+    filter:
+      grayscale(1)
+      contrast(1.08)
+      drop-shadow(0 28px 30px rgba(1, 5, 24, 0.34));
+    transition: transform 1.1s var(--oo-ease), filter 1.1s var(--oo-ease);
+  }
+  .oo-exp__row:hover .oo-exp__statue {
+    transform: translateY(-5px) scale(1.015);
+    filter:
+      grayscale(1)
+      contrast(1.12)
+      drop-shadow(0 34px 36px rgba(1, 5, 24, 0.44));
+  }
+
   .oo-exp__name { font-size: var(--oo-fs-h3); color: var(--oo-cream-100); }
   .oo-exp__sub {
-    font-size: 12px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: rgba(154, 171, 180, 0.7);
-    margin: 8px 0 0;
+    max-width: 42ch;
+    font-size: clamp(14px, 1.25vw, 17px);
+    letter-spacing: 0.02em;
+    color: var(--oo-gold-light);
+    line-height: 1.5;
+    margin: 10px 0 0;
   }
   .oo-exp__rule {
     display: block;
@@ -142,12 +225,18 @@ const t = content[lang].experience;
     margin: 22px 0;
     background: linear-gradient(90deg, rgba(211, 154, 97, 0.75), transparent);
   }
-  .oo-exp__desc { color: rgba(234, 231, 227, 0.72); max-width: 42ch; }
+  .oo-exp__desc {
+    color: rgba(234, 231, 227, 0.72);
+    max-width: 48ch;
+    line-height: 1.75;
+  }
   .oo-exp__row[data-flip='true'] .oo-exp__desc { margin-left: auto; }
+  .oo-exp__row[data-flip='true'] .oo-exp__sub { margin-left: auto; }
 
   @media (max-width: 760px) {
     .oo-exp__row,
-    .oo-exp__row[data-flip='true'] .oo-exp__emblem {
+    .oo-exp__row[data-flip='true'] .oo-exp__emblem,
+    .oo-exp__row[data-flip='true'] .oo-exp__visual {
       grid-template-columns: 1fr;
       order: 0;
       text-align: center;
@@ -156,7 +245,19 @@ const t = content[lang].experience;
     .oo-exp__body { text-align: center; }
     .oo-exp__rule,
     .oo-exp__row[data-flip='true'] .oo-exp__rule { margin: 20px auto; }
-    .oo-exp__desc { margin: 0 auto; }
+    .oo-exp__desc,
+    .oo-exp__sub,
+    .oo-exp__row[data-flip='true'] .oo-exp__sub { margin-inline: auto; }
     .oo-exp__emblem { width: clamp(130px, 40vw, 190px); }
+    .oo-exp__visual {
+      width: min(86vw, 340px);
+      height: clamp(330px, 112vw, 470px);
+    }
+    .oo-exp__statue {
+      height: clamp(330px, 112vw, 470px);
+    }
+    .oo-exp__visualNum {
+      font-size: clamp(140px, 48vw, 210px);
+    }
   }
 </style>
