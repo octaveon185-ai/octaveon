@@ -20,8 +20,8 @@ const t = content[lang].difference;
 <style>
   .oo-diff {
     position: relative;
-    min-height: min(76vh, 760px);
-    padding: clamp(120px, 20vh, 240px) var(--oo-gutter);
+    min-height: 0;
+    padding: clamp(90px, 14vh, 150px) var(--oo-gutter);
     background: var(--oo-grad-night);
     overflow: hidden;
     display: grid;
@@ -50,7 +50,7 @@ const t = content[lang].difference;
   }
   .oo-diff__quote p {
     margin: 0;
-    font-size: clamp(54px, 8.5vw, 118px);
+    font-size: clamp(42px, 6vw, 76px);
     line-height: 1.02;
     font-weight: 400;
     color: var(--oo-cream-100);
@@ -67,11 +67,11 @@ const t = content[lang].difference;
 
   @media (max-width: 600px) {
     .oo-diff {
-      min-height: 70vh;
-      padding-block: 120px;
+      min-height: 0;
+      padding-block: 96px;
     }
     .oo-diff__quote p {
-      font-size: clamp(48px, 14vw, 62px);
+      font-size: clamp(40px, 12vw, 54px);
       line-height: 1.06;
     }
   }

@@ -26,6 +26,7 @@ const altUrl = new URL(homeHref(alt), Astro.site).toString();
     <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site).toString()} />
 
     <link rel="icon" type="image/svg+xml" href="/brand/octave-on-symbol-copper.svg" />
+    <link rel="preload" as="image" href="/brand/octave-on-logo.png" fetchpriority="high" />
     <meta name="theme-color" content="#030824" />
 
     <!-- Open Graph / social -->

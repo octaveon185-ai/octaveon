@@ -9,17 +9,25 @@ const t = content[lang].invite;
 const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY;
 ---
 
-<section id="invito" class="oo-invite" data-lang={lang}>
+<section
+  id="invito"
+  class="oo-invite"
+  data-lang={lang}
+  data-submit={t.submit}
+  data-sending={t.sending}
+  data-validation={t.validation}
+  data-error={t.error}
+>
   <div class="oo-container oo-invite__inner">
-    <!-- Form -->
     <div class="oo-reveal oo-invite__panel" data-panel="form">
       <p class="oo-eyebrow">{t.eyebrow}</p>
-      <h2 class="oo-display oo-invite__title" set:html={t.title} />
+      <h2 class="oo-display oo-invite__title">{t.title}</h2>
+      <p class="oo-invite__intro">{t.intro}</p>
 
       <form class="oo-invite__form" novalidate>
         <label class="oo-field">
-          <span class="oo-field__label">{content[lang].invite.fields.name}</span>
-          <input name="name" type="text" autocomplete="name" placeholder={t.fields.name} />
+          <span class="oo-field__label">{t.fields.name}</span>
+          <input name="name" type="text" required minlength="2" autocomplete="name" placeholder={t.fields.name} />
         </label>
         <label class="oo-field">
           <span class="oo-field__label">Email</span>
@@ -30,24 +38,21 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY;
           <input name="whatsapp" type="tel" autocomplete="tel" placeholder={t.fields.whatsapp} />
         </label>
 
-        {sitekey && (
-          <div class="cf-turnstile" data-sitekey={sitekey} data-theme="dark"></div>
-        )}
+        {sitekey && <div class="cf-turnstile" data-sitekey={sitekey} data-theme="dark"></div>}
 
         <button type="submit" class="oo-btn oo-btn--primary oo-invite__submit">
           <span data-role="label">{t.submit}</span>
         </button>
-        <p class="oo-invite__error" data-role="error" hidden>{t.error}</p>
+        <p class="oo-invite__error" data-role="error" role="alert" aria-live="polite" hidden>{t.error}</p>
         <p class="oo-invite__reassure">{t.reassure}</p>
       </form>
     </div>
 
-    <!-- Success -->
     <div class="oo-invite__panel oo-invite__success" data-panel="success" hidden>
       <div class="oo-invite__rings" aria-hidden="true"><span></span><span></span></div>
       <p class="oo-eyebrow">{t.success.eyebrow}</p>
       <h2 class="oo-display oo-invite__title">
-        {t.success.title}, <span data-role="guest"></span>.
+        {t.success.title}, <span data-role="guest"></span>
       </h2>
       <p class="oo-invite__body">{t.success.body}</p>
       <button type="button" class="oo-btn oo-btn--ghost oo-invite__reset">{t.success.reset}</button>
@@ -60,88 +65,111 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY;
 <style>
   .oo-invite {
     position: relative;
-    padding: clamp(80px, 12vh, 160px) var(--oo-gutter);
-    background: var(--oo-night-800);
+    padding: clamp(100px, 15vh, 180px) var(--oo-gutter);
+    background:
+      radial-gradient(circle at 50% 28%, rgba(19, 75, 183, .2), transparent 38%),
+      var(--oo-night-800);
   }
+
   .oo-invite__inner {
-    max-width: 560px;
+    max-width: 620px;
     margin: 0 auto;
     text-align: center;
   }
+
   .oo-invite__title {
-    font-size: clamp(34px, 5vw, 62px);
+    margin-top: 20px;
     color: var(--oo-cream-100);
-    margin-top: 22px;
+    font-size: clamp(48px, 6.4vw, 76px);
+  }
+
+  .oo-invite__intro {
+    max-width: 540px;
+    margin: 22px auto 0;
+    color: rgba(234, 231, 227, .7);
+    line-height: 1.75;
+    text-wrap: pretty;
   }
 
   .oo-invite__form {
-    margin-top: clamp(34px, 5vh, 52px);
     display: flex;
     flex-direction: column;
-    gap: 26px;
+    gap: 27px;
+    margin-top: clamp(38px, 6vh, 58px);
     text-align: left;
   }
+
   .oo-field {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
+
   .oo-field__label {
-    font-size: 10.5px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
     color: var(--oo-slate);
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
   }
+
   .oo-field input {
+    min-height: 48px;
+    padding: 8px 2px;
+    border: 0;
+    border-bottom: 1px solid rgba(230, 190, 102, .32);
+    border-radius: 0;
+    outline: none;
     background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(224, 174, 99, 0.3);
     color: var(--oo-cream-100);
     font-family: var(--oo-font-body);
     font-size: 17px;
-    padding: 8px 2px;
-    transition: border-color 0.25s;
-  }
-  .oo-field input::placeholder {
-    color: rgba(143, 168, 179, 0.5);
-  }
-  .oo-field input:focus {
-    outline: none;
-    border-color: var(--oo-gold-light);
+    transition: border-color .25s, box-shadow .25s;
   }
 
-  .oo-invite__submit {
-    margin-top: 8px;
-    width: 100%;
-    padding: 17px;
+  .oo-field input::placeholder { color: rgba(170, 181, 209, .48); }
+
+  .oo-field input:focus {
+    border-color: var(--oo-gold-light);
+    box-shadow: 0 2px 0 rgba(230, 190, 102, .14);
   }
+
+  .oo-field input[aria-invalid='true'] { border-color: #e6896c; }
+
+  .oo-invite__submit {
+    width: 100%;
+    margin-top: 10px;
+    padding: 18px;
+  }
+
   .oo-invite__submit[aria-busy='true'] {
-    opacity: 0.7;
+    opacity: .7;
     pointer-events: none;
   }
+
   .oo-invite__error {
-    color: #e6896c;
+    color: #f1a18a;
     font-size: 13px;
     text-align: center;
   }
+
   .oo-invite__reassure {
-    font-size: 12px;
     color: var(--oo-slate);
+    font-size: 11px;
+    letter-spacing: .05em;
     text-align: center;
-    opacity: 0.8;
+    opacity: .76;
   }
 
-  /* success */
-  .oo-invite__success {
-    animation: revealSoft 0.7s var(--oo-ease) both;
-  }
+  .oo-invite__success { animation: revealSoft .7s var(--oo-ease) both; }
+
   .oo-invite__rings {
     position: relative;
     width: 60px;
     height: 36px;
-    margin: 0 auto 22px;
-    filter: drop-shadow(0 0 22px rgba(224, 174, 99, 0.5));
+    margin: 0 auto 24px;
+    filter: drop-shadow(0 0 22px rgba(224, 174, 99, .5));
   }
+
   .oo-invite__rings span {
     position: absolute;
     top: 0;
@@ -150,22 +178,23 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY;
     border: 1.3px solid var(--oo-gold-light);
     border-radius: 50%;
   }
+
   .oo-invite__rings span:first-child { left: 0; }
   .oo-invite__rings span:last-child { left: 24px; }
+
   .oo-invite__body {
-    margin: 18px auto 0;
-    max-width: 420px;
+    max-width: 440px;
+    margin: 20px auto 0;
     color: var(--oo-slate);
   }
-  .oo-invite__reset {
-    margin-top: 30px;
-  }
+
+  .oo-invite__reset { margin-top: 32px; }
 </style>
 
 <script>
   const section = document.getElementById('invito');
   if (section) {
-    const lang = section.getAttribute('data-lang') === 'en' ? 'en' : 'it';
+    const lang = section.getAttribute('data-lang') === 'it' ? 'it' : 'en';
     const form = section.querySelector<HTMLFormElement>('.oo-invite__form');
     const formPanel = section.querySelector<HTMLElement>('[data-panel="form"]');
     const successPanel = section.querySelector<HTMLElement>('[data-panel="success"]');
@@ -174,19 +203,33 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY;
     const submitBtn = section.querySelector<HTMLButtonElement>('.oo-invite__submit');
     const submitLabel = submitBtn?.querySelector<HTMLElement>('[data-role="label"]');
     const resetBtn = section.querySelector<HTMLButtonElement>('.oo-invite__reset');
-
     const labels = {
-      it: { submit: 'Richiedi il tuo invito', sending: 'Invio in corso…' },
-      en: { submit: 'Request your invitation', sending: 'Sending…' },
-    }[lang];
+      submit: section.dataset.submit || 'REQUEST AN INVITATION',
+      sending: section.dataset.sending || 'SENDING…',
+      validation: section.dataset.validation || 'Please enter your name and a valid email address.',
+      error: section.dataset.error || 'Something went wrong. Please try again shortly.',
+    };
 
-    form?.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    form?.addEventListener('submit', async (event) => {
+      event.preventDefault();
       if (!form || !submitBtn) return;
+
       const data = new FormData(form);
+      const name = String(data.get('name') || '').trim();
       const email = String(data.get('email') || '').trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        form.querySelector<HTMLInputElement>('input[name="email"]')?.focus();
+      const nameInput = form.querySelector<HTMLInputElement>('input[name="name"]');
+      const emailInput = form.querySelector<HTMLInputElement>('input[name="email"]');
+      nameInput?.removeAttribute('aria-invalid');
+      emailInput?.removeAttribute('aria-invalid');
+
+      if (name.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        const invalidInput = name.length < 2 ? nameInput : emailInput;
+        invalidInput?.setAttribute('aria-invalid', 'true');
+        invalidInput?.focus();
+        if (errorEl) {
+          errorEl.textContent = labels.validation;
+          errorEl.removeAttribute('hidden');
+        }
         return;
       }
 
@@ -195,26 +238,29 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY;
       if (submitLabel) submitLabel.textContent = labels.sending;
 
       const payload = {
-        name: String(data.get('name') || ''),
+        name,
         email,
-        whatsapp: String(data.get('whatsapp') || ''),
+        whatsapp: String(data.get('whatsapp') || '').trim(),
         lang,
         turnstileToken: String(data.get('cf-turnstile-response') || ''),
       };
 
       try {
-        const res = await fetch('/api/invite', {
+        const response = await fetch('/api/invite', {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify(payload),
         });
-        if (!res.ok) throw new Error(String(res.status));
-        if (guestEl) guestEl.textContent = (payload.name.split(' ')[0] || '').trim();
+        if (!response.ok) throw new Error(String(response.status));
+        if (guestEl) guestEl.textContent = name.split(' ')[0];
         formPanel?.setAttribute('hidden', '');
         successPanel?.removeAttribute('hidden');
         successPanel?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } catch {
-        errorEl?.removeAttribute('hidden');
+        if (errorEl) {
+          errorEl.textContent = labels.error;
+          errorEl.removeAttribute('hidden');
+        }
       } finally {
         submitBtn.removeAttribute('aria-busy');
         if (submitLabel) submitLabel.textContent = labels.submit;

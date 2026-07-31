@@ -9,172 +9,149 @@ const t = content[lang].hero;
 ---
 
 <header id="hero" class="oo-hero">
-  <div class="oo-hero__silk" aria-hidden="true">
-    <span class="oo-hero__wave oo-hero__wave--one"></span>
-    <span class="oo-hero__wave oo-hero__wave--two"></span>
-    <span class="oo-hero__wave oo-hero__wave--three"></span>
+  <div class="oo-hero__resonance" aria-hidden="true">
+    <svg viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="waterGlow">
+          <stop offset="0" stop-color="#e6be66" stop-opacity=".14" />
+          <stop offset=".55" stop-color="#164aa3" stop-opacity=".08" />
+          <stop offset="1" stop-color="#030824" stop-opacity="0" />
+        </radialGradient>
+        <linearGradient id="dropGold" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#ffe19a" />
+          <stop offset="1" stop-color="#c6963d" />
+        </linearGradient>
+      </defs>
+      <ellipse cx="600" cy="470" rx="510" ry="230" fill="url(#waterGlow)" />
+      <path class="oo-hero__drop" d="M600 216C583 244 571 261 571 281a29 29 0 0 0 58 0c0-20-12-37-29-65Z" fill="url(#dropGold)" />
+      <g class="oo-hero__rings" fill="none" stroke="#e6be66">
+        <ellipse class="oo-hero__ring oo-hero__ring--1" cx="600" cy="470" rx="92" ry="32" />
+        <ellipse class="oo-hero__ring oo-hero__ring--2" cx="600" cy="470" rx="188" ry="66" />
+        <ellipse class="oo-hero__ring oo-hero__ring--3" cx="600" cy="470" rx="310" ry="109" />
+        <ellipse class="oo-hero__ring oo-hero__ring--4" cx="600" cy="470" rx="450" ry="158" />
+      </g>
+      <path class="oo-hero__horizon" d="M0 470H1200" />
+    </svg>
   </div>
 
   <div class="oo-hero__inner">
     <div class="oo-hero__brand">
-      <img src="/brand/octave-on-logo.png" alt="Octave On" width="1064" height="671" />
+      <img
+        src="/brand/octave-on-logo.png"
+        alt="Octave On"
+        width="1064"
+        height="671"
+        decoding="async"
+        fetchpriority="high"
+      />
     </div>
     <h1 class="oo-hero__tagline">{t.tagline}</h1>
+    <a class="oo-hero__explore" href="#esperienza">
+      <span>{t.explore}</span><i aria-hidden="true">↓</i>
+    </a>
   </div>
-
-  <a class="oo-hero__scroll" href="#manifesto" aria-label={t.scroll}>
-    <span class="oo-hero__scroll-label">{t.scroll}</span>
-    <span class="oo-hero__scroll-track" aria-hidden="true"><i></i></span>
-  </a>
 </header>
 
 <style>
   .oo-hero {
     position: relative;
     min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 132px var(--oo-gutter) 104px;
+    display: grid;
+    place-items: center;
+    padding: 112px var(--oo-gutter) 72px;
     overflow: hidden;
     isolation: isolate;
+    text-align: center;
     background:
-      radial-gradient(ellipse at 18% 10%, rgba(20, 77, 188, 0.48) 0%, transparent 34%),
-      radial-gradient(ellipse at 82% 82%, rgba(11, 61, 151, 0.42) 0%, transparent 38%),
-      radial-gradient(circle at 52% 46%, rgba(9, 35, 91, 0.48) 0%, transparent 42%),
-      linear-gradient(154deg, var(--oo-night-600) -24%, var(--oo-night-900) 48%, var(--oo-night-800) 100%);
+      radial-gradient(circle at 50% 40%, rgba(13, 57, 142, 0.46), transparent 32%),
+      linear-gradient(180deg, #02051b 0%, #051641 53%, #030824 100%);
   }
 
   .oo-hero::before {
     content: '';
     position: absolute;
-    inset: 0;
     z-index: -1;
-    pointer-events: none;
+    inset: 0;
     background:
-      linear-gradient(108deg, transparent 0 45%, rgba(255, 225, 154, 0.08) 50%, transparent 55%),
-      radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.045), transparent 34%);
-    mix-blend-mode: screen;
+      linear-gradient(90deg, rgba(1, 3, 19, .48), transparent 24%, transparent 76%, rgba(1, 3, 19, .48)),
+      radial-gradient(ellipse at center, transparent 28%, rgba(1, 3, 19, .52) 100%);
+    pointer-events: none;
   }
 
   .oo-hero::after {
     content: '';
     position: absolute;
+    z-index: 0;
     inset: auto 0 -1px;
-    z-index: 1;
-    height: clamp(110px, 17vh, 170px);
+    height: clamp(100px, 16vh, 180px);
+    background: linear-gradient(180deg, transparent, var(--oo-night-800));
     pointer-events: none;
-    background: linear-gradient(180deg, transparent 0%, rgba(3, 8, 36, 0.84) 72%, var(--oo-night-800) 100%);
   }
 
-  .oo-hero__silk {
+  .oo-hero__resonance {
     position: absolute;
-    inset: 0;
     z-index: -1;
-    overflow: hidden;
-    pointer-events: none;
-    opacity: 0.84;
-  }
-
-  .oo-hero__silk::before,
-  .oo-hero__silk::after,
-  .oo-hero__wave {
-    content: '';
-    position: absolute;
-    display: block;
-    border-radius: 50%;
+    inset: 0;
+    opacity: .72;
     pointer-events: none;
   }
 
-  .oo-hero__silk::before {
-    width: 118vw;
-    height: 46vw;
-    min-height: 350px;
-    left: -42vw;
-    top: -18vw;
-    rotate: -10deg;
-    border: clamp(2px, 0.22vw, 4px) solid rgba(255, 221, 142, 0.76);
-    box-shadow:
-      0 0 18px rgba(255, 213, 115, 0.34),
-      0 0 0 clamp(18px, 2.2vw, 38px) rgba(8, 42, 111, 0.84),
-      0 0 0 clamp(22px, 2.7vw, 48px) rgba(32, 103, 220, 0.32),
-      0 0 80px rgba(16, 84, 207, 0.65);
-    filter: blur(0.2px);
+  .oo-hero__resonance svg {
+    width: 100%;
+    height: 100%;
   }
 
-  .oo-hero__silk::after {
-    width: 106vw;
-    height: 40vw;
-    min-height: 330px;
-    right: -40vw;
-    bottom: -20vw;
-    rotate: -13deg;
-    border: clamp(2px, 0.2vw, 4px) solid rgba(255, 224, 151, 0.82);
-    box-shadow:
-      0 0 20px rgba(255, 217, 129, 0.4),
-      0 0 0 clamp(20px, 2.4vw, 42px) rgba(7, 31, 83, 0.9),
-      0 0 0 clamp(31px, 3.5vw, 64px) rgba(16, 76, 178, 0.52),
-      0 0 90px rgba(13, 83, 210, 0.72);
+  .oo-hero__drop {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: dropFall 10s var(--oo-ease) infinite;
+    filter: drop-shadow(0 0 12px rgba(230, 190, 102, .48));
   }
 
-  .oo-hero__wave--one {
-    width: 94vw;
-    height: 22vw;
-    min-height: 180px;
-    left: 8vw;
-    top: 27%;
-    rotate: -18deg;
-    border: clamp(18px, 3vw, 56px) solid rgba(8, 49, 128, 0.76);
-    border-left-color: rgba(18, 91, 211, 0.82);
-    filter: blur(10px);
-    opacity: 0.5;
+  .oo-hero__rings {
+    stroke-width: 1.2;
   }
 
-  .oo-hero__wave--two {
-    width: 72vw;
-    height: 17vw;
-    min-height: 150px;
-    right: -14vw;
-    top: 12%;
-    rotate: -8deg;
-    border: clamp(10px, 1.7vw, 30px) solid rgba(15, 79, 192, 0.34);
-    filter: blur(7px);
+  .oo-hero__ring {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: resonance 10s var(--oo-ease) infinite;
   }
 
-  .oo-hero__wave--three {
-    width: 68vw;
-    height: 24vw;
-    min-height: 200px;
-    left: -18vw;
-    bottom: -9%;
-    rotate: 9deg;
-    border: clamp(12px, 2vw, 36px) solid rgba(5, 32, 91, 0.88);
-    box-shadow: inset 0 0 34px rgba(21, 99, 225, 0.48);
-    filter: blur(5px);
+  .oo-hero__ring--1 { animation-delay: 0s; }
+  .oo-hero__ring--2 { animation-delay: .45s; }
+  .oo-hero__ring--3 { animation-delay: .9s; }
+  .oo-hero__ring--4 { animation-delay: 1.35s; }
+
+  .oo-hero__horizon {
+    fill: none;
+    stroke: rgba(170, 181, 209, .12);
+    stroke-width: 1;
   }
 
   .oo-hero__inner {
     position: relative;
     z-index: 2;
-    width: min(100%, 980px);
-    min-width: 0;
+    width: min(100%, 900px);
+    padding: clamp(12px, 3vw, 34px);
   }
 
-  @supports (animation-timeline: view()) {
-    .oo-hero__inner > * {
-      animation: revealSoft both 1s var(--oo-ease);
-    }
+  .oo-hero__inner::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: -20% -14%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(2, 5, 27, .94) 0%, rgba(2, 5, 27, .64) 43%, transparent 73%);
+    filter: blur(8px);
   }
 
   .oo-hero__brand {
-    width: clamp(330px, 38vw, 510px);
+    width: clamp(340px, 42vw, 560px);
     margin: 0 auto;
-    translate: 0 -18px;
     filter:
-      drop-shadow(0 0 24px rgba(245, 194, 90, 0.6))
-      drop-shadow(0 16px 42px rgba(1, 3, 19, 0.8));
+      drop-shadow(0 0 28px rgba(230, 190, 102, .46))
+      drop-shadow(0 20px 48px rgba(1, 3, 19, .72));
   }
 
   .oo-hero__brand img {
@@ -183,108 +160,79 @@ const t = content[lang].hero;
   }
 
   .oo-hero__tagline {
-    margin: clamp(2px, 0.8vh, 10px) auto 0;
+    max-width: 720px;
+    margin: clamp(-4px, -.3vw, 2px) auto 0;
     color: var(--oo-cream-100);
     font-family: var(--oo-font-body);
-    font-size: clamp(12px, 1.1vw, 15px);
-    font-weight: 500;
+    font-size: clamp(12px, 1.2vw, 16px);
+    font-weight: 600;
     line-height: 1.5;
-    letter-spacing: 0.3em;
+    letter-spacing: .28em;
     text-transform: uppercase;
-    text-shadow: 0 3px 26px rgba(1, 3, 19, 0.9);
+    text-wrap: balance;
   }
 
-  .oo-hero__scroll {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    z-index: 3;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
+  .oo-hero__explore {
+    display: inline-flex;
     align-items: center;
-    gap: 10px;
-  }
-
-  .oo-hero__scroll-label {
+    gap: 12px;
+    margin-top: clamp(34px, 5vh, 58px);
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(230, 190, 102, .4);
+    color: var(--oo-gold-light);
     font-size: 10px;
-    letter-spacing: 0.34em;
-    text-transform: uppercase;
-    color: rgba(217, 225, 255, 0.58);
+    font-weight: 700;
+    letter-spacing: .25em;
+    transition: border-color .3s, color .3s;
   }
 
-  .oo-hero__scroll-track {
-    position: relative;
-    width: 22px;
-    height: 34px;
-    border: 1px solid rgba(217, 225, 255, 0.4);
-    border-radius: 12px;
+  .oo-hero__explore i {
+    font-size: 15px;
+    font-style: normal;
+    transition: transform .3s var(--oo-ease);
   }
 
-  .oo-hero__scroll-track i {
-    position: absolute;
-    top: 7px;
-    left: 50%;
-    width: 3px;
-    height: 3px;
-    margin-left: -1.5px;
-    border-radius: 50%;
-    background: var(--oo-gold-light);
-    animation: scrollDot 1.8s ease-in-out infinite;
+  .oo-hero__explore:hover {
+    border-color: var(--oo-gold-glow);
+    color: var(--oo-gold-glow);
   }
 
-  @media (max-width: 700px) {
+  .oo-hero__explore:hover i { transform: translateY(3px); }
+
+  @keyframes dropFall {
+    0%, 14% { transform: translateY(-78px); opacity: 0; }
+    20% { opacity: 1; }
+    36% { transform: translateY(170px); opacity: 1; }
+    40%, 100% { transform: translateY(174px); opacity: 0; }
+  }
+
+  @keyframes resonance {
+    0%, 34% { opacity: 0; transform: scale(.72); }
+    42% { opacity: .72; }
+    76%, 100% { opacity: 0; transform: scale(1.12); }
+  }
+
+  @media (max-width: 640px) {
     .oo-hero {
-      padding: 122px var(--oo-gutter) 96px;
+      min-height: 92svh;
+      padding-top: 92px;
     }
 
-    .oo-hero__brand {
-      width: min(88vw, 360px);
-      translate: 0 -12px;
-    }
+    .oo-hero__brand { width: min(86vw, 340px); }
 
     .oo-hero__tagline {
-      max-width: 100%;
-      padding-left: 0.2em;
-      font-size: clamp(8.5px, 2.65vw, 10px);
-      letter-spacing: 0.2em;
-      white-space: nowrap;
+      max-width: 340px;
+      font-size: 10px;
+      letter-spacing: .18em;
     }
 
-    .oo-hero__silk::before {
-      width: 160vw;
-      height: 72vw;
-      left: -74vw;
-      top: -12vw;
-    }
-
-    .oo-hero__silk::after {
-      width: 155vw;
-      height: 68vw;
-      right: -78vw;
-      bottom: -8vw;
-    }
-
-    .oo-hero__wave--one {
-      width: 150vw;
-      left: -20vw;
-      top: 34%;
+    .oo-hero__resonance {
+      inset: 10% -45% 0;
     }
   }
 
-  @media (max-height: 700px) {
-    .oo-hero {
-      padding-top: 94px;
-      padding-bottom: 62px;
-    }
-
-    .oo-hero__brand {
-      width: 270px;
-      translate: 0 -10px;
-    }
-
-    .oo-hero__scroll {
-      display: none;
-    }
+  @media (prefers-reduced-motion: reduce) {
+    .oo-hero__drop { transform: translateY(174px); opacity: .75; }
+    .oo-hero__ring { transform: none; opacity: .34; }
   }
 </style>
