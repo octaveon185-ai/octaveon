@@ -1,10 +1,12 @@
 # Original statue assets
 
-Pending client-approved, photorealistic monochrome WebP files:
+Selected original warm-marble sculptures:
 
 - `sonic-alchemy.webp`
 - `nourishment.webp`
 - `celebration.webp`
 - `closing-warrior.webp`
 
-Recommended: isolated or dark neutral background, generous negative space, high contrast, minimum 1600 px on the long edge. The existing museum photographs are not used as final website imagery.
+Each final website asset is 1200 × 1800 WebP with transparency. Responsive 768 × 1152 WebP variants use the `-768` suffix. The 1440 × 2160 transparent PNG masters are stored in `source/`.
+
+All active website components use these assets; the previous museum photographs are not referenced.

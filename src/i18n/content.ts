@@ -129,7 +129,6 @@ const shared = {
     eyebrow: 'AFTER THE EXPERIENCE',
     title: 'AN IMMERSIVE EXPERIENCE OF PRESENCE',
     cta: 'ENTER THE CIRCLE',
-    pending: 'ORIGINAL WARRIOR ASSET · PENDING',
   },
   footer: {
     tagline: 'AN IMMERSIVE EXPERIENCE OF PRESENCE',

@@ -26,28 +26,27 @@ const t = content[lang].experience;
             <div class="oo-exp__visual" aria-label={visual.kind === 'graphic' ? visual.label : undefined}>
               {visual.kind === 'image' ? (
                 <>
-                  <img
-                    src={visual.src}
-                    alt={visual.alt}
-                    width={visual.width}
-                    height={visual.height}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <a class="oo-exp__credit" href={visual.source} target="_blank" rel="noopener">
-                    {visual.credit}
-                  </a>
+                  <picture>
+                    <source
+                      srcset={visual.srcSet}
+                      sizes="(max-width: 760px) min(100vw - 40px, 440px), 44vw"
+                      type="image/webp"
+                    />
+                    <img
+                      src={visual.src}
+                      alt={visual.alt}
+                      width={visual.width}
+                      height={visual.height}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
+                  {visual.credit && visual.source && (
+                    <a class="oo-exp__credit" href={visual.source} target="_blank" rel="noopener">
+                      {visual.credit}
+                    </a>
+                  )}
                 </>
-              ) : visual.kind === 'placeholder' ? (
-                <div class="oo-exp__placeholder" aria-label={visual.label}>
-                  <span class="oo-exp__placeholderHalo" aria-hidden="true"></span>
-                  <span class="oo-exp__placeholderFigure" aria-hidden="true">
-                    <i></i><b></b>
-                  </span>
-                  <small>ORIGINAL ASSET · PENDING</small>
-                  <strong>{visual.composition}</strong>
-                  <code>{visual.plannedSrc}</code>
-                </div>
               ) : visual.variant === 'toroid' ? (
                 <svg class="oo-exp__geometry oo-exp__geometry--toroid" viewBox="0 0 500 500" role="img" aria-label={visual.label}>
                   <g fill="none" stroke="currentColor">
@@ -158,14 +157,21 @@ const t = content[lang].experience;
   .oo-exp__visual img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    filter: grayscale(1) sepia(.08) contrast(1.08);
+    object-fit: contain;
+    object-position: center bottom;
+    filter: drop-shadow(0 28px 34px rgba(1, 3, 19, .34));
     transition: transform 1.4s var(--oo-ease), filter 1.4s var(--oo-ease);
   }
 
+  .oo-exp__visual picture {
+    position: absolute;
+    z-index: 0;
+    inset: 16px 12px 0;
+  }
+
   .oo-exp__row:hover .oo-exp__visual img {
-    transform: scale(1.025);
-    filter: grayscale(1) sepia(.1) contrast(1.13);
+    transform: translateY(-5px) scale(1.008);
+    filter: drop-shadow(0 34px 40px rgba(1, 3, 19, .4));
   }
 
   .oo-exp__credit {
@@ -180,90 +186,6 @@ const t = content[lang].experience;
     letter-spacing: .15em;
     line-height: 1.4;
     text-transform: uppercase;
-  }
-
-  .oo-exp__placeholder {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
-    padding: 44px 28px;
-    text-align: center;
-    background:
-      linear-gradient(rgba(230, 190, 102, .035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(230, 190, 102, .035) 1px, transparent 1px);
-    background-size: 34px 34px;
-  }
-
-  .oo-exp__placeholderHalo {
-    position: absolute;
-    top: 12%;
-    left: 50%;
-    width: 64%;
-    aspect-ratio: 1;
-    translate: -50% 0;
-    border: 1px solid rgba(230, 190, 102, .24);
-    border-radius: 50%;
-    box-shadow:
-      0 0 0 38px rgba(230, 190, 102, .025),
-      0 0 80px rgba(19, 75, 183, .2);
-  }
-
-  .oo-exp__placeholderFigure {
-    position: absolute;
-    top: 22%;
-    left: 50%;
-    width: 25%;
-    height: 49%;
-    translate: -50% 0;
-    opacity: .5;
-  }
-
-  .oo-exp__placeholderFigure i,
-  .oo-exp__placeholderFigure b {
-    position: absolute;
-    left: 50%;
-    translate: -50% 0;
-    border: 1px solid rgba(230, 190, 102, .58);
-  }
-
-  .oo-exp__placeholderFigure i {
-    top: 0;
-    width: 40%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-  }
-
-  .oo-exp__placeholderFigure b {
-    top: 25%;
-    width: 100%;
-    height: 75%;
-    border-radius: 50% 50% 20% 20%;
-    clip-path: polygon(28% 0, 72% 0, 100% 100%, 0 100%);
-  }
-
-  .oo-exp__placeholder small {
-    color: var(--oo-gold-light);
-    font-size: 7px;
-    font-weight: 700;
-    letter-spacing: .2em;
-  }
-
-  .oo-exp__placeholder strong {
-    color: rgba(234, 231, 227, .7);
-    font-family: var(--oo-font-display);
-    font-size: clamp(17px, 1.7vw, 22px);
-    font-weight: 400;
-    letter-spacing: .08em;
-  }
-
-  .oo-exp__placeholder code {
-    color: rgba(170, 181, 209, .4);
-    font-size: 7px;
   }
 
   .oo-exp__geometry {

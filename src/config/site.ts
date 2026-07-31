@@ -7,17 +7,12 @@ type ExperienceVisual =
   | {
       kind: 'image';
       src: string;
+      srcSet: string;
       width: number;
       height: number;
       alt: string;
-      credit: string;
-      source: string;
-    }
-  | {
-      kind: 'placeholder';
-      plannedSrc: string;
-      label: string;
-      composition: string;
+      credit?: string;
+      source?: string;
     };
 
 export const heroMedia = {
@@ -63,10 +58,12 @@ export const experienceVisuals: Record<'01' | '02' | '03' | '04' | '05', Experie
     label: 'Resonance circles',
   },
   '02': {
-    kind: 'placeholder',
-    plannedSrc: '/media/statues/sonic-alchemy.webp',
-    label: 'Original Sonic Alchemy statue',
-    composition: 'MUSICIAN · MONOCHROME',
+    kind: 'image',
+    src: '/media/statues/sonic-alchemy.webp',
+    srcSet: '/media/statues/sonic-alchemy-768.webp 768w, /media/statues/sonic-alchemy.webp 1200w',
+    width: 1200,
+    height: 1800,
+    alt: 'Original warm-marble classical figure playing a transverse flute',
   },
   '03': {
     kind: 'graphic',
@@ -74,16 +71,20 @@ export const experienceVisuals: Record<'01' | '02' | '03' | '04' | '05', Experie
     label: 'Concentric waves suggesting projection and perception',
   },
   '04': {
-    kind: 'placeholder',
-    plannedSrc: '/media/statues/nourishment.webp',
-    label: 'Original Nourishment statue',
-    composition: 'NOURISHMENT · MONOCHROME',
+    kind: 'image',
+    src: '/media/statues/nourishment.webp',
+    srcSet: '/media/statues/nourishment-768.webp 768w, /media/statues/nourishment.webp 1200w',
+    width: 1200,
+    height: 1800,
+    alt: 'Original warm-marble classical figure holding a simple ritual bowl',
   },
   '05': {
-    kind: 'placeholder',
-    plannedSrc: '/media/statues/celebration.webp',
-    label: 'Original Celebration statue',
-    composition: 'MOVEMENT · MONOCHROME',
+    kind: 'image',
+    src: '/media/statues/celebration.webp',
+    srcSet: '/media/statues/celebration-768.webp 768w, /media/statues/celebration.webp 1200w',
+    width: 1200,
+    height: 1800,
+    alt: 'Original warm-marble classical figure moving in a controlled dance',
   },
 };
 
@@ -130,8 +131,10 @@ export const galleryAssets = [
 ] as const;
 
 export const closingVisual = {
-  kind: 'placeholder',
-  plannedSrc: '/media/statues/closing-warrior.webp',
-  label: 'Original reclining warrior statue',
-  composition: 'RECLINING WARRIOR · MONOCHROME',
+  kind: 'image',
+  src: '/media/statues/closing-warrior.webp',
+  srcSet: '/media/statues/closing-warrior-768.webp 768w, /media/statues/closing-warrior.webp 1200w',
+  width: 1200,
+  height: 1800,
+  alt: 'Original warm-marble classical warrior resting after a completed journey',
 } as const;
