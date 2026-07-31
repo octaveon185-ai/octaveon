@@ -2,7 +2,7 @@
 
 Marketing & invitation site for **Octave On** — an invite-only, immersive night
 experience: music, art and presence, from sunset to dawn, on the Mediterranean.
-Pilot event: one night, **02.10.26**, Altea (Costa Blanca).
+Opening Experience: **July 4**, Costa Blanca.
 
 ## Stack
 

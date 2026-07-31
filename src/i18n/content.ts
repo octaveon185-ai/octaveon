@@ -94,9 +94,9 @@ const shared = {
     eyebrow: 'PRIVATE ACCESS BEGINS HERE',
     title: 'ENTER THE CIRCLE',
     intro:
-      'Octave On is an intimate experience with limited capacity. Leave your details to request an invitation to the opening experience.',
+      'LEAVE YOUR CONTACT DETAILS TO RECEIVE AN INVITATION AND THE FIRST INSIGHTS INTO THE EXPERIENCE.',
     fields: {
-      name: 'Your name',
+      name: 'Name',
       email: 'name@email.com',
       whatsapp: '+34 ___ ___ ___',
       whatsappLabel: 'WhatsApp · optional',
@@ -121,9 +121,15 @@ const shared = {
       tag: 'FIRST ARTICLE · MANIFESTO',
       title: 'What Is Octave On? A New Way to Celebrate.',
       excerpt:
-        'A reflection on why celebration can become a space for presence, meaningful connection, and inner transformation.',
+        'Why we stopped calling it a party—and what happens when music, art and presence meet in a single Mediterranean night.',
       read: 'READ THE ARTICLE',
     },
+  },
+  closing: {
+    eyebrow: 'AFTER THE EXPERIENCE',
+    title: 'AN IMMERSIVE EXPERIENCE OF PRESENCE',
+    cta: 'ENTER THE CIRCLE',
+    pending: 'ORIGINAL WARRIOR ASSET · PENDING',
   },
   footer: {
     tagline: 'AN IMMERSIVE EXPERIENCE OF PRESENCE',
