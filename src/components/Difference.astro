@@ -21,7 +21,7 @@ const t = content[lang].difference;
   .oo-diff {
     position: relative;
     min-height: 0;
-    padding: clamp(90px, 14vh, 150px) var(--oo-gutter);
+    padding: clamp(64px, 9vh, 104px) var(--oo-gutter);
     background: var(--oo-grad-night);
     overflow: hidden;
     display: grid;
@@ -35,7 +35,7 @@ const t = content[lang].difference;
     left: 50%;
     translate: -50% -55%;
     font-family: var(--oo-font-display);
-    font-size: clamp(280px, 38vw, 580px);
+    font-size: clamp(190px, 27vw, 390px);
     line-height: 1;
     color: rgba(224, 174, 99, 0.035);
     pointer-events: none;
@@ -50,14 +50,14 @@ const t = content[lang].difference;
   }
   .oo-diff__quote p {
     margin: 0;
-    font-size: clamp(42px, 6vw, 76px);
+    font-size: clamp(30px, 4.1vw, 52px);
     line-height: 1.02;
     font-weight: 400;
     color: var(--oo-cream-100);
     text-wrap: balance;
   }
   .oo-diff__quote footer {
-    margin-top: clamp(34px, 5vh, 54px);
+    margin-top: clamp(22px, 3vh, 34px);
     color: var(--oo-gold-light);
     font-size: clamp(12px, 1.2vw, 15px);
     font-style: normal;
@@ -68,10 +68,10 @@ const t = content[lang].difference;
   @media (max-width: 600px) {
     .oo-diff {
       min-height: 0;
-      padding-block: 96px;
+      padding-block: 72px;
     }
     .oo-diff__quote p {
-      font-size: clamp(40px, 12vw, 54px);
+      font-size: clamp(29px, 9vw, 40px);
       line-height: 1.06;
     }
   }

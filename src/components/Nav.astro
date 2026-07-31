@@ -9,7 +9,7 @@ const t = content[lang].nav;
 const altHome = homeHref(otherLang(lang));
 ---
 
-<nav class="oo-nav" aria-label="Primary">
+<nav class="oo-nav" aria-label="Primary" data-scrolled="false">
   <ul class="oo-nav__links">
     {t.links.map((l) => (
       <li><a href={l.href}>{l.label}</a></li>
@@ -33,13 +33,19 @@ const altHome = homeHref(otherLang(lang));
     gap: 18px;
     padding: 16px clamp(20px, 4vw, 56px);
     border-bottom: 1px solid transparent;
+    background: rgba(2, 5, 27, 0);
+    transition:
+      padding .35s var(--oo-ease),
+      background .35s,
+      border-color .35s,
+      backdrop-filter .35s;
   }
-  @supports (animation-timeline: scroll(root)) {
-    .oo-nav {
-      animation: navShow both;
-      animation-timeline: scroll(root);
-      animation-range: 60px 240px;
-    }
+
+  .oo-nav[data-scrolled='true'] {
+    padding-block: 11px;
+    border-color: rgba(230, 190, 102, .14);
+    background: rgba(2, 5, 27, .84);
+    backdrop-filter: blur(16px) saturate(1.15);
   }
 
   .oo-nav__links {
@@ -108,3 +114,10 @@ const altHome = homeHref(otherLang(lang));
     }
   }
 </style>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('.oo-nav');
+  const updateNav = () => nav?.setAttribute('data-scrolled', window.scrollY > 48 ? 'true' : 'false');
+  updateNav();
+  addEventListener('scroll', updateNav, { passive: true });
+</script>

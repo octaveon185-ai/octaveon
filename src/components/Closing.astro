@@ -6,28 +6,24 @@ interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const cta = content[lang].invite.submit;
+const t = content[lang].closing;
 ---
 
 <section class="oo-closing" aria-labelledby="closing-title">
   <div class="oo-container oo-closing__grid">
     <div class="oo-reveal oo-closing__content">
-      <p class="oo-eyebrow">A RETURN TO PRESENCE</p>
-      <h2 id="closing-title" class="oo-display">The circle awaits.</h2>
-      <a class="oo-btn oo-btn--primary" href="#invito">{cta}</a>
+      <p class="oo-eyebrow">{t.eyebrow}</p>
+      <h2 id="closing-title" class="oo-display">{t.title}</h2>
+      <a class="oo-btn oo-btn--primary" href="#invito">{t.cta}</a>
     </div>
 
-    <figure class="oo-reveal oo-closing__visual">
-      <img
-        src={closingVisual.src}
-        alt={closingVisual.alt}
-        width={closingVisual.width}
-        height={closingVisual.height}
-        loading="lazy"
-        decoding="async"
-      />
+    <figure class="oo-reveal oo-closing__visual" aria-label={closingVisual.label}>
+      <span class="oo-closing__halo" aria-hidden="true"></span>
+      <span class="oo-closing__plinth" aria-hidden="true"></span>
       <figcaption>
-        <a href={closingVisual.source} target="_blank" rel="noopener">{closingVisual.credit}</a>
+        <small>{t.pending}</small>
+        <strong>{closingVisual.composition}</strong>
+        <code>{closingVisual.plannedSrc}</code>
       </figcaption>
     </figure>
   </div>
@@ -46,7 +42,7 @@ const cta = content[lang].invite.submit;
   .oo-closing__grid {
     min-height: min(720px, 78vh);
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(360px, .78fr);
+    grid-template-columns: minmax(0, 1.08fr) minmax(360px, .72fr);
     align-items: center;
     gap: clamp(40px, 8vw, 110px);
   }
@@ -58,62 +54,88 @@ const cta = content[lang].invite.submit;
   }
 
   .oo-closing__content h2 {
-    max-width: 620px;
+    max-width: 760px;
     margin: 18px 0 38px;
     color: var(--oo-cream-100);
-    font-size: clamp(58px, 8vw, 108px);
-    line-height: .92;
+    font-size: clamp(52px, 7vw, 98px);
+    line-height: .94;
     text-wrap: balance;
   }
 
   .oo-closing__visual {
     position: relative;
     align-self: end;
-    max-width: 510px;
-    margin: 0;
-  }
-
-  .oo-closing__visual::before {
-    content: '';
-    position: absolute;
-    z-index: 0;
-    inset: 10% -12% 0;
-    border: 1px solid rgba(230, 190, 102, .22);
-    border-bottom: 0;
-    border-radius: 240px 240px 0 0;
-  }
-
-  .oo-closing__visual::after {
-    content: '';
-    position: absolute;
-    z-index: 1;
-    inset: 0;
-    background: linear-gradient(180deg, transparent 50%, var(--oo-night-900) 100%);
-    pointer-events: none;
-  }
-
-  .oo-closing__visual img {
-    position: relative;
-    z-index: 1;
     width: 100%;
-    height: auto;
-    filter: grayscale(1) contrast(1.08);
-    mix-blend-mode: luminosity;
+    max-width: 520px;
+    min-height: 600px;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(230, 190, 102, .2);
+    border-bottom: 0;
+    border-radius: 260px 260px 0 0;
+    background:
+      linear-gradient(rgba(230, 190, 102, .035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(230, 190, 102, .035) 1px, transparent 1px),
+      radial-gradient(circle at 50% 38%, rgba(18, 65, 156, .28), transparent 42%);
+    background-size: 36px 36px, 36px 36px, auto;
+  }
+
+  .oo-closing__halo {
+    position: absolute;
+    left: 50%;
+    top: 21%;
+    width: 68%;
+    aspect-ratio: 1;
+    translate: -50% 0;
+    border: 1px solid rgba(230, 190, 102, .28);
+    border-radius: 50%;
+    box-shadow: 0 0 0 54px rgba(230, 190, 102, .025);
+  }
+
+  .oo-closing__plinth {
+    position: absolute;
+    left: 50%;
+    bottom: 16%;
+    width: 70%;
+    height: 29%;
+    translate: -50% 0;
+    border: 1px solid rgba(230, 190, 102, .4);
+    border-radius: 52% 48% 12% 12%;
+    clip-path: polygon(6% 64%, 23% 26%, 52% 8%, 88% 22%, 100% 70%, 89% 88%, 7% 92%);
+    opacity: .54;
   }
 
   .oo-closing__visual figcaption {
     position: absolute;
     z-index: 2;
-    right: 10px;
-    bottom: 18px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: grid;
+    gap: 8px;
+    padding: 42px 28px 28px;
+    text-align: center;
+    background: linear-gradient(transparent, var(--oo-night-900));
   }
 
-  .oo-closing__visual figcaption a {
-    color: rgba(234, 231, 227, .48);
+  .oo-closing__visual small {
+    color: var(--oo-gold-light);
     font-size: 7px;
     font-weight: 700;
-    letter-spacing: .16em;
-    text-transform: uppercase;
+    letter-spacing: .2em;
+  }
+
+  .oo-closing__visual strong {
+    color: rgba(234, 231, 227, .72);
+    font-family: var(--oo-font-display);
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: .06em;
+  }
+
+  .oo-closing__visual code {
+    color: rgba(170, 181, 209, .42);
+    font-size: 7px;
   }
 
   @media (max-width: 760px) {
@@ -129,6 +151,7 @@ const cta = content[lang].invite.submit;
 
     .oo-closing__visual {
       width: min(92%, 430px);
+      min-height: 510px;
       margin: 10px auto 0;
     }
   }

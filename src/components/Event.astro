@@ -41,8 +41,9 @@ const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
           <i></i><i></i>
         </span>
         <span>
-          <small>{t.labels.venue}</small>
-          <strong>{eventDetails.venue}</strong>
+          <small>HOST VENUE</small>
+          <strong>{eventDetails.venueName}</strong>
+          <em>{eventDetails.venueArea}</em>
         </span>
         <b>{t.pendingAsset}</b>
       </a>
@@ -191,6 +192,16 @@ const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
     font-size: clamp(22px, 2vw, 29px);
     font-weight: 500;
     line-height: 1;
+  }
+
+  .oo-event__venue em {
+    display: block;
+    margin-top: 7px;
+    color: var(--oo-gold-dark);
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: .2em;
   }
 
   .oo-event__venue b {

@@ -1,5 +1,6 @@
 ---
 import { content, type Lang } from '../i18n/content';
+import { heroMedia } from '../config/site';
 
 interface Props {
   lang: Lang;
@@ -20,23 +21,15 @@ const t = content[lang].journal;
 
     <a class="oo-reveal oo-journal__article" href="#">
       <div class="oo-journal__media" aria-hidden="true">
-        <svg viewBox="0 0 640 480" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <radialGradient id="journalGlow">
-              <stop offset="0" stop-color="#e6be66" stop-opacity=".16" />
-              <stop offset="1" stop-color="#030824" stop-opacity="0" />
-            </radialGradient>
-          </defs>
-          <circle cx="320" cy="240" r="210" fill="url(#journalGlow)" />
-          <g fill="none" stroke="#e6be66">
-            <ellipse cx="320" cy="240" rx="78" ry="28" />
-            <ellipse cx="320" cy="240" rx="142" ry="51" />
-            <ellipse cx="320" cy="240" rx="218" ry="78" />
-            <circle cx="320" cy="240" r="112" opacity=".18" />
-            <path d="M320 65v350M86 240h468" opacity=".12" />
-          </g>
-          <circle cx="320" cy="240" r="4" fill="#ffe19a" />
-        </svg>
+        <img
+          src={heroMedia.poster.src}
+          alt=""
+          width={heroMedia.poster.width}
+          height={heroMedia.poster.height}
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="oo-journal__rings"><i></i><i></i><i></i></span>
       </div>
       <div class="oo-journal__content">
         <p class="oo-journal__tag">{t.article.tag}</p>
@@ -99,26 +92,50 @@ const t = content[lang].journal;
   .oo-journal__media {
     position: relative;
     aspect-ratio: 4 / 3;
-    background:
-      radial-gradient(circle at 52% 46%, rgba(19, 75, 183, .3), transparent 38%),
-      linear-gradient(150deg, #030824, #051641 62%, #02051b);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: var(--oo-night-900);
   }
-  .oo-journal__media svg {
-    width: 88%;
-    height: auto;
-    color: var(--oo-gold-light);
-    filter: drop-shadow(0 0 24px rgba(230, 190, 102, .14));
-    animation: journalDrift 12s ease-in-out infinite;
+
+  .oo-journal__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(3, 8, 36, .08), rgba(3, 8, 36, .45));
   }
-  .oo-journal__media svg g {
-    stroke-width: 1.1;
+
+  .oo-journal__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(.72) contrast(1.08) brightness(.82);
+    transition: transform 1.2s var(--oo-ease);
   }
-  @keyframes journalDrift {
-    0%, 100% { transform: translateY(4px) scale(.98); opacity: .68; }
-    50% { transform: translateY(-4px) scale(1.015); opacity: .92; }
+
+  .oo-journal__article:hover .oo-journal__media img {
+    transform: scale(1.025);
+  }
+
+  .oo-journal__rings {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 54%;
+    width: 52%;
+    aspect-ratio: 2 / .72;
+    translate: -50% -50%;
+  }
+
+  .oo-journal__rings i {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(230, 190, 102, .34);
+    border-radius: 50%;
+  }
+
+  .oo-journal__rings i:nth-child(2) { inset: 20% 21%; }
+  .oo-journal__rings i:nth-child(3) { inset: 39% 40%; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .oo-journal__media img { transition: none; }
   }
   .oo-journal__content {
     padding: clamp(24px, 4vw, 44px) clamp(24px, 4vw, 44px) clamp(24px, 4vw, 44px) 0;
