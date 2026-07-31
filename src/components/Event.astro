@@ -1,150 +1,243 @@
 ---
 import { content, type Lang } from '../i18n/content';
+import { eventDetails } from '../config/site';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = content[lang].event;
-const mapsHref =
-  'https://www.google.com/maps/search/?api=1&query=38.570417,-0.077250';
+const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(eventDetails.venue)}`;
 ---
 
 <section id="evento" class="oo-event">
-  <img class="oo-event__bg" src="/images/altea-event.webp" alt="" width="1920" height="1281" loading="lazy" decoding="async" aria-hidden="true" />
-  <div class="oo-event__veil" aria-hidden="true"></div>
+  <div class="oo-container oo-event__grid">
+    <div class="oo-reveal oo-event__media">
+      <picture>
+        <source srcset={eventDetails.image.srcSet} sizes="(max-width: 820px) 100vw, 46vw" type="image/webp" />
+        <img
+          src={eventDetails.image.src}
+          alt={eventDetails.image.alt}
+          width={eventDetails.image.width}
+          height={eventDetails.image.height}
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+      <span class="oo-event__imageLabel">ALTEA · COSTA BLANCA</span>
+    </div>
 
-  <div class="oo-event__stars" aria-hidden="true">
-    <span style="top:16%;left:18%"></span>
-    <span style="top:24%;left:72%;animation-delay:.8s"></span>
-    <span style="top:62%;left:34%;animation-delay:1.6s"></span>
-    <span style="top:40%;left:86%;animation-delay:.4s"></span>
-  </div>
+    <article class="oo-reveal oo-event__content">
+      <p class="oo-eyebrow">{t.eyebrow}</p>
+      <h2 class="oo-display oo-event__title">{eventDetails.name}</h2>
 
-  <div class="oo-container oo-reveal oo-event__inner">
-    <p class="oo-eyebrow">{t.eyebrow}</p>
-    <h2 class="oo-display oo-event__title">{t.title}</h2>
+      <div class="oo-event__facts">
+        <p>{eventDetails.date} <span>—</span> {eventDetails.location}</p>
+        <time>{eventDetails.time}</time>
+      </div>
 
-    <dl class="oo-event__facts">
-      {t.facts.map((f) => (
-        <div class="oo-event__fact">
-          <dt>{f.label}</dt>
-          <dd>{f.value}</dd>
-        </div>
-      ))}
-    </dl>
+      <a class="oo-event__venue" href={mapHref} target="_blank" rel="noopener">
+        <span class="oo-event__venueMark" aria-hidden="true">
+          <i></i><i></i>
+        </span>
+        <span>
+          <small>{t.labels.venue}</small>
+          <strong>{eventDetails.venue}</strong>
+        </span>
+        <b>{t.pendingAsset}</b>
+      </a>
 
-    <a class="oo-event__coords" href={mapsHref} target="_blank" rel="noopener">{t.coords}</a>
-    <p class="oo-event__note">{t.note}</p>
-    <a class="oo-btn oo-btn--primary oo-event__cta" href="#invito">{t.cta}</a>
+      <p class="oo-event__note">{t.note}</p>
+      <a class="oo-btn oo-btn--primary" href="#invito">{t.cta}</a>
+    </article>
   </div>
 </section>
 
 <style>
   .oo-event {
     position: relative;
-    padding: clamp(80px, 12vh, 160px) var(--oo-gutter);
-    background: var(--oo-night-800);
+    padding: clamp(90px, 14vh, 170px) var(--oo-gutter);
     overflow: hidden;
-    text-align: center;
-  }
-  .oo-event__bg {
-    position: absolute;
-    inset: -8% 0;
-    width: 100%;
-    height: 116%;
-    object-fit: cover;
-    object-position: center 35%;
-    z-index: 0;
-  }
-  /* parallax: the photo drifts slower than the content as the section passes */
-  @supports (animation-timeline: view()) {
-    .oo-event__bg {
-      animation: eventBgPar linear both;
-      animation-timeline: view();
-      animation-range: cover 0% cover 100%;
-    }
-  }
-  /* blue-hour veil so the warm sunset shot reads nocturnal and text stays legible */
-  .oo-event__veil {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
     background:
-      linear-gradient(
-        180deg,
-        var(--oo-night-800) 0%,
-        transparent 14%,
-        transparent 86%,
-        var(--oo-night-700) 100%
-      ),
-      radial-gradient(120% 90% at 50% 120%, rgba(230, 190, 102, 0.18), transparent 55%),
-      linear-gradient(180deg, rgba(3, 8, 36, 0.96) 0%, rgba(3, 8, 36, 0.84) 45%, rgba(5, 22, 65, 0.96) 100%);
-  }
-  @keyframes eventBgPar {
-    from { transform: translateY(-5%); }
-    to { transform: translateY(5%); }
-  }
-  .oo-event__stars span {
-    display: none;
-  }
-  .oo-event__inner {
-    position: relative;
-    z-index: 1;
-    max-width: 760px;
-    margin: 0 auto;
-  }
-  .oo-event__title {
-    font-size: var(--oo-fs-h2);
-    color: var(--oo-cream-100);
-    margin: 18px 0 clamp(40px, 6vh, 64px);
-  }
-  .oo-event__facts {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    border-block: 1px solid rgba(224, 174, 99, 0.18);
-    padding: clamp(28px, 4vh, 40px) 0;
-  }
-  .oo-event__fact dt {
-    font-size: 11px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--oo-gold-light);
-    margin-bottom: 10px;
-  }
-  .oo-event__fact dd {
-    font-family: var(--oo-font-display);
-    font-size: clamp(20px, 2.4vw, 30px);
-    color: var(--oo-cream-100);
-  }
-  .oo-event__coords {
-    display: inline-block;
-    margin-top: 28px;
-    font-size: 12px;
-    letter-spacing: 0.16em;
-    color: var(--oo-slate);
-    border-bottom: 1px solid rgba(143, 168, 179, 0.35);
-    padding-bottom: 4px;
-    transition: color 0.25s, border-color 0.25s;
-  }
-  .oo-event__coords:hover {
-    color: var(--oo-gold-light);
-    border-color: var(--oo-gold-light);
-  }
-  .oo-event__note {
-    margin: 26px auto 0;
-    max-width: 520px;
-    color: var(--oo-slate);
-  }
-  .oo-event__cta {
-    margin-top: 38px;
+      radial-gradient(circle at 88% 12%, rgba(19, 75, 183, .18), transparent 30%),
+      linear-gradient(180deg, var(--oo-night-700), var(--oo-night-800));
   }
 
-  @media (max-width: 600px) {
-    .oo-event__facts {
-      grid-template-columns: 1fr;
-      gap: 28px;
-    }
+  .oo-event__grid {
+    display: grid;
+    grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+    align-items: center;
+    gap: clamp(42px, 8vw, 112px);
   }
+
+  .oo-event__media {
+    position: relative;
+    min-height: 680px;
+    overflow: hidden;
+    border: 1px solid rgba(230, 190, 102, .24);
+    border-radius: 240px 240px 16px 16px;
+  }
+
+  .oo-event__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(3, 8, 36, .06), transparent 46%, rgba(3, 8, 36, .8)),
+      rgba(3, 8, 36, .08);
+    pointer-events: none;
+  }
+
+  .oo-event__media picture,
+  .oo-event__media img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .oo-event__media img {
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .oo-event__imageLabel {
+    position: absolute;
+    z-index: 1;
+    left: 24px;
+    bottom: 22px;
+    color: rgba(234, 231, 227, .72);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .23em;
+  }
+
+  .oo-event__content {
+    max-width: 590px;
+  }
+
+  .oo-event__title {
+    margin-top: 18px;
+    color: var(--oo-cream-100);
+    font-size: clamp(52px, 6.5vw, 86px);
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .oo-event__facts {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: clamp(38px, 6vh, 60px);
+    padding-block: 27px;
+    border-block: 1px solid rgba(230, 190, 102, .2);
+  }
+
+  .oo-event__venue small {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--oo-gold-light);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .23em;
+  }
+
+  .oo-event__facts p,
+  .oo-event__facts time {
+    color: var(--oo-cream-100);
+    font-family: var(--oo-font-display);
+    font-size: clamp(24px, 2.6vw, 34px);
+    line-height: 1.18;
+    text-transform: uppercase;
+  }
+
+  .oo-event__facts span { color: var(--oo-gold-light); }
+
+  .oo-event__facts time {
+    color: var(--oo-gold-light);
+    font-family: var(--oo-font-body);
+    font-size: clamp(12px, 1.2vw, 15px);
+    font-weight: 700;
+    letter-spacing: .18em;
+  }
+
+  .oo-event__venue {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 22px;
+    margin-top: 28px;
+    padding: 21px 22px;
+    border-radius: 10px;
+    background: var(--oo-cream-100);
+    color: var(--oo-night-800);
+    transition: transform .3s var(--oo-ease), box-shadow .3s;
+  }
+
+  .oo-event__venue:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 50px rgba(1, 3, 19, .3);
+  }
+
+  .oo-event__venue small { color: var(--oo-gold-dark); }
+
+  .oo-event__venue strong {
+    display: block;
+  }
+
+  .oo-event__venue strong {
+    font-family: var(--oo-font-display);
+    font-size: clamp(22px, 2vw, 29px);
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .oo-event__venue b {
+    position: absolute;
+    right: 12px;
+    bottom: 8px;
+    color: rgba(3, 8, 36, .34);
+    font-size: 6.5px;
+    font-weight: 700;
+    letter-spacing: .12em;
+  }
+
+  .oo-event__venueMark {
+    position: relative;
+    width: 54px;
+    height: 34px;
+  }
+
+  .oo-event__venueMark i {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--oo-gold-dark);
+    border-radius: 50%;
+  }
+
+  .oo-event__venueMark i:first-child { left: 0; }
+  .oo-event__venueMark i:last-child { right: 0; }
+
+  .oo-event__note {
+    max-width: 50ch;
+    margin: 28px 0 32px;
+    color: var(--oo-slate);
+    line-height: 1.75;
+  }
+
+  @media (max-width: 820px) {
+    .oo-event__grid { grid-template-columns: 1fr; }
+
+    .oo-event__media {
+      min-height: 0;
+      width: min(100%, 560px);
+      aspect-ratio: 4 / 5;
+      margin: 0 auto;
+    }
+
+    .oo-event__content { max-width: 620px; }
+  }
+
 </style>

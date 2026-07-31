@@ -34,7 +34,7 @@ const t = content[lang].footer;
 
     <div class="oo-footer__meta">
       <span>{t.rights}</span>
-      <span class="oo-footer__coords">{t.coords}</span>
+      <span class="oo-footer__coords">{t.location}</span>
     </div>
   </div>
 </footer>
@@ -59,7 +59,7 @@ const t = content[lang].footer;
     align-items: center;
   }
   .oo-footer__logo {
-    width: clamp(280px, 34vw, 420px);
+    width: clamp(220px, 27vw, 330px);
     height: auto;
     margin-bottom: 30px;
     filter:
@@ -68,7 +68,12 @@ const t = content[lang].footer;
   }
 
   .oo-footer__tagline {
-    font-size: clamp(24px, 3.4vw, 40px);
+    font-family: var(--oo-font-body);
+    font-size: clamp(12px, 1.25vw, 16px);
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: .24em;
+    text-transform: uppercase;
     color: var(--oo-cream-100);
     max-width: 560px;
   }

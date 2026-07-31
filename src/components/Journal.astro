@@ -20,7 +20,23 @@ const t = content[lang].journal;
 
     <a class="oo-reveal oo-journal__article" href="#">
       <div class="oo-journal__media" aria-hidden="true">
-        <span class="oo-journal__ring"></span>
+        <svg viewBox="0 0 640 480" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <radialGradient id="journalGlow">
+              <stop offset="0" stop-color="#e6be66" stop-opacity=".16" />
+              <stop offset="1" stop-color="#030824" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+          <circle cx="320" cy="240" r="210" fill="url(#journalGlow)" />
+          <g fill="none" stroke="#e6be66">
+            <ellipse cx="320" cy="240" rx="78" ry="28" />
+            <ellipse cx="320" cy="240" rx="142" ry="51" />
+            <ellipse cx="320" cy="240" rx="218" ry="78" />
+            <circle cx="320" cy="240" r="112" opacity=".18" />
+            <path d="M320 65v350M86 240h468" opacity=".12" />
+          </g>
+          <circle cx="320" cy="240" r="4" fill="#ffe19a" />
+        </svg>
       </div>
       <div class="oo-journal__content">
         <p class="oo-journal__tag">{t.article.tag}</p>
@@ -83,17 +99,26 @@ const t = content[lang].journal;
   .oo-journal__media {
     position: relative;
     aspect-ratio: 4 / 3;
-    background: linear-gradient(150deg, #030824, #082D75 58%, #9D7229 135%);
+    background:
+      radial-gradient(circle at 52% 46%, rgba(19, 75, 183, .3), transparent 38%),
+      linear-gradient(150deg, #030824, #051641 62%, #02051b);
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .oo-journal__ring {
-    width: 30%;
-    aspect-ratio: 1;
-    border: 1.4px solid rgba(242, 233, 218, 0.7);
-    border-radius: 50%;
-    animation: drift 9s ease-in-out infinite;
+  .oo-journal__media svg {
+    width: 88%;
+    height: auto;
+    color: var(--oo-gold-light);
+    filter: drop-shadow(0 0 24px rgba(230, 190, 102, .14));
+    animation: journalDrift 12s ease-in-out infinite;
+  }
+  .oo-journal__media svg g {
+    stroke-width: 1.1;
+  }
+  @keyframes journalDrift {
+    0%, 100% { transform: translateY(4px) scale(.98); opacity: .68; }
+    50% { transform: translateY(-4px) scale(1.015); opacity: .92; }
   }
   .oo-journal__content {
     padding: clamp(24px, 4vw, 44px) clamp(24px, 4vw, 44px) clamp(24px, 4vw, 44px) 0;
