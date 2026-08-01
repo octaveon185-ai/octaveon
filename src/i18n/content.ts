@@ -1,146 +1,20 @@
-export const locales = ['en', 'it'] as const;
+export const locales = ['en', 'it', 'es'] as const;
 export type Lang = (typeof locales)[number];
 export const defaultLang: Lang = 'en';
 
-export const otherLang = (lang: Lang): Lang => (lang === 'en' ? 'it' : 'en');
-export const homeHref = (lang: Lang): string => (lang === 'en' ? '/' : '/it/');
+export const localeLabels: Record<Lang, string> = {
+  en: 'EN',
+  it: 'IT',
+  es: 'ES',
+};
 
-const shared = {
-  manifesto: {
-    title: 'Octave On',
-    intro:
-      'is a cultural and experiential platform that creates mindful events, immersive encounters, and transformative festivals for a new generation of conscious gatherings.',
-    vision: 'Our vision is to restore celebration to its original meaning:',
-    body:
-      "a space for authentic connection and collective awakening, where music, art, elixirs, and nourishment become vehicles of profound impressions that naturally elevate one's state of being and deepen the quality of presence.",
-  },
-  experience: {
-    title: 'THE EXPERIENCE',
-    rituals: [
-      {
-        num: '01',
-        name: 'ENTERING THE CIRCLE',
-        sub: 'The Opening Ritual',
-        desc: 'A gentle transition from the ordinary into a shared field of presence.',
-      },
-      {
-        num: '02',
-        name: 'SONIC ALCHEMY',
-        sub: 'Music as a Bridge to Awakening',
-        desc: 'An immersive dialogue between electronic soundscapes, ancestral instruments, and living voices.',
-      },
-      {
-        num: '03',
-        name: 'LIVING VISUALS',
-        sub: 'Light as a Gateway to Perception',
-        desc: 'Living projections by a visual artist transform the space into a living organism. Light, movement, and form dissolve the boundary between the observer and the experience.',
-      },
-      {
-        num: '04',
-        name: 'NOURISHMENT',
-        sub: 'Food & Natural Elixirs as Rituals of Presence',
-        desc: 'A living table, created by an intuitive chef with thoughtful hands. Seasonal ingredients, handcrafted natural elixirs, vibrant colours, and edible flowers awaken the senses long before the first taste, inviting a slower, more conscious way of gathering.',
-      },
-      {
-        num: '05',
-        name: 'CELEBRATION',
-        sub: 'Where Presence Becomes Movement',
-        desc: 'After a journey through sound, light, and conscious nourishment, the celebration unfolds naturally. Live musicians and DJs weave together an evolving soundscape where movement becomes an expression of presence, connection, and joy.',
-      },
-    ],
-  },
-  whoFor: {
-    lead: 'No alcohol. Only nature.',
-    body:
-      'Handcrafted botanical elixirs that naturally elevate the experience, allowing clarity, vitality, and genuine connection to emerge.',
-    closing:
-      'A seamless flow between connection with others and a return to yourself',
-  },
-  interlude: {
-    lead: 'An immersive experience.',
-    text: "A story you'll carry with you long after the night is over.",
-  },
-  difference: {
-    quote: 'What you seek is seeking you.',
-    author: 'Rumi',
-  },
-  event: {
-    eyebrow: 'PRIVATE · BY INVITATION',
-    title: 'OPENING EXPERIENCE',
-    labels: {
-      date: 'DATE',
-      place: 'PLACE',
-      time: 'TIME',
-      venue: 'VENUE',
-    },
-    note: 'A first gathering shaped around presence, art and the Mediterranean night.',
-    cta: 'REQUEST AN INVITATION',
-    pendingAsset: 'CLIENT VENUE LOGO · ASSET PENDING',
-  },
-  gallery: {
-    eyebrow: 'THE SETTING',
-    title: 'Altea, between sea and mountain.',
-    tiles: [
-      'The Mediterranean horizon',
-      'Streets shaped by light',
-      'Between sea and mountain',
-      'Jacaranda exterior · day',
-      'Jacaranda interior',
-      'Jacaranda exterior · evening',
-    ],
-    pending: 'CLIENT VENUE PHOTOGRAPHY',
-  },
-  invite: {
-    eyebrow: 'PRIVATE ACCESS BEGINS HERE',
-    title: 'ENTER THE CIRCLE',
-    intro:
-      'LEAVE YOUR CONTACT DETAILS TO RECEIVE AN INVITATION AND THE FIRST INSIGHTS INTO THE EXPERIENCE.',
-    fields: {
-      name: 'Name',
-      email: 'name@email.com',
-      whatsapp: '+34 ___ ___ ___',
-      whatsappLabel: 'WhatsApp · optional',
-    },
-    submit: 'REQUEST AN INVITATION',
-    reassure: 'No noise. Only the details that matter.',
-    sending: 'SENDING…',
-    error: 'Something went wrong. Please try again shortly.',
-    validation: 'Please enter your name and a valid email address.',
-    success: {
-      eyebrow: 'REQUEST RECEIVED',
-      title: 'THANK YOU',
-      body: 'Your request has reached us. We will contact you personally with the next details.',
-      reset: 'SEND ANOTHER REQUEST',
-    },
-  },
-  journal: {
-    eyebrow: 'JOURNAL',
-    title: 'Ideas for a more conscious culture of celebration.',
-    all: 'VIEW JOURNAL',
-    article: {
-      tag: 'FIRST ARTICLE · MANIFESTO',
-      title: 'What Is Octave On? A New Way to Celebrate.',
-      excerpt:
-        'Why we stopped calling it a party—and what happens when music, art and presence meet in a single Mediterranean night.',
-      read: 'READ THE ARTICLE',
-    },
-  },
-  closing: {
-    eyebrow: 'AFTER THE EXPERIENCE',
-    title: 'AN IMMERSIVE EXPERIENCE OF PRESENCE',
-    cta: 'ENTER THE CIRCLE',
-  },
-  footer: {
-    tagline: 'AN IMMERSIVE EXPERIENCE OF PRESENCE',
-    links: [
-      { label: 'Instagram', href: 'https://instagram.com', external: true },
-      { label: 'Contact', href: '#invito', external: false },
-      { label: 'Privacy', href: '#', external: false },
-    ],
-    rights: '© 2026 Octave On',
-    location: 'Altea · Costa Blanca',
-  },
-} as const;
+export const languageNames: Record<Lang, string> = {
+  en: 'English',
+  it: 'Italiano',
+  es: 'Español',
+};
+
+export const homeHref = (lang: Lang): string => (lang === 'en' ? '/' : `/${lang}/`);
 
 export const content = {
   en: {
@@ -151,6 +25,8 @@ export const content = {
       ogAlt: 'Octave On — an immersive experience of presence',
     },
     nav: {
+      ariaLabel: 'Primary navigation',
+      switchLanguage: 'Switch language to',
       links: [
         { label: 'Experience', href: '#esperienza' },
         { label: 'Event', href: '#evento' },
@@ -158,38 +34,488 @@ export const content = {
         { label: 'Journal', href: '#journal' },
       ],
       cta: 'REQUEST AN INVITATION',
-      langLabel: 'IT',
     },
     hero: {
       tagline: 'AN IMMERSIVE EXPERIENCE OF PRESENCE',
       explore: 'EXPLORE THE EXPERIENCE',
       scroll: 'Scroll',
+      assetNote: 'CINEMATIC LOOP · ASSET PENDING',
     },
-    ...shared,
+    manifesto: {
+      title: 'Octave On',
+      intro:
+        'is a cultural and experiential platform that creates mindful events, immersive encounters, and transformative festivals for a new generation of conscious gatherings.',
+      vision: 'Our vision is to restore celebration to its original meaning:',
+      body:
+        "a space for authentic connection and collective awakening, where music, art, elixirs, and nourishment become vehicles of profound impressions that naturally elevate one's state of being and deepen the quality of presence.",
+    },
+    experience: {
+      eyebrow: 'A FIVE-PART JOURNEY',
+      title: 'THE EXPERIENCE',
+      rituals: [
+        {
+          num: '01',
+          name: 'ENTERING THE CIRCLE',
+          sub: 'The Opening Ritual',
+          desc: 'A gentle transition from the ordinary into a shared field of presence.',
+          visualAlt: 'Concentric circles representing resonance and entry into a shared field',
+        },
+        {
+          num: '02',
+          name: 'SONIC ALCHEMY',
+          sub: 'Music as a Bridge to Awakening',
+          desc: 'An immersive dialogue between electronic soundscapes, ancestral instruments, and living voices.',
+          visualAlt: 'Warm-marble classical figure playing a transverse flute',
+        },
+        {
+          num: '03',
+          name: 'LIVING VISUALS',
+          sub: 'Light as a Gateway to Perception',
+          desc: 'Living projections by a visual artist transform the space into a living organism. Light, movement, and form dissolve the boundary between the observer and the experience.',
+          visualAlt: 'Concentric waves suggesting projection, light and perception',
+        },
+        {
+          num: '04',
+          name: 'NOURISHMENT',
+          sub: 'Food & Natural Elixirs as Rituals of Presence',
+          desc: 'A living table, created by an intuitive chef with thoughtful hands. Seasonal ingredients, handcrafted natural elixirs, vibrant colours, and edible flowers awaken the senses long before the first taste, inviting a slower, more conscious way of gathering.',
+          visualAlt: 'Warm-marble classical figure holding a simple ritual bowl',
+        },
+        {
+          num: '05',
+          name: 'CELEBRATION',
+          sub: 'Where Presence Becomes Movement',
+          desc: 'After a journey through sound, light, and conscious nourishment, the celebration unfolds naturally. Live musicians and DJs weave together an evolving soundscape where movement becomes an expression of presence, connection, and joy.',
+          visualAlt: 'Warm-marble classical figure moving in a controlled dance',
+        },
+      ],
+    },
+    whoFor: {
+      lead: 'No alcohol. Only nature.',
+      body: 'Handcrafted botanical elixirs that naturally elevate the experience, allowing clarity, vitality, and genuine connection to emerge.',
+      closing: 'A seamless flow between connection with others and a return to yourself',
+    },
+    interlude: {
+      lead: 'An immersive experience.',
+      text: "A story you'll carry with you long after the night is over.",
+    },
+    difference: {
+      quote: 'What you seek is seeking you.',
+      author: 'Rumi',
+    },
+    event: {
+      eyebrow: 'PRIVATE · BY INVITATION',
+      title: 'OPENING EXPERIENCE',
+      date: 'JULY 4',
+      location: 'COSTA BLANCA',
+      time: '19:00 — TILL NIGHT',
+      imageLabel: 'ALTEA · COSTA BLANCA',
+      imageAlt: 'Mediterranean landscape around Altea on the Costa Blanca',
+      hostVenue: 'HOST VENUE',
+      note: 'A first gathering shaped around presence, art and the Mediterranean night.',
+      cta: 'REQUEST AN INVITATION',
+      pendingAsset: 'CLIENT VENUE LOGO · ASSET PENDING',
+    },
+    gallery: {
+      eyebrow: 'THE SETTING',
+      title: 'Altea, between sea and mountain.',
+      tiles: [
+        'The Mediterranean horizon',
+        'Streets shaped by light',
+        'Between sea and mountain',
+        'Jacaranda exterior · day',
+        'Jacaranda interior',
+        'Jacaranda exterior · evening',
+      ],
+      alts: [
+        'Costa Blanca landscape between sea and mountains',
+        'A Mediterranean street in Altea',
+        'Approaching Altea on the Costa Blanca',
+      ],
+      pending: 'CLIENT VENUE PHOTOGRAPHY',
+    },
+    invite: {
+      eyebrow: 'PRIVATE ACCESS BEGINS HERE',
+      title: 'ENTER THE CIRCLE',
+      intro: 'LEAVE YOUR CONTACT DETAILS TO RECEIVE AN INVITATION AND THE FIRST INSIGHTS INTO THE EXPERIENCE.',
+      fields: {
+        name: 'Name',
+        emailLabel: 'Email',
+        email: 'name@email.com',
+        whatsapp: '+34 ___ ___ ___',
+        whatsappLabel: 'WhatsApp · optional',
+      },
+      submit: 'REQUEST AN INVITATION',
+      reassure: 'No noise. Only the details that matter.',
+      sending: 'SENDING…',
+      error: 'Something went wrong. Please try again shortly.',
+      validation: 'Please enter your name and a valid email address.',
+      success: {
+        eyebrow: 'REQUEST RECEIVED',
+        title: 'THANK YOU',
+        body: 'Your request has reached us. We will contact you personally with the next details.',
+        reset: 'SEND ANOTHER REQUEST',
+      },
+    },
+    journal: {
+      eyebrow: 'JOURNAL',
+      title: 'Ideas for a more conscious culture of celebration.',
+      all: 'VIEW JOURNAL',
+      article: {
+        tag: 'FIRST ARTICLE · MANIFESTO',
+        title: 'What Is Octave On? A New Way to Celebrate.',
+        excerpt: 'Why we stopped calling it a party—and what happens when music, art and presence meet in a single Mediterranean night.',
+        read: 'READ THE ARTICLE',
+      },
+    },
+    closing: {
+      eyebrow: 'AFTER THE EXPERIENCE',
+      title: 'AN IMMERSIVE EXPERIENCE OF PRESENCE',
+      cta: 'ENTER THE CIRCLE',
+      visualAlt: 'Warm-marble classical warrior resting after a completed journey',
+    },
+    footer: {
+      tagline: 'AN IMMERSIVE EXPERIENCE OF PRESENCE',
+      links: [
+        { label: 'Instagram', href: 'https://instagram.com', external: true },
+        { label: 'Contact', href: '#invito', external: false },
+        { label: 'Privacy', href: '#', external: false },
+      ],
+      rights: '© 2026 Octave On',
+      location: 'Altea · Costa Blanca',
+    },
   },
+
   it: {
     meta: {
       title: 'Octave On — Un’esperienza immersiva di presenza',
-      description:
-        'Eventi consapevoli, incontri immersivi e festival trasformativi. Opening Experience, 4 luglio in Costa Blanca.',
+      description: 'Eventi consapevoli, incontri immersivi e festival trasformativi. Esperienza inaugurale, 4 luglio in Costa Blanca.',
       ogAlt: 'Octave On — un’esperienza immersiva di presenza',
     },
     nav: {
+      ariaLabel: 'Navigazione principale',
+      switchLanguage: 'Passa alla lingua',
       links: [
         { label: 'Esperienza', href: '#esperienza' },
         { label: 'Evento', href: '#evento' },
         { label: 'Luogo', href: '#gallery' },
-        { label: 'Journal', href: '#journal' },
+        { label: 'Diario', href: '#journal' },
       ],
       cta: 'RICHIEDI UN INVITO',
-      langLabel: 'EN',
     },
     hero: {
-      tagline: 'AN IMMERSIVE EXPERIENCE OF PRESENCE',
+      tagline: 'UN’ESPERIENZA IMMERSIVA DI PRESENZA',
       explore: 'ESPLORA L’ESPERIENZA',
       scroll: 'Scorri',
+      assetNote: 'LOOP CINEMATOGRAFICO · ASSET IN ATTESA',
     },
-    ...shared,
+    manifesto: {
+      title: 'Octave On',
+      intro: 'è una piattaforma culturale ed esperienziale che crea eventi consapevoli, incontri immersivi e festival trasformativi per una nuova generazione di celebrazioni coscienti.',
+      vision: 'La nostra visione è restituire alla celebrazione il suo significato originario:',
+      body: 'uno spazio di connessione autentica e risveglio collettivo, in cui musica, arte, elisir e nutrimento diventano veicoli di impressioni profonde, capaci di elevare naturalmente il proprio stato dell’essere e approfondire la qualità della presenza.',
+    },
+    experience: {
+      eyebrow: 'UN VIAGGIO IN CINQUE ATTI',
+      title: 'L’ESPERIENZA',
+      rituals: [
+        {
+          num: '01',
+          name: 'ENTRARE NEL CERCHIO',
+          sub: 'Il rituale di apertura',
+          desc: 'Una transizione delicata dall’ordinario a un campo condiviso di presenza.',
+          visualAlt: 'Cerchi concentrici che rappresentano la risonanza e l’ingresso in un campo condiviso',
+        },
+        {
+          num: '02',
+          name: 'ALCHIMIA SONORA',
+          sub: 'La musica come ponte verso il risveglio',
+          desc: 'Un dialogo immersivo tra paesaggi sonori elettronici, strumenti ancestrali e voci vive.',
+          visualAlt: 'Figura classica in marmo caldo che suona un flauto traverso',
+        },
+        {
+          num: '03',
+          name: 'VISIONI VIVENTI',
+          sub: 'La luce come soglia della percezione',
+          desc: 'Le proiezioni vive di un artista visuale trasformano lo spazio in un organismo vivente. Luce, movimento e forma dissolvono il confine tra chi osserva e l’esperienza.',
+          visualAlt: 'Onde concentriche che evocano proiezione, luce e percezione',
+        },
+        {
+          num: '04',
+          name: 'NUTRIMENTO',
+          sub: 'Cibo ed elisir naturali come rituali di presenza',
+          desc: 'Una tavola viva, creata da uno chef intuitivo con mani attente. Ingredienti stagionali, elisir naturali preparati artigianalmente, colori vibranti e fiori edibili risvegliano i sensi molto prima del primo assaggio, invitando a un modo più lento e consapevole di stare insieme.',
+          visualAlt: 'Figura classica in marmo caldo che regge una semplice coppa rituale',
+        },
+        {
+          num: '05',
+          name: 'CELEBRAZIONE',
+          sub: 'Dove la presenza diventa movimento',
+          desc: 'Dopo un viaggio attraverso suono, luce e nutrimento consapevole, la celebrazione si apre naturalmente. Musicisti dal vivo e DJ intrecciano un paesaggio sonoro in continua evoluzione, in cui il movimento diventa espressione di presenza, connessione e gioia.',
+          visualAlt: 'Figura classica in marmo caldo impegnata in una danza consapevole',
+        },
+      ],
+    },
+    whoFor: {
+      lead: 'Niente alcol. Solo natura.',
+      body: 'Elisir botanici preparati artigianalmente elevano naturalmente l’esperienza, lasciando emergere chiarezza, vitalità e connessione autentica.',
+      closing: 'Un flusso continuo tra la connessione con gli altri e il ritorno a te stesso',
+    },
+    interlude: {
+      lead: 'Un’esperienza immersiva.',
+      text: 'Una storia che porterai con te molto tempo dopo la fine della notte.',
+    },
+    difference: {
+      quote: 'Ciò che cerchi sta cercando te.',
+      author: 'Rumi',
+    },
+    event: {
+      eyebrow: 'PRIVATO · SU INVITO',
+      title: 'ESPERIENZA INAUGURALE',
+      date: '4 LUGLIO',
+      location: 'COSTA BLANCA',
+      time: '19:00 — FINO A NOTTE',
+      imageLabel: 'ALTEA · COSTA BLANCA',
+      imageAlt: 'Paesaggio mediterraneo intorno ad Altea, sulla Costa Blanca',
+      hostVenue: 'SEDE OSPITANTE',
+      note: 'Un primo incontro plasmato dalla presenza, dall’arte e dalla notte mediterranea.',
+      cta: 'RICHIEDI UN INVITO',
+      pendingAsset: 'LOGO DELLA SEDE · ASSET IN ATTESA',
+    },
+    gallery: {
+      eyebrow: 'IL LUOGO',
+      title: 'Altea, tra mare e montagna.',
+      tiles: [
+        'L’orizzonte mediterraneo',
+        'Strade modellate dalla luce',
+        'Tra mare e montagna',
+        'Esterno Jacaranda · giorno',
+        'Interno Jacaranda',
+        'Esterno Jacaranda · sera',
+      ],
+      alts: [
+        'Paesaggio della Costa Blanca tra mare e montagne',
+        'Una strada mediterranea di Altea',
+        'Avvicinandosi ad Altea, sulla Costa Blanca',
+      ],
+      pending: 'FOTOGRAFIA DELLA SEDE IN ATTESA',
+    },
+    invite: {
+      eyebrow: 'L’ACCESSO PRIVATO INIZIA QUI',
+      title: 'ENTRA NEL CERCHIO',
+      intro: 'LASCIA I TUOI CONTATTI PER RICEVERE UN INVITO E LE PRIME ANTICIPAZIONI SULL’ESPERIENZA.',
+      fields: {
+        name: 'Nome',
+        emailLabel: 'Email',
+        email: 'nome@email.com',
+        whatsapp: '+39 ___ ___ ___',
+        whatsappLabel: 'WhatsApp · facoltativo',
+      },
+      submit: 'RICHIEDI UN INVITO',
+      reassure: 'Niente rumore. Solo i dettagli che contano.',
+      sending: 'INVIO IN CORSO…',
+      error: 'Qualcosa è andato storto. Riprova tra poco.',
+      validation: 'Inserisci il tuo nome e un indirizzo email valido.',
+      success: {
+        eyebrow: 'RICHIESTA RICEVUTA',
+        title: 'GRAZIE',
+        body: 'La tua richiesta è arrivata. Ti contatteremo personalmente con i prossimi dettagli.',
+        reset: 'INVIA UN’ALTRA RICHIESTA',
+      },
+    },
+    journal: {
+      eyebrow: 'DIARIO',
+      title: 'Idee per una cultura della celebrazione più consapevole.',
+      all: 'VEDI IL DIARIO',
+      article: {
+        tag: 'PRIMO ARTICOLO · MANIFESTO',
+        title: 'Cos’è Octave On? Un nuovo modo di celebrare.',
+        excerpt: 'Perché abbiamo smesso di chiamarla festa e cosa accade quando musica, arte e presenza si incontrano in un’unica notte mediterranea.',
+        read: 'LEGGI L’ARTICOLO',
+      },
+    },
+    closing: {
+      eyebrow: 'DOPO L’ESPERIENZA',
+      title: 'UN’ESPERIENZA IMMERSIVA DI PRESENZA',
+      cta: 'ENTRA NEL CERCHIO',
+      visualAlt: 'Guerriero classico in marmo caldo a riposo dopo un viaggio compiuto',
+    },
+    footer: {
+      tagline: 'UN’ESPERIENZA IMMERSIVA DI PRESENZA',
+      links: [
+        { label: 'Instagram', href: 'https://instagram.com', external: true },
+        { label: 'Contatti', href: '#invito', external: false },
+        { label: 'Privacy', href: '#', external: false },
+      ],
+      rights: '© 2026 Octave On',
+      location: 'Altea · Costa Blanca',
+    },
+  },
+
+  es: {
+    meta: {
+      title: 'Octave On — Una experiencia inmersiva de presencia',
+      description: 'Eventos conscientes, encuentros inmersivos y festivales transformadores. Experiencia inaugural, 4 de julio en la Costa Blanca.',
+      ogAlt: 'Octave On — una experiencia inmersiva de presencia',
+    },
+    nav: {
+      ariaLabel: 'Navegación principal',
+      switchLanguage: 'Cambiar idioma a',
+      links: [
+        { label: 'Experiencia', href: '#esperienza' },
+        { label: 'Evento', href: '#evento' },
+        { label: 'Lugar', href: '#gallery' },
+        { label: 'Diario', href: '#journal' },
+      ],
+      cta: 'SOLICITA UNA INVITACIÓN',
+    },
+    hero: {
+      tagline: 'UNA EXPERIENCIA INMERSIVA DE PRESENCIA',
+      explore: 'DESCUBRE LA EXPERIENCIA',
+      scroll: 'Desliza',
+      assetNote: 'BUCLE CINEMATOGRÁFICO · RECURSO PENDIENTE',
+    },
+    manifesto: {
+      title: 'Octave On',
+      intro: 'es una plataforma cultural y experiencial que crea eventos conscientes, encuentros inmersivos y festivales transformadores para una nueva generación de celebraciones conscientes.',
+      vision: 'Nuestra visión es devolver a la celebración su significado original:',
+      body: 'un espacio de conexión auténtica y despertar colectivo, donde la música, el arte, los elixires y el alimento se convierten en vehículos de impresiones profundas que elevan de forma natural el estado del ser y ahondan en la calidad de la presencia.',
+    },
+    experience: {
+      eyebrow: 'UN VIAJE EN CINCO ACTOS',
+      title: 'LA EXPERIENCIA',
+      rituals: [
+        {
+          num: '01',
+          name: 'ENTRAR EN EL CÍRCULO',
+          sub: 'El ritual de apertura',
+          desc: 'Una transición suave de lo cotidiano a un campo compartido de presencia.',
+          visualAlt: 'Círculos concéntricos que representan la resonancia y la entrada en un campo compartido',
+        },
+        {
+          num: '02',
+          name: 'ALQUIMIA SONORA',
+          sub: 'La música como puente hacia el despertar',
+          desc: 'Un diálogo inmersivo entre paisajes sonoros electrónicos, instrumentos ancestrales y voces vivas.',
+          visualAlt: 'Figura clásica de mármol cálido tocando una flauta travesera',
+        },
+        {
+          num: '03',
+          name: 'IMÁGENES VIVAS',
+          sub: 'La luz como puerta a la percepción',
+          desc: 'Las proyecciones vivas de un artista visual transforman el espacio en un organismo vivo. La luz, el movimiento y la forma disuelven el límite entre quien observa y la experiencia.',
+          visualAlt: 'Ondas concéntricas que evocan proyección, luz y percepción',
+        },
+        {
+          num: '04',
+          name: 'NUTRICIÓN',
+          sub: 'Alimentos y elixires naturales como rituales de presencia',
+          desc: 'Una mesa viva, creada por un chef intuitivo con manos atentas. Ingredientes de temporada, elixires naturales elaborados a mano, colores vibrantes y flores comestibles despiertan los sentidos mucho antes del primer bocado, invitando a una forma más lenta y consciente de reunirse.',
+          visualAlt: 'Figura clásica de mármol cálido sosteniendo un sencillo cuenco ritual',
+        },
+        {
+          num: '05',
+          name: 'CELEBRACIÓN',
+          sub: 'Donde la presencia se convierte en movimiento',
+          desc: 'Después de un viaje a través del sonido, la luz y la nutrición consciente, la celebración surge de forma natural. Músicos en directo y DJs entretejen un paisaje sonoro en constante evolución, donde el movimiento se convierte en expresión de presencia, conexión y alegría.',
+          visualAlt: 'Figura clásica de mármol cálido en una danza consciente',
+        },
+      ],
+    },
+    whoFor: {
+      lead: 'Sin alcohol. Solo naturaleza.',
+      body: 'Elixires botánicos elaborados a mano elevan la experiencia de forma natural, permitiendo que surjan claridad, vitalidad y una conexión genuina.',
+      closing: 'Un flujo continuo entre la conexión con los demás y el regreso a ti mismo',
+    },
+    interlude: {
+      lead: 'Una experiencia inmersiva.',
+      text: 'Una historia que llevarás contigo mucho después de que termine la noche.',
+    },
+    difference: {
+      quote: 'Lo que buscas te está buscando.',
+      author: 'Rumi',
+    },
+    event: {
+      eyebrow: 'PRIVADO · CON INVITACIÓN',
+      title: 'EXPERIENCIA INAUGURAL',
+      date: '4 DE JULIO',
+      location: 'COSTA BLANCA',
+      time: '19:00 — HASTA LA NOCHE',
+      imageLabel: 'ALTEA · COSTA BLANCA',
+      imageAlt: 'Paisaje mediterráneo alrededor de Altea, en la Costa Blanca',
+      hostVenue: 'ESPACIO ANFITRIÓN',
+      note: 'Un primer encuentro modelado por la presencia, el arte y la noche mediterránea.',
+      cta: 'SOLICITA UNA INVITACIÓN',
+      pendingAsset: 'LOGOTIPO DEL ESPACIO · RECURSO PENDIENTE',
+    },
+    gallery: {
+      eyebrow: 'EL LUGAR',
+      title: 'Altea, entre el mar y la montaña.',
+      tiles: [
+        'El horizonte mediterráneo',
+        'Calles moldeadas por la luz',
+        'Entre el mar y la montaña',
+        'Exterior de Jacaranda · día',
+        'Interior de Jacaranda',
+        'Exterior de Jacaranda · noche',
+      ],
+      alts: [
+        'Paisaje de la Costa Blanca entre el mar y las montañas',
+        'Una calle mediterránea de Altea',
+        'Llegando a Altea, en la Costa Blanca',
+      ],
+      pending: 'FOTOGRAFÍA DEL ESPACIO PENDIENTE',
+    },
+    invite: {
+      eyebrow: 'EL ACCESO PRIVADO COMIENZA AQUÍ',
+      title: 'ENTRA EN EL CÍRCULO',
+      intro: 'DEJA TUS DATOS DE CONTACTO PARA RECIBIR UNA INVITACIÓN Y LAS PRIMERAS CLAVES DE LA EXPERIENCIA.',
+      fields: {
+        name: 'Nombre',
+        emailLabel: 'Correo electrónico',
+        email: 'nombre@email.com',
+        whatsapp: '+34 ___ ___ ___',
+        whatsappLabel: 'WhatsApp · opcional',
+      },
+      submit: 'SOLICITA UNA INVITACIÓN',
+      reassure: 'Sin ruido. Solo los detalles que importan.',
+      sending: 'ENVIANDO…',
+      error: 'Algo ha salido mal. Inténtalo de nuevo en unos instantes.',
+      validation: 'Introduce tu nombre y una dirección de correo válida.',
+      success: {
+        eyebrow: 'SOLICITUD RECIBIDA',
+        title: 'GRACIAS',
+        body: 'Hemos recibido tu solicitud. Nos pondremos en contacto contigo personalmente con los próximos detalles.',
+        reset: 'ENVIAR OTRA SOLICITUD',
+      },
+    },
+    journal: {
+      eyebrow: 'DIARIO',
+      title: 'Ideas para una cultura de celebración más consciente.',
+      all: 'VER EL DIARIO',
+      article: {
+        tag: 'PRIMER ARTÍCULO · MANIFIESTO',
+        title: '¿Qué es Octave On? Una nueva forma de celebrar.',
+        excerpt: 'Por qué dejamos de llamarlo fiesta y qué sucede cuando la música, el arte y la presencia se encuentran en una única noche mediterránea.',
+        read: 'LEER EL ARTÍCULO',
+      },
+    },
+    closing: {
+      eyebrow: 'DESPUÉS DE LA EXPERIENCIA',
+      title: 'UNA EXPERIENCIA INMERSIVA DE PRESENCIA',
+      cta: 'ENTRA EN EL CÍRCULO',
+      visualAlt: 'Guerrero clásico de mármol cálido descansando después de completar un viaje',
+    },
+    footer: {
+      tagline: 'UNA EXPERIENCIA INMERSIVA DE PRESENCIA',
+      links: [
+        { label: 'Instagram', href: 'https://instagram.com', external: true },
+        { label: 'Contacto', href: '#invito', external: false },
+        { label: 'Privacidad', href: '#', external: false },
+      ],
+      rights: '© 2026 Octave On',
+      location: 'Altea · Costa Blanca',
+    },
   },
 } as const;
 

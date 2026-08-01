@@ -12,7 +12,7 @@ const t = content[lang].experience;
 <section id="esperienza" class="oo-exp">
   <div class="oo-container">
     <header class="oo-reveal oo-exp__head">
-      <p class="oo-eyebrow">A FIVE-PART JOURNEY</p>
+      <p class="oo-eyebrow">{t.eyebrow}</p>
       <h2 class="oo-display oo-exp__title">{t.title}</h2>
     </header>
 
@@ -23,7 +23,7 @@ const t = content[lang].experience;
 
         return (
           <li class="oo-reveal oo-exp__row" data-flip={flipped ? 'true' : 'false'}>
-            <div class="oo-exp__visual" aria-label={visual.kind === 'graphic' ? visual.label : undefined}>
+            <div class="oo-exp__visual" aria-label={visual.kind === 'graphic' ? ritual.visualAlt : undefined}>
               {visual.kind === 'image' ? (
                 <>
                   <picture>
@@ -34,7 +34,7 @@ const t = content[lang].experience;
                     />
                     <img
                       src={visual.src}
-                      alt={visual.alt}
+                      alt={ritual.visualAlt}
                       width={visual.width}
                       height={visual.height}
                       loading="lazy"
@@ -48,7 +48,7 @@ const t = content[lang].experience;
                   )}
                 </>
               ) : visual.variant === 'toroid' ? (
-                <svg class="oo-exp__geometry oo-exp__geometry--toroid" viewBox="0 0 500 500" role="img" aria-label={visual.label}>
+                <svg class="oo-exp__geometry oo-exp__geometry--toroid" viewBox="0 0 500 500" role="img" aria-label={ritual.visualAlt}>
                   <g fill="none" stroke="currentColor">
                     {Array.from({ length: 14 }).map((_, i) => (
                       <ellipse cx="250" cy="250" rx={58 + i * 11} ry="198" transform={`rotate(${i * 12.85} 250 250)`} />
@@ -58,7 +58,7 @@ const t = content[lang].experience;
                   </g>
                 </svg>
               ) : (
-                <svg class="oo-exp__geometry oo-exp__geometry--circle" viewBox="0 0 500 500" role="img" aria-label={visual.label}>
+                <svg class="oo-exp__geometry oo-exp__geometry--circle" viewBox="0 0 500 500" role="img" aria-label={ritual.visualAlt}>
                   <g fill="none" stroke="currentColor">
                     <circle cx="250" cy="250" r="58" />
                     <circle cx="250" cy="250" r="106" />

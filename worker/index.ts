@@ -31,7 +31,7 @@ interface InvitePayload {
   name?: string;
   email?: string;
   whatsapp?: string;
-  lang?: 'it' | 'en';
+  lang?: 'it' | 'es' | 'en';
   turnstileToken?: string;
 }
 
@@ -72,7 +72,7 @@ async function handleInvite(request: Request, env: Env, ctx: Ctx): Promise<Respo
   const name = (body.name ?? '').trim().slice(0, 120);
   const email = (body.email ?? '').trim().slice(0, 200);
   const whatsapp = (body.whatsapp ?? '').trim().slice(0, 40);
-  const lang = body.lang === 'en' ? 'en' : 'it';
+  const lang = body.lang === 'it' || body.lang === 'es' ? body.lang : 'en';
 
   if (!EMAIL_RE.test(email)) return json({ ok: false, error: 'invalid_email' }, 400);
 
@@ -144,23 +144,30 @@ async function resendSend(env: Env, payload: Record<string, unknown>) {
 
 function sendConfirmation(
   env: Env,
-  { name, email, lang }: { name: string; email: string; lang: 'it' | 'en' },
+  { name, email, lang }: { name: string; email: string; lang: 'it' | 'es' | 'en' },
 ) {
-  const first = esc(name.split(' ')[0] || (lang === 'it' ? 'ospite' : 'guest'));
-  const copy =
-    lang === 'it'
-      ? {
-          subject: 'La tua richiesta è arrivata · Octave On',
-          h: `Grazie, ${first}.`,
-          p: 'La tua richiesta è arrivata. Quando la notte sarà vicina, ti scriveremo con la tua soglia d’accesso.',
-          sign: 'Octave On · una notte rara sul Mediterraneo',
-        }
-      : {
-          subject: 'We received your request · Octave On',
-          h: `Thank you, ${first}.`,
-          p: 'Your request has reached us. When the night draws near, we’ll write to you with your threshold of access.',
-          sign: 'Octave On · a rare night on the Mediterranean',
-        };
+  const fallbackName = { en: 'guest', it: 'ospite', es: 'invitado' }[lang];
+  const first = esc(name.split(' ')[0] || fallbackName);
+  const copy = {
+    en: {
+      subject: 'We received your request · Octave On',
+      h: `Thank you, ${first}.`,
+      p: 'Your request has reached us. When the night draws near, we’ll write to you with your threshold of access.',
+      sign: 'Octave On · a rare night on the Mediterranean',
+    },
+    it: {
+      subject: 'La tua richiesta è arrivata · Octave On',
+      h: `Grazie, ${first}.`,
+      p: 'La tua richiesta è arrivata. Quando la notte sarà vicina, ti scriveremo con la tua soglia d’accesso.',
+      sign: 'Octave On · una notte rara sul Mediterraneo',
+    },
+    es: {
+      subject: 'Hemos recibido tu solicitud · Octave On',
+      h: `Gracias, ${first}.`,
+      p: 'Hemos recibido tu solicitud. Cuando se acerque la noche, te escribiremos con los detalles de tu acceso.',
+      sign: 'Octave On · una noche única en el Mediterráneo',
+    },
+  }[lang];
   return resendSend(env, {
     from: env.RESEND_FROM,
     to: email,

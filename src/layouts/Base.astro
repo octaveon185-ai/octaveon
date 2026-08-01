@@ -1,16 +1,19 @@
 ---
 import '../styles/tokens.css';
 import '../styles/global.css';
-import { content, otherLang, homeHref, type Lang } from '../i18n/content';
+import { content, locales, homeHref, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = content[lang];
-const alt = otherLang(lang);
 const canonical = new URL(homeHref(lang), Astro.site).toString();
-const altUrl = new URL(homeHref(alt), Astro.site).toString();
+const alternates = locales.map((locale) => ({
+  locale,
+  href: new URL(homeHref(locale), Astro.site).toString(),
+}));
+const ogLocales: Record<Lang, string> = { en: 'en_GB', it: 'it_IT', es: 'es_ES' };
 ---
 
 <!doctype html>
@@ -21,8 +24,9 @@ const altUrl = new URL(homeHref(alt), Astro.site).toString();
     <title>{t.meta.title}</title>
     <meta name="description" content={t.meta.description} />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang={lang} href={canonical} />
-    <link rel="alternate" hreflang={alt} href={altUrl} />
+    {alternates.map(({ locale, href }) => (
+      <link rel="alternate" hreflang={locale} href={href} />
+    ))}
     <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site).toString()} />
 
     <link rel="icon" type="image/svg+xml" href="/brand/octave-on-symbol-copper.svg" />
@@ -33,7 +37,10 @@ const altUrl = new URL(homeHref(alt), Astro.site).toString();
     <!-- Open Graph / social -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Octave On" />
-    <meta property="og:locale" content={lang === 'it' ? 'it_IT' : 'en_GB'} />
+    <meta property="og:locale" content={ogLocales[lang]} />
+    {locales.filter((locale) => locale !== lang).map((locale) => (
+      <meta property="og:locale:alternate" content={ogLocales[locale]} />
+    ))}
     <meta property="og:title" content={t.meta.title} />
     <meta property="og:description" content={t.meta.description} />
     <meta property="og:url" content={canonical} />

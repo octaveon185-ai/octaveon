@@ -30,7 +30,7 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY;
           <input name="name" type="text" required minlength="2" autocomplete="name" placeholder={t.fields.name} />
         </label>
         <label class="oo-field">
-          <span class="oo-field__label">Email</span>
+          <span class="oo-field__label">{t.fields.emailLabel}</span>
           <input name="email" type="email" required autocomplete="email" placeholder={t.fields.email} />
         </label>
         <label class="oo-field">
@@ -194,7 +194,8 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY;
 <script>
   const section = document.getElementById('invito');
   if (section) {
-    const lang = section.getAttribute('data-lang') === 'it' ? 'it' : 'en';
+    const rawLang = section.getAttribute('data-lang');
+    const lang = rawLang === 'it' || rawLang === 'es' ? rawLang : 'en';
     const form = section.querySelector<HTMLFormElement>('.oo-invite__form');
     const formPanel = section.querySelector<HTMLElement>('[data-panel="form"]');
     const successPanel = section.querySelector<HTMLElement>('[data-panel="success"]');
@@ -204,10 +205,10 @@ const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY;
     const submitLabel = submitBtn?.querySelector<HTMLElement>('[data-role="label"]');
     const resetBtn = section.querySelector<HTMLButtonElement>('.oo-invite__reset');
     const labels = {
-      submit: section.dataset.submit || 'REQUEST AN INVITATION',
-      sending: section.dataset.sending || 'SENDING…',
-      validation: section.dataset.validation || 'Please enter your name and a valid email address.',
-      error: section.dataset.error || 'Something went wrong. Please try again shortly.',
+      submit: section.dataset.submit || submitLabel?.textContent || '',
+      sending: section.dataset.sending || '',
+      validation: section.dataset.validation || '',
+      error: section.dataset.error || '',
     };
 
     form?.addEventListener('submit', async (event) => {
