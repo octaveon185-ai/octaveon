@@ -24,7 +24,7 @@ const t = content[lang].gallery;
               <source srcset={asset.srcSet} sizes="(max-width: 760px) 100vw, 50vw" type="image/webp" />
               <img
                 src={asset.src}
-                alt={asset.alt}
+                alt={t.alts[index]}
                 width={asset.width}
                 height={asset.height}
                 loading="lazy"
@@ -32,10 +32,10 @@ const t = content[lang].gallery;
               />
             </picture>
           ) : (
-            <div class="oo-gallery__placeholder" aria-label={asset.label}>
+            <div class="oo-gallery__placeholder" aria-label={t.tiles[index]}>
               <span class="oo-gallery__placeholderMark" aria-hidden="true"><i></i><i></i></span>
               <small>{t.pending}</small>
-              <strong>{asset.label}</strong>
+              <strong>{t.tiles[index]}</strong>
               <code>{asset.key}</code>
             </div>
           )}

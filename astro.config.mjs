@@ -1,15 +1,13 @@
 import { defineConfig } from 'astro/config';
 
-// Static output deployed to Cloudflare Pages.
-// The invite API lives in /functions (native Cloudflare Pages Functions),
-// so no SSR adapter is required here.
+// Static output deployed through a Cloudflare Worker with Static Assets.
 export default defineConfig({
-  site: 'https://octaveon.pages.dev',
+  site: 'https://octaveon.octaveon185.workers.dev',
   i18n: {
-    defaultLocale: 'it',
-    locales: ['it', 'en'],
+    defaultLocale: 'en',
+    locales: ['en', 'it', 'es'],
     routing: {
-      prefixDefaultLocale: false, // it → "/", en → "/en/"
+      prefixDefaultLocale: false, // en → "/", it → "/it/", es → "/es/"
     },
   },
   build: {

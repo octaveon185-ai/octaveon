@@ -17,23 +17,23 @@ const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
         <source srcset={eventDetails.image.srcSet} sizes="(max-width: 820px) 100vw, 46vw" type="image/webp" />
         <img
           src={eventDetails.image.src}
-          alt={eventDetails.image.alt}
+          alt={t.imageAlt}
           width={eventDetails.image.width}
           height={eventDetails.image.height}
           loading="lazy"
           decoding="async"
         />
       </picture>
-      <span class="oo-event__imageLabel">ALTEA · COSTA BLANCA</span>
+      <span class="oo-event__imageLabel">{t.imageLabel}</span>
     </div>
 
     <article class="oo-reveal oo-event__content">
       <p class="oo-eyebrow">{t.eyebrow}</p>
-      <h2 class="oo-display oo-event__title">{eventDetails.name}</h2>
+      <h2 class="oo-display oo-event__title">{t.title}</h2>
 
       <div class="oo-event__facts">
-        <p>{eventDetails.date} <span>—</span> {eventDetails.location}</p>
-        <time>{eventDetails.time}</time>
+        <p>{t.date} <span>—</span> {t.location}</p>
+        <time>{t.time}</time>
       </div>
 
       <a class="oo-event__venue" href={mapHref} target="_blank" rel="noopener">
@@ -41,7 +41,7 @@ const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
           <i></i><i></i>
         </span>
         <span>
-          <small>HOST VENUE</small>
+          <small>{t.hostVenue}</small>
           <strong>{eventDetails.venueName}</strong>
           <em>{eventDetails.venueArea}</em>
         </span>

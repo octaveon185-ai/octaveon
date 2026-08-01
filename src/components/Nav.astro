@@ -1,15 +1,14 @@
 ---
-import { content, otherLang, homeHref, type Lang } from '../i18n/content';
+import { content, locales, localeLabels, languageNames, homeHref, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = content[lang].nav;
-const altHome = homeHref(otherLang(lang));
 ---
 
-<nav class="oo-nav" aria-label="Primary" data-scrolled="false">
+<nav class="oo-nav" aria-label={t.ariaLabel} data-scrolled="false">
   <ul class="oo-nav__links">
     {t.links.map((l) => (
       <li><a href={l.href}>{l.label}</a></li>
@@ -17,7 +16,19 @@ const altHome = homeHref(otherLang(lang));
   </ul>
 
   <div class="oo-nav__actions">
-    <a class="oo-nav__lang" href={altHome} hreflang={otherLang(lang)} aria-label={`Switch language to ${t.langLabel}`}>{t.langLabel}</a>
+    <div class="oo-nav__languages" aria-label={t.switchLanguage}>
+      {locales.map((locale) => locale === lang ? (
+        <span class="oo-nav__lang" aria-current="page">{localeLabels[locale]}</span>
+      ) : (
+        <a
+          class="oo-nav__lang"
+          href={homeHref(locale)}
+          hreflang={locale}
+          lang={locale}
+          aria-label={`${t.switchLanguage} ${languageNames[locale]}`}
+        >{localeLabels[locale]}</a>
+      ))}
+    </div>
     <a class="oo-nav__cta" href="#invito">{t.cta}</a>
   </div>
 </nav>
@@ -79,6 +90,15 @@ const altHome = homeHref(otherLang(lang));
     font-weight: 600;
     color: var(--oo-slate);
     transition: color 0.25s;
+  }
+  .oo-nav__languages {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .oo-nav__lang[aria-current='page'] {
+    color: var(--oo-cream-100);
+    opacity: .5;
   }
   .oo-nav__lang:hover { color: var(--oo-gold-light); }
 
