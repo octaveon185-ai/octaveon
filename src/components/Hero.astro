@@ -115,6 +115,12 @@ const primaryCta = content[lang].nav.cta;
     transform: scale(1.015);
   }
 
+  .oo-hero__poster {
+    --oo-hero-poster-scale: 1.015;
+    --oo-hero-poster-drift-scale: 1.035;
+    animation: waterDrift 18s ease-in-out infinite alternate;
+  }
+
   .oo-hero__video {
     position: absolute;
     inset: 0;
@@ -213,6 +219,11 @@ const primaryCta = content[lang].nav.cta;
     letter-spacing: .2em;
   }
 
+  @keyframes waterDrift {
+    from { transform: translate3d(0, 0, 0) scale(var(--oo-hero-poster-scale)); }
+    to { transform: translate3d(0, -.35%, 0) scale(var(--oo-hero-poster-drift-scale)); }
+  }
+
   @media (max-width: 640px) {
     .oo-hero {
       min-height: 94svh;
@@ -223,6 +234,11 @@ const primaryCta = content[lang].nav.cta;
     .oo-hero__video {
       object-position: 50% 50%;
       transform: scale(1.12);
+    }
+
+    .oo-hero__poster {
+      --oo-hero-poster-scale: 1.12;
+      --oo-hero-poster-drift-scale: 1.14;
     }
 
     .oo-hero__brand { width: min(92vw, 370px); }
@@ -245,6 +261,6 @@ const primaryCta = content[lang].nav.cta;
 
   @media (prefers-reduced-motion: reduce) {
     .oo-hero__video { display: none; }
-    .oo-hero__poster { transform: none; }
+    .oo-hero__poster { animation: none; transform: none; }
   }
 </style>
