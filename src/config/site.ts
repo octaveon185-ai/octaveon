@@ -1,5 +1,11 @@
 type ExperienceVisual =
   | {
+      kind: 'motion';
+      poster: string;
+      width: number;
+      height: number;
+    }
+  | {
       kind: 'graphic';
       variant: 'circle' | 'toroid';
       label: string;
@@ -53,9 +59,10 @@ export const eventDetails = {
 
 export const experienceVisuals: Record<'01' | '02' | '03' | '04' | '05', ExperienceVisual> = {
   '01': {
-    kind: 'graphic',
-    variant: 'circle',
-    label: 'Resonance circles',
+    kind: 'motion',
+    poster: '/media/experience/entering-circle.png',
+    width: 1024,
+    height: 1536,
   },
   '02': {
     kind: 'image',
