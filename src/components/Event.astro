@@ -37,15 +37,21 @@ const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
       </div>
 
       <a class="oo-event__venue" href={mapHref} target="_blank" rel="noopener">
-        <span class="oo-event__venueMark" aria-hidden="true">
-          <i></i><i></i>
+        <span class="oo-event__venueLogo" aria-hidden="true">
+          <img
+            src={eventDetails.venueLogo.src}
+            alt=""
+            width={eventDetails.venueLogo.width}
+            height={eventDetails.venueLogo.height}
+            loading="lazy"
+            decoding="async"
+          />
         </span>
         <span>
           <small>{t.hostVenue}</small>
           <strong>{eventDetails.venueName}</strong>
           <em>{eventDetails.venueArea}</em>
         </span>
-        <b>{t.pendingAsset}</b>
       </a>
 
       <p class="oo-event__note">{t.note}</p>
@@ -167,9 +173,9 @@ const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
-    gap: 22px;
+    gap: 18px;
     margin-top: 28px;
-    padding: 21px 22px;
+    padding: 18px 22px;
     border-radius: 10px;
     background: var(--oo-cream-100);
     color: var(--oo-night-800);
@@ -204,32 +210,36 @@ const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
     letter-spacing: .2em;
   }
 
-  .oo-event__venue b {
-    position: absolute;
-    right: 12px;
-    bottom: 8px;
-    color: rgba(3, 8, 36, .34);
-    font-size: 6.5px;
-    font-weight: 700;
-    letter-spacing: .12em;
-  }
-
-  .oo-event__venueMark {
+  .oo-event__venueLogo {
     position: relative;
-    width: 54px;
-    height: 34px;
-  }
-
-  .oo-event__venueMark i {
-    position: absolute;
-    width: 34px;
-    height: 34px;
-    border: 1px solid var(--oo-gold-dark);
+    display: grid;
+    flex: 0 0 70px;
+    place-items: center;
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border: 1px solid rgba(3, 8, 36, .16);
     border-radius: 50%;
+    background: var(--oo-cream-100);
   }
 
-  .oo-event__venueMark i:first-child { left: 0; }
-  .oo-event__venueMark i:last-child { right: 0; }
+  .oo-event__venueLogo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 5px rgba(246, 242, 235, .42);
+    pointer-events: none;
+  }
+
+  .oo-event__venueLogo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 31%;
+    mix-blend-mode: multiply;
+    transform: scale(1.08);
+  }
 
   .oo-event__note {
     max-width: 50ch;

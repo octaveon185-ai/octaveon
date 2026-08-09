@@ -52,8 +52,11 @@ export const eventDetails = {
     alt: 'Mediterranean landscape around Altea on the Costa Blanca',
   },
   venueLogo: {
-    kind: 'placeholder',
-    plannedSrc: '/media/location/jacaranda/jacaranda-logo.svg',
+    kind: 'image',
+    src: '/media/location/jacaranda/jacaranda-logo.jpeg',
+    width: 945,
+    height: 2048,
+    alt: 'Jacaranda restaurant logo with flowering tree and Altea Golf wordmark',
   },
 } as const;
 
