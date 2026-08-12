@@ -18,27 +18,18 @@ const t = content[lang].gallery;
 
     <div class="oo-reveal oo-reveal--soft oo-gallery__grid">
       {galleryAssets.map((asset, index) => (
-        <figure class="oo-gallery__tile" data-placeholder={asset.kind === 'placeholder' ? 'true' : 'false'}>
-          {asset.kind === 'image' ? (
-            <picture>
-              <source srcset={asset.srcSet} sizes="(max-width: 760px) 100vw, 50vw" type="image/webp" />
-              <img
-                src={asset.src}
-                alt={t.alts[index]}
-                width={asset.width}
-                height={asset.height}
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
-          ) : (
-            <div class="oo-gallery__placeholder" aria-label={t.tiles[index]}>
-              <span class="oo-gallery__placeholderMark" aria-hidden="true"><i></i><i></i></span>
-              <small>{t.pending}</small>
-              <strong>{t.tiles[index]}</strong>
-              <code>{asset.key}</code>
-            </div>
-          )}
+        <figure class="oo-gallery__tile" data-placeholder="false">
+          <picture>
+            <source srcset={asset.srcSet} sizes="(max-width: 760px) 100vw, 50vw" type="image/webp" />
+            <img
+              src={asset.src}
+              alt={t.alts[index]}
+              width={asset.width}
+              height={asset.height}
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
           <figcaption>{t.tiles[index]}</figcaption>
         </figure>
       ))}
@@ -85,8 +76,10 @@ const t = content[lang].gallery;
   .oo-gallery__tile:nth-child(1),
   .oo-gallery__tile:nth-child(4) { grid-column: span 8; }
 
-  .oo-gallery__tile:nth-child(5),
-  .oo-gallery__tile:nth-child(6) { grid-column: span 6; }
+  .oo-gallery__tile:nth-child(3),
+  .oo-gallery__tile:nth-child(5) { grid-column: span 4; }
+
+  .oo-gallery__tile:nth-child(6) { grid-column: span 8; }
 
   .oo-gallery__tile picture,
   .oo-gallery__tile img {
@@ -187,6 +180,7 @@ const t = content[lang].gallery;
     .oo-gallery__tile,
     .oo-gallery__tile:nth-child(1),
     .oo-gallery__tile:nth-child(4),
+    .oo-gallery__tile:nth-child(3),
     .oo-gallery__tile:nth-child(5),
     .oo-gallery__tile:nth-child(6) { grid-column: auto; }
   }
