@@ -108,15 +108,12 @@ const primaryCta = content[lang].nav.cta;
     height: 100%;
     object-fit: cover;
     object-position: 50% 54%;
-    filter: saturate(.82) contrast(1.06) brightness(.76);
     transform: scale(1.015);
   }
 
   .oo-hero__poster {
     --oo-hero-poster-scale: 1.015;
     --oo-hero-poster-drift-scale: 1.035;
-    animation: waterDrift 30s ease-in-out infinite alternate;
-    will-change: transform;
   }
 
   .oo-hero__video {
@@ -206,11 +203,6 @@ const primaryCta = content[lang].nav.cta;
 
   .oo-hero__explore:hover i { transform: translateY(3px); }
 
-  @keyframes waterDrift {
-    from { transform: translate3d(0, 0, 0) scale(var(--oo-hero-poster-scale)); }
-    to { transform: translate3d(0, -.35%, 0) scale(var(--oo-hero-poster-drift-scale)); }
-  }
-
   @media (max-width: 640px) {
     .oo-hero {
       min-height: 94svh;
@@ -247,6 +239,6 @@ const primaryCta = content[lang].nav.cta;
 
   @media (prefers-reduced-motion: reduce) {
     .oo-hero__video { display: none; }
-    .oo-hero__poster { animation: none; transform: none; }
+    .oo-hero__poster { transform: none; }
   }
 </style>

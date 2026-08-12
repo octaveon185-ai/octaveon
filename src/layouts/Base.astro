@@ -166,29 +166,5 @@ const siteSchema = {
   <body>
     <slot />
 
-    <script>
-      import Lenis from 'lenis';
-
-      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        // Let Lenis own its single RAF loop. A second manual loop here made
-        // scroll-heavy sections compete for the same frame budget.
-        const lenis = new Lenis({ duration: 0.82, smoothWheel: true, autoRaf: true });
-
-        // Smooth in-page anchor navigation (accounts for the fixed nav).
-        document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => {
-          a.addEventListener('click', (e) => {
-            const id = a.getAttribute('href');
-            if (!id || id === '#') return;
-            const target = document.querySelector(id);
-            if (!target) return;
-            e.preventDefault();
-            lenis.scrollTo(target as HTMLElement, { offset: -70 });
-          });
-        });
-
-        // Expose for other scripts (e.g. the invite success scroll).
-        (window as unknown as { lenis: Lenis }).lenis = lenis;
-      }
-    </script>
   </body>
 </html>
