@@ -59,9 +59,6 @@ const primaryCta = content[lang].nav.cta;
     </div>
   </div>
 
-  {!heroMedia.video.enabled && (
-    <span class="oo-hero__assetNote">{t.assetNote}</span>
-  )}
 </header>
 
 <style>
@@ -118,7 +115,8 @@ const primaryCta = content[lang].nav.cta;
   .oo-hero__poster {
     --oo-hero-poster-scale: 1.015;
     --oo-hero-poster-drift-scale: 1.035;
-    animation: waterDrift 18s ease-in-out infinite alternate;
+    animation: waterDrift 30s ease-in-out infinite alternate;
+    will-change: transform;
   }
 
   .oo-hero__video {
@@ -208,17 +206,6 @@ const primaryCta = content[lang].nav.cta;
 
   .oo-hero__explore:hover i { transform: translateY(3px); }
 
-  .oo-hero__assetNote {
-    position: absolute;
-    z-index: 2;
-    right: clamp(18px, 3vw, 42px);
-    bottom: 25px;
-    color: rgba(234, 231, 227, .34);
-    font-size: 7px;
-    font-weight: 700;
-    letter-spacing: .2em;
-  }
-
   @keyframes waterDrift {
     from { transform: translate3d(0, 0, 0) scale(var(--oo-hero-poster-scale)); }
     to { transform: translate3d(0, -.35%, 0) scale(var(--oo-hero-poster-drift-scale)); }
@@ -256,7 +243,6 @@ const primaryCta = content[lang].nav.cta;
     }
 
     .oo-hero__explore { font-size: 9px; }
-    .oo-hero__assetNote { right: 16px; bottom: 18px; font-size: 6px; }
   }
 
   @media (prefers-reduced-motion: reduce) {

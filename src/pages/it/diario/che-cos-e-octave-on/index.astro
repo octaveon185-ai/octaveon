@@ -1,0 +1,28 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import JournalArticle from '../../../../components/JournalArticle.astro';
+import { journalArticle } from '../../../../i18n/journalArticle';
+
+const t = journalArticle.it;
+---
+
+<Base lang="it" seo={{
+  title: t.seoTitle,
+  description: t.seoDescription,
+  ogAlt: t.ogAlt,
+  image: '/media/hero/water-resonance-poster.webp',
+  canonicalPath: '/it/diario/che-cos-e-octave-on/',
+  alternatePaths: {
+    en: '/journal/what-is-octave-on/',
+    it: '/it/diario/che-cos-e-octave-on/',
+    es: '/es/diario/que-es-octave-on/',
+  },
+  type: 'article',
+  publishedTime: t.publishedTime,
+  modifiedTime: t.modifiedTime,
+  section: 'Cultura consapevole',
+  tags: ['eventi consapevoli', 'celebrazione consapevole', 'esperienze immersive', 'eventi mediterranei'],
+  keywords: ['eventi consapevoli Altea', 'eventi Costa Blanca', 'esperienze immersive Mediterraneo', 'eventi senza alcol Spagna', 'musica e arte consapevole'],
+}}>
+  <JournalArticle lang="it" />
+</Base>

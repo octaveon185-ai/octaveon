@@ -1,6 +1,7 @@
 ---
 import { content, type Lang } from '../i18n/content';
 import { heroMedia } from '../config/site';
+import { journalArticleHref } from '../i18n/journalArticle';
 
 interface Props {
   lang: Lang;
@@ -16,10 +17,10 @@ const t = content[lang].journal;
         <p class="oo-eyebrow">{t.eyebrow}</p>
         <h2 class="oo-display oo-journal__title">{t.title}</h2>
       </div>
-      <a class="oo-journal__all" href="#">{t.all}</a>
+      <a class="oo-journal__all" href={journalArticleHref(lang)}>{t.all}</a>
     </div>
 
-    <a class="oo-reveal oo-journal__article" href="#">
+    <a class="oo-reveal oo-journal__article" href={journalArticleHref(lang)}>
       <div class="oo-journal__media" aria-hidden="true">
         <img
           src={heroMedia.poster.src}

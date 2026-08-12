@@ -1,17 +1,20 @@
 ---
 import { content, locales, localeLabels, languageNames, homeHref, type Lang } from '../i18n/content';
+import { journalArticleHref } from '../i18n/journalArticle';
 
 interface Props {
   lang: Lang;
+  context?: 'home' | 'article';
 }
-const { lang } = Astro.props;
+const { lang, context = 'home' } = Astro.props;
 const t = content[lang].nav;
+const sectionPrefix = context === 'article' ? homeHref(lang) : '';
 ---
 
 <nav class="oo-nav" aria-label={t.ariaLabel} data-scrolled="false">
   <ul class="oo-nav__links">
     {t.links.map((l) => (
-      <li><a href={l.href}>{l.label}</a></li>
+      <li><a href={`${sectionPrefix}${l.href}`}>{l.label}</a></li>
     ))}
   </ul>
 
@@ -22,14 +25,14 @@ const t = content[lang].nav;
       ) : (
         <a
           class="oo-nav__lang"
-          href={homeHref(locale)}
+          href={context === 'article' ? journalArticleHref(locale) : homeHref(locale)}
           hreflang={locale}
           lang={locale}
           aria-label={`${t.switchLanguage} ${languageNames[locale]}`}
         >{localeLabels[locale]}</a>
       ))}
     </div>
-    <a class="oo-nav__cta" href="#invito">{t.cta}</a>
+    <a class="oo-nav__cta" href={`${sectionPrefix}#invito`}>{t.cta}</a>
   </div>
 </nav>
 

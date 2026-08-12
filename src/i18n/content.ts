@@ -21,8 +21,9 @@ export const content = {
     meta: {
       title: 'Octave On — An Immersive Experience of Presence',
       description:
-        'Mindful events, immersive encounters and transformative festivals. Opening Experience, July 4 in Costa Blanca.',
+        'Mindful events in Altea and the Costa Blanca: immersive music, visual art, conscious nourishment and alcohol-free celebrations in the Mediterranean.',
       ogAlt: 'Octave On — an immersive experience of presence',
+      keywords: ['mindful events Altea', 'conscious events Costa Blanca', 'immersive music and art', 'alcohol-free events Spain', 'Mediterranean experiences'],
     },
     nav: {
       ariaLabel: 'Primary navigation',
@@ -39,7 +40,6 @@ export const content = {
       tagline: 'AN IMMERSIVE EXPERIENCE OF PRESENCE',
       explore: 'EXPLORE THE EXPERIENCE',
       scroll: 'Scroll',
-      assetNote: 'CINEMATIC LOOP · ASSET PENDING',
     },
     manifesto: {
       title: 'Octave On',
@@ -167,8 +167,8 @@ export const content = {
       all: 'VIEW JOURNAL',
       article: {
         tag: 'FIRST ARTICLE · MANIFESTO',
-        title: 'What Is Octave On? A New Way to Celebrate.',
-        excerpt: 'Why we stopped calling it a party—and what happens when music, art and presence meet in a single Mediterranean night.',
+        title: 'What Is Octave On? A Mindful Way to Celebrate.',
+        excerpt: 'Discover how music, visual art, conscious nourishment and movement become a deeper way to celebrate in the Mediterranean.',
         read: 'READ THE ARTICLE',
       },
     },
@@ -193,8 +193,9 @@ export const content = {
   it: {
     meta: {
       title: 'Octave On — Un’esperienza immersiva di presenza',
-      description: 'Eventi consapevoli, incontri immersivi e festival trasformativi. Esperienza inaugurale, 4 luglio in Costa Blanca.',
+      description: 'Eventi consapevoli ad Altea e sulla Costa Blanca: musica immersiva, arte visiva, nutrimento naturale e celebrazioni senza alcol nel Mediterraneo.',
       ogAlt: 'Octave On — un’esperienza immersiva di presenza',
+      keywords: ['eventi consapevoli Altea', 'eventi Costa Blanca', 'esperienze immersive Mediterraneo', 'eventi senza alcol Spagna', 'musica e arte consapevole'],
     },
     nav: {
       ariaLabel: 'Navigazione principale',
@@ -211,7 +212,6 @@ export const content = {
       tagline: 'UN’ESPERIENZA IMMERSIVA DI PRESENZA',
       explore: 'ESPLORA L’ESPERIENZA',
       scroll: 'Scorri',
-      assetNote: 'LOOP CINEMATOGRAFICO · ASSET IN ATTESA',
     },
     manifesto: {
       title: 'Octave On',
@@ -337,8 +337,8 @@ export const content = {
       all: 'VEDI IL DIARIO',
       article: {
         tag: 'PRIMO ARTICOLO · MANIFESTO',
-        title: 'Cos’è Octave On? Un nuovo modo di celebrare.',
-        excerpt: 'Perché abbiamo smesso di chiamarla festa e cosa accade quando musica, arte e presenza si incontrano in un’unica notte mediterranea.',
+        title: 'Cos’è Octave On? Un modo consapevole di celebrare.',
+        excerpt: 'Scopri come musica, arte visiva, nutrimento consapevole e movimento trasformano la celebrazione nel Mediterraneo.',
         read: 'LEGGI L’ARTICOLO',
       },
     },
@@ -363,8 +363,9 @@ export const content = {
   es: {
     meta: {
       title: 'Octave On — Una experiencia inmersiva de presencia',
-      description: 'Eventos conscientes, encuentros inmersivos y festivales transformadores. Experiencia inaugural, 4 de julio en la Costa Blanca.',
+      description: 'Eventos conscientes en Altea y la Costa Blanca: música inmersiva, arte visual, nutrición natural y celebraciones sin alcohol en el Mediterráneo.',
       ogAlt: 'Octave On — una experiencia inmersiva de presencia',
+      keywords: ['eventos conscientes Altea', 'eventos Costa Blanca', 'experiencias inmersivas Mediterráneo', 'eventos sin alcohol España', 'música y arte consciente'],
     },
     nav: {
       ariaLabel: 'Navegación principal',
@@ -381,7 +382,6 @@ export const content = {
       tagline: 'UNA EXPERIENCIA INMERSIVA DE PRESENCIA',
       explore: 'DESCUBRE LA EXPERIENCIA',
       scroll: 'Desliza',
-      assetNote: 'BUCLE CINEMATOGRÁFICO · RECURSO PENDIENTE',
     },
     manifesto: {
       title: 'Octave On',
@@ -507,8 +507,8 @@ export const content = {
       all: 'VER EL DIARIO',
       article: {
         tag: 'PRIMER ARTÍCULO · MANIFIESTO',
-        title: '¿Qué es Octave On? Una nueva forma de celebrar.',
-        excerpt: 'Por qué dejamos de llamarlo fiesta y qué sucede cuando la música, el arte y la presencia se encuentran en una única noche mediterránea.',
+        title: '¿Qué es Octave On? Una forma consciente de celebrar.',
+        excerpt: 'Descubre cómo la música, el arte visual, la nutrición consciente y el movimiento transforman la celebración en el Mediterráneo.',
         read: 'LEER EL ARTÍCULO',
       },
     },

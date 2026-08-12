@@ -1,11 +1,13 @@
 ---
-import { content, type Lang } from '../i18n/content';
+import { content, homeHref, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
+  context?: 'home' | 'article';
 }
-const { lang } = Astro.props;
+const { lang, context = 'home' } = Astro.props;
 const t = content[lang].footer;
+const sectionPrefix = context === 'article' ? homeHref(lang) : '';
 ---
 
 <footer class="oo-footer">
@@ -25,7 +27,7 @@ const t = content[lang].footer;
       {t.links.map((l) => (
         <li>
           <a
-            href={l.href}
+            href={l.href.startsWith('#') ? `${sectionPrefix}${l.href}` : l.href}
             {...(l.external ? { target: '_blank', rel: 'noopener' } : {})}
           >{l.label}</a>
         </li>
