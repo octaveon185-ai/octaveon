@@ -102,6 +102,7 @@ export const content = {
     difference: {
       quote: 'What you seek is seeking you.',
       author: 'Rumi',
+      visualAlt: 'Golden classical warrior statue reclining in dramatic light against a dark background',
     },
     event: {
       eyebrow: 'PRIVATE · BY INVITATION',
@@ -173,7 +174,7 @@ export const content = {
     },
     closing: {
       eyebrow: 'AFTER THE EXPERIENCE',
-      title: 'AN IMMERSIVE EXPERIENCE OF PRESENCE',
+      title: 'CARRY THE NIGHT WITH YOU',
       cta: 'ENTER THE CIRCLE',
       visualAlt: 'Warm-marble classical warrior resting after a completed journey',
     },
@@ -271,6 +272,7 @@ export const content = {
     difference: {
       quote: 'Ciò che cerchi sta cercando te.',
       author: 'Rumi',
+      visualAlt: 'Statua dorata di un guerriero classico disteso nella luce su uno sfondo scuro',
     },
     event: {
       eyebrow: 'PRIVATO · SU INVITO',
@@ -342,9 +344,9 @@ export const content = {
     },
     closing: {
       eyebrow: 'DOPO L’ESPERIENZA',
-      title: 'UN’ESPERIENZA IMMERSIVA DI PRESENZA',
+      title: 'PORTA CON TE LA NOTTE',
       cta: 'ENTRA NEL CERCHIO',
-      visualAlt: 'Guerriero classico in marmo caldo a riposo dopo un viaggio compiuto',
+      visualAlt: 'Figura classica in marmo caldo, in riposo dopo un viaggio compiuto',
     },
     footer: {
       tagline: 'UN’ESPERIENZA IMMERSIVA DI PRESENZA',
@@ -440,6 +442,7 @@ export const content = {
     difference: {
       quote: 'Lo que buscas te está buscando.',
       author: 'Rumi',
+      visualAlt: 'Estatua dorada de un guerrero clásico reclinado bajo una luz dramática sobre fondo oscuro',
     },
     event: {
       eyebrow: 'PRIVADO · CON INVITACIÓN',
@@ -511,9 +514,9 @@ export const content = {
     },
     closing: {
       eyebrow: 'DESPUÉS DE LA EXPERIENCIA',
-      title: 'UNA EXPERIENCIA INMERSIVA DE PRESENCIA',
+      title: 'LLEVA LA NOCHE CONTIGO',
       cta: 'ENTRA EN EL CÍRCULO',
-      visualAlt: 'Guerrero clásico de mármol cálido descansando después de completar un viaje',
+      visualAlt: 'Figura clásica de mármol cálido descansando tras un viaje cumplido',
     },
     footer: {
       tagline: 'UNA EXPERIENCIA INMERSIVA DE PRESENCIA',
