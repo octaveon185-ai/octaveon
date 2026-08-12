@@ -52,11 +52,11 @@ export const eventDetails = {
 export const experienceVisuals: Record<'01' | '02' | '03' | '04' | '05', ExperienceVisual> = {
   '01': {
     kind: 'image',
-    src: '/media/statues/closing-warrior.webp',
-    srcSet: '/media/statues/closing-warrior-768.webp 768w, /media/statues/closing-warrior.webp 1200w',
-    width: 1200,
-    height: 1800,
-    alt: 'Warm-marble classical figure entering a quiet field of presence',
+    src: '/media/statues/entering-circle-v2.webp',
+    srcSet: '/media/statues/entering-circle-v2-768.webp 768w, /media/statues/entering-circle-v2.webp 1024w',
+    width: 1024,
+    height: 1536,
+    alt: 'Warm-marble classical figure welcoming entry into a shared field of presence',
   },
   '02': {
     kind: 'image',
@@ -68,11 +68,11 @@ export const experienceVisuals: Record<'01' | '02' | '03' | '04' | '05', Experie
   },
   '03': {
     kind: 'image',
-    src: '/media/statues/closing-hero.png',
-    srcSet: '/media/statues/closing-hero.png 1536w',
-    width: 1536,
-    height: 1024,
-    alt: 'Golden classical statue illuminated as a gateway to perception',
+    src: '/media/statues/living-visuals-v2.webp',
+    srcSet: '/media/statues/living-visuals-v2-768.webp 768w, /media/statues/living-visuals-v2.webp 1024w',
+    width: 1024,
+    height: 1536,
+    alt: 'Warm-marble classical figure turning through light and movement',
   },
   '04': {
     kind: 'image',
