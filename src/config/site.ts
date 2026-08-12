@@ -53,9 +53,9 @@ export const eventDetails = {
   },
   venueLogo: {
     kind: 'image',
-    src: '/media/location/jacaranda/jacaranda-logo.jpeg',
-    width: 945,
-    height: 2048,
+    src: '/media/location/jacaranda/jacaranda-logo-v2.webp',
+    width: 1254,
+    height: 1254,
     alt: 'Jacaranda restaurant logo with flowering tree and Altea Golf wordmark',
   },
 } as const;
