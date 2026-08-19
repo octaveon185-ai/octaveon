@@ -103,7 +103,7 @@ export const content = {
       quote: 'What you seek is seeking you.',
       author: 'Rumi',
       cta: 'ENTER THE CIRCLE',
-      visualAlt: 'Warm-marble classical warrior resting after a completed journey',
+      visualAlt: 'Golden classical warrior statue reclining in dramatic light against a dark background',
     },
     event: {
       eyebrow: 'PRIVATE · BY INVITATION',
@@ -280,7 +280,7 @@ export const content = {
       quote: 'Ciò che cerchi sta cercando te.',
       author: 'Rumi',
       cta: 'ENTRA NEL CERCHIO',
-      visualAlt: 'Figura classica in marmo caldo, in riposo dopo un viaggio compiuto',
+      visualAlt: 'Statua classica dorata sdraiata in una luce intensa su fondo scuro',
     },
     event: {
       eyebrow: 'PRIVATO · SU INVITO',
@@ -457,7 +457,7 @@ export const content = {
       quote: 'Lo que buscas te está buscando.',
       author: 'Rumi',
       cta: 'ENTRA EN EL CÍRCULO',
-      visualAlt: 'Figura clásica de mármol cálido descansando tras un viaje cumplido',
+      visualAlt: 'Estatua clásica dorada recostada con una luz dramática sobre fondo oscuro',
     },
     event: {
       eyebrow: 'PRIVADO · CON INVITACIÓN',

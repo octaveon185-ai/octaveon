@@ -169,9 +169,9 @@ export const galleryAssets = [
 
 export const differenceVisual = {
   kind: 'image',
-  src: '/media/statues/closing-warrior.webp',
-  srcSet: '/media/statues/closing-warrior-768.webp 768w, /media/statues/closing-warrior.webp 1200w',
-  width: 1200,
-  height: 1800,
-  alt: 'Warm-marble classical warrior resting after a completed journey',
+  src: '/media/statues/closing-hero.webp',
+  srcSet: '/media/statues/closing-hero-768.webp 768w, /media/statues/closing-hero.webp 1536w',
+  width: 1536,
+  height: 1024,
+  alt: 'Golden classical warrior statue reclining in dramatic light against a dark background',
 } as const;
