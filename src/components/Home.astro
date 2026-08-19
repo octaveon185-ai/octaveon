@@ -10,7 +10,6 @@ import Event from './Event.astro';
 import Gallery from './Gallery.astro';
 import InviteForm from './InviteForm.astro';
 import Journal from './Journal.astro';
-import Closing from './Closing.astro';
 import Footer from './Footer.astro';
 import type { Lang } from '../i18n/content';
 
@@ -27,11 +26,10 @@ const { lang } = Astro.props;
   <Experience lang={lang} />
   <WhoFor lang={lang} />
   <Interlude lang={lang} />
-  <Difference lang={lang} />
   <Event lang={lang} />
   <Gallery lang={lang} />
   <InviteForm lang={lang} />
   <Journal lang={lang} />
-  <Closing lang={lang} />
+  <Difference lang={lang} />
 </main>
 <Footer lang={lang} />

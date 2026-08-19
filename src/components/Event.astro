@@ -36,6 +36,17 @@ const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
         <time>{t.time}</time>
       </div>
 
+      <div class="oo-event__essentials" aria-label="Event essentials">
+        <div class="oo-event__essential">
+          <small>{t.priceLabel}</small>
+          <strong>{t.price}</strong>
+        </div>
+        <div class="oo-event__essential oo-event__essential--dress">
+          <small>{t.dressCodeLabel}</small>
+          <p>{t.dressCode}</p>
+        </div>
+      </div>
+
       <a class="oo-event__venue" href={mapHref} target="_blank" rel="noopener">
         <span class="oo-event__venueLogo" aria-hidden="true">
           <img
@@ -160,6 +171,46 @@ const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
 
   .oo-event__facts span { color: var(--oo-gold-light); }
 
+  .oo-event__essentials {
+    display: grid;
+    grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
+    gap: 18px;
+    margin-top: 22px;
+  }
+
+  .oo-event__essential {
+    min-height: 92px;
+    padding: 18px 20px;
+    border: 1px solid rgba(230, 190, 102, .2);
+    border-radius: 10px;
+    background: rgba(3, 8, 36, .2);
+  }
+
+  .oo-event__essential small {
+    display: block;
+    margin-bottom: 11px;
+    color: var(--oo-gold-light);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .2em;
+  }
+
+  .oo-event__essential strong {
+    display: block;
+    color: var(--oo-cream-100);
+    font-family: var(--oo-font-display);
+    font-size: clamp(20px, 2vw, 27px);
+    font-weight: 500;
+    line-height: 1.1;
+  }
+
+  .oo-event__essential p {
+    max-width: 29ch;
+    color: var(--oo-cream-100);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
   .oo-event__facts time {
     color: var(--oo-gold-light);
     font-family: var(--oo-font-body);
@@ -259,6 +310,8 @@ const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
     }
 
     .oo-event__content { max-width: 620px; }
+
+    .oo-event__essentials { grid-template-columns: 1fr; }
   }
 
 </style>

@@ -1,6 +1,6 @@
 ---
 import { content, type Lang } from '../i18n/content';
-import { heroMedia } from '../config/site';
+import { journalMedia } from '../config/site';
 import { journalArticleHref } from '../i18n/journalArticle';
 
 interface Props {
@@ -23,14 +23,15 @@ const t = content[lang].journal;
     <a class="oo-reveal oo-journal__article" href={journalArticleHref(lang)}>
       <div class="oo-journal__media" aria-hidden="true">
         <img
-          src={heroMedia.poster.src}
+          src={journalMedia.src}
+          srcset={journalMedia.srcSet}
+          sizes="(max-width: 760px) 100vw, 55vw"
           alt=""
-          width={heroMedia.poster.width}
-          height={heroMedia.poster.height}
+          width={journalMedia.width}
+          height={journalMedia.height}
           loading="lazy"
           decoding="async"
         />
-        <span class="oo-journal__rings"><i></i><i></i><i></i></span>
       </div>
       <div class="oo-journal__content">
         <p class="oo-journal__tag">{t.article.tag}</p>
@@ -113,26 +114,6 @@ const t = content[lang].journal;
   .oo-journal__article:hover .oo-journal__media img {
     transform: scale(1.025);
   }
-
-  .oo-journal__rings {
-    position: absolute;
-    z-index: 1;
-    left: 50%;
-    top: 54%;
-    width: 52%;
-    aspect-ratio: 2 / .72;
-    translate: -50% -50%;
-  }
-
-  .oo-journal__rings i {
-    position: absolute;
-    inset: 0;
-    border: 1px solid rgba(230, 190, 102, .34);
-    border-radius: 50%;
-  }
-
-  .oo-journal__rings i:nth-child(2) { inset: 20% 21%; }
-  .oo-journal__rings i:nth-child(3) { inset: 39% 40%; }
 
   @media (prefers-reduced-motion: reduce) {
     .oo-journal__media img { transition: none; }
